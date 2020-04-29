@@ -1,0 +1,21 @@
+<div class="container main-container animated fadeIn">
+    <form name="editForm" role="form" novalidate (ngSubmit)="submit()" [formGroup]="editForm">
+        <p>Ponte en contacto con nosotros:</p>
+        <div class="form-group">
+            <select class="custom-select" style="width: 25%" formControlName="motivo" (change)="changeOption($event.target.value)">
+                <option [ngValue]="null" disabled>Choose your Option</option>
+                <option *ngFor="let option of options" [ngValue]="option">
+                 {{ option }}
+                </option>
+            </select>
+        </div>
+        <div  class="form-group">
+            <textarea class="form-control" aria-label="With textarea" formControlName="text"></textarea>
+        </div>
+        <button [disabled]="editForm.invalid"
+                type="submit" 
+                class="btn btn-outline-primary">
+                Enviar
+        </button>
+    </form>
+</div>

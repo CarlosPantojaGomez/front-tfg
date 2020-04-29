@@ -1,0 +1,20 @@
+<div class="container main-container animated fadeIn" >
+    <div class="card-deck">
+        <div class="card" *ngFor="let k of usuarios | keys; let i = index">
+          <!-- <img src="{{ usuarios[k].imgPro}}" class="card-img-top" alt="..."> -->
+          <div class="card-body">
+            <h5 class="card-title">{{ usuarios[k].name }}</h5>
+            <p class="card-text">{{ usuarios[k].firstLastname }}</p>
+            <p class="card-text">{{ usuarios[k].mail }}</p>
+            <p class="card-text">{{ usuarios[k].nickname }}</p>
+            <p class="card-text">{{ usuarios[k].password }}</p>
+            <button (click)="borrarUsuario(k)"
+                      type="button" class="btn btn-outline-danger">
+                Eliminar
+            </button>
+          </div>
+        </div>
+
+      </div>
+      
+</div>

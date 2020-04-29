@@ -1,0 +1,25 @@
+<div class="chat-window animated fadeIn">
+
+  <div class="app-mensajes" id="app-mensajes">
+
+      <ul>
+          <li class="text" *ngFor="let chat of _cs.chats">
+            <div class="text-right">
+                <span class="badge badge-primary">Primary</span>
+                <p>{{chat.mensaje}}</p>
+            </div>
+            
+          </li>
+        </ul>
+
+  </div>
+
+  <input type="text" name="mensaje"
+         [(ngModel)]="mensaje"
+         class="form-control"
+         (keyup.enter)="enviar_mensaje()"
+         placeholder="Enviar mensaje">
+
+  
+</div>
+

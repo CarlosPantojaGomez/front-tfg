@@ -1,0 +1,82 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+    <div class="container main-container">
+        <div class="row animated fadeIn">
+            <div class="col-4 ">
+                <div class="form-group">
+                    <label>Nombre</label>
+                    <input  formControlName="name"
+                                    name="nombre"
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="Nombre del usuario"
+                                    required>
+                </div>
+            </div>
+            <div class="col-4 ">
+                <div class="form-group">
+                    <label>Primer Apellido</label>
+                    <input  formControlName="firstLastName"
+                                    name="apellido1"
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="Apellido del usuario"
+                                    required>
+                </div>
+            </div>
+            <div class="col-4 ">
+                <div class="form-group">
+                    <label>Segundo Apellido</label>
+                    <input formControlName="secondLastName"
+                                name="apellido2"
+                                type="text"
+                                class="form-control"
+                                placeholder="Apellido del usuario"
+                                required>
+                </div>
+            </div>
+            <div class="col-12 ">
+                <div class="form-group">
+                    <label>Correo</label>
+                    <input  id="Email"
+                                (change)="checkInput($event.target.value, 'Email' ,['nickname','password'])"
+                                (keypress)="setTyping()"
+                                formControlName="email"
+                                name="email"
+                                type="text"
+                                class="form-control"
+                                placeholder="Correo del usuario"
+                                required>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input  id="Nickname"
+                            (change)="checkInput($event.target.value, 'Nickname' ,['password'])"
+                            formControlName="nickname" 
+                            name="nickname"
+                            type="text"
+                            class="form-control"
+                            placeholder="Usuarname del usuario"
+                            required>
+                  </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label>Contraseña</label>
+                    <input formControlName="password"
+                          name="password"
+                          type="password"
+                          class="form-control"
+                          placeholder="Contraseña del usuario"
+                          required>
+                  </div>
+            </div>
+        </div>
+        <button [disabled]="editForm.invalid"
+                type="submit" class="btn btn-outline-primary">
+            Guardar cambios
+        </button>
+    </div>
+</form>
+      

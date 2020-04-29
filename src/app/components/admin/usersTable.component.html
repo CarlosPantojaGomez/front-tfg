@@ -1,0 +1,39 @@
+<table id="dtBasicExample" class="table table-striped table-bordered table-sm animated fadeIn" cellspacing="0" width="100%">
+    <thead>
+        <tr>
+            <th class="th-sm">Name
+                
+            </th>
+            <th class="th-sm">Primer Apellido
+        
+            </th>
+            <th class="th-sm">Segundo Apellido
+        
+            </th>
+            <th class="th-sm">Nickname
+        
+            </th>
+            <th class="th-sm">eMail
+        
+            </th>
+            <th class="th-sm">Opciones
+        
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let k of usuarios | keys; let i = index">
+            <td>{{usuarios[k].name}}</td>
+            <td>{{usuarios[k].firstLastName}}</td>
+            <td>{{usuarios[k].secondLastName}}</td>
+            <td>{{usuarios[k].nickname}}</td>
+            <td>{{usuarios[k].email}}</td>
+            <td>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <!-- <button type="button" class="badge badge-light">Editar</button> -->
+                    <button type="button" class="badge badge-light" (click)="deleteUser(usuarios[k].id)">Eliminar</button>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>

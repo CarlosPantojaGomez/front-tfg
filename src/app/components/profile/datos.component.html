@@ -1,0 +1,135 @@
+<div class="container main-container">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+        <div class="row animated fadeIn">
+            <div class="col-6">
+                <div class="card mb-3 shadow-sm p-3 mb-5 bg-white rounded" style="max-width: 540px;">
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                            <img src="{{profileImage}}" class="img-thumbnail">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <p class="card-text">Nickname: {{usuario.nickname}}</p>
+                                <p class="card-text">Mail: {{usuario.email}}</p>
+                                <span class="badge badge-pill badge-light">{{userType}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="form-group">
+                    <div class="custom-file">
+                        <input  formControlName="profilePicture"
+                                type="file" 
+                                class="custom-file-input" 
+                                id="inputGroupFile01" 
+                                aria-describedby="inputGroupFileAddon01"
+                                (change)="handleFileSelect($event)">
+                        <label class="custom-file-label" for="inputGroupFile01">Cambiar Imagen</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-3">
+                <div class="form-group">
+                    <label>Nombre</label>
+                    <input  formControlName="name"
+                            name="nombre"
+                            type="text"
+                            class="form-control"
+                            placeholder="Nombre del usuario"
+                            >
+                </div>
+            </div>
+
+            <div class="col-3">
+                <div class="form-group">
+                    <label>Primer Apellido</label>
+                    <input  formControlName="firstLastName"
+                            name="apellido1"
+                            type="text"
+                            class="form-control"
+                            placeholder="Apellido del usuario"
+                            >
+                </div>
+            </div>
+
+            <div class="col-3">
+                <div class="form-group">
+                    <label>Segundo Apellido</label>
+                    <input formControlName="secondLastName"
+                            name="apellido2"
+                            type="text"
+                            class="form-control"
+                            placeholder="Apellido del usuario"
+                            >
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group">
+                    <label>Teléfono</label>
+                    <input formControlName="tlf"
+                            name="tlf"
+                            type="number"
+                            class="form-control"
+                            placeholder="Teléfono del usuario"
+                            >
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group">
+                    <label>País</label>
+                    <select class="custom-select" formControlName="country" (change)="changeCountry($event.target.value)">
+                        <option [ngValue]="null" disabled>Choose your Country</option>
+                        <option *ngFor="let country of countries" [ngValue]="country">
+                         {{ country }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group">
+                    <label>Ciudad</label>
+                    <input formControlName="city"
+                            name="city"
+                            type="text"
+                            class="form-control"
+                            placeholder="Ciudad de residencia"
+                            >
+                </div>
+            </div>
+            <div class="col-3">
+            </div>
+            <div class="col-9">
+                <div class="form-group">
+                    <label>Dirección</label>
+                    <input formControlName="address"
+                            name="address"
+                            type="text"
+                            class="form-control"
+                            placeholder="Dirección"
+                            >
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group">
+                    <label>Código postal</label>
+                    <input formControlName="zipcode"
+                            name="zipcode"
+                            type="number"
+                            class="form-control"
+                            placeholder="Código Postal"
+                            >
+                </div>
+            </div>
+            <button type="submit" class="btn btn-outline-primary">
+                Guardar cambios
+          </button>
+        </div>
+    </form>
+</div>
+
+        
+          

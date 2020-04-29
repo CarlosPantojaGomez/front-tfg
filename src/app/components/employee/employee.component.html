@@ -1,0 +1,113 @@
+<div class="container-fluid animated fadeIn ">
+  <div class="row">
+    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+      <div class="sidebar-sticky">
+        <div class="list-group" id="list-tab" role="tablist">
+          <a class="list-group-item list-group-item-action active" (click)="changeHeader('Tareas')" id="list-task-list" data-toggle="list" href="#list-tasks" role="tab" aria-controls="Usuarios">Tareas</a>
+          <a class="list-group-item list-group-item-action" (click)="changeHeader('Mensajes')" id="list-message-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="Contraseña">Mensajes</a>
+        </div>
+      </div>
+    </nav>
+    <main class="col-md-9 ml-sm-auto col-lg-10 px-4 animated fadeIn" role="main">
+      <div class="card ">
+        <h4 class="card-header animated fadeIn">{{header}}</h4>
+        <div class="card-body" style="min-height:600px;">
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="list-tasks" role="tabpanel" aria-labelledby="list-task-list">
+              
+              
+              <table id="dtBasicExample" class="table table-hover table-bordered table-sm animated fadeIn" cellspacing="0" width="100%" *ngIf="!taskState">
+                <thead>
+                  <tr>
+                    <th class="th-sm">ID
+                        
+                    </th>
+                    <th class="th-sm">Nombre
+                
+                    </th>
+                    <th class="th-sm">Estado
+                
+                    </th>
+                    <th class="th-sm">Urgencia
+                
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let k of tasks | keys; let i = index" (click)="showTask(true); loadTask(tasks[k]);">
+                      <td >{{tasks[k].id}}</td>
+                      <td>{{tasks[k].name}}</td>
+                      <td>{{tasks[k].state}}</td>
+                      <td>{{tasks[k].priority}}</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <!-- Empieza Tarea -->
+              
+              <div class="container " *ngIf="taskState">
+                <div class="row">
+                  <div class="col-12" style="margin-bottom: 2%;">
+                    <button type="button" style="margin-top: 2%" class="btn btn-secondary btn-sm animated fadeIn" (click)="showTask(false)">
+                      <svg class="bi bi-arrow-left-short" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd" d="M7.854 4.646a.5.5 0 010 .708L5.207 8l2.647 2.646a.5.5 0 01-.708.708l-3-3a.5.5 0 010-.708l3-3a.5.5 0 01.708 0z" clip-rule="evenodd"/>
+                          <path fill-rule="evenodd" d="M4.5 8a.5.5 0 01.5-.5h6.5a.5.5 0 010 1H5a.5.5 0 01-.5-.5z" clip-rule="evenodd"/>
+                        </svg>
+                    </button> 
+                  </div>
+                  
+  
+                  <div class="col-6">
+                    <h2 >{{task.name}}</h2>
+                  </div>
+                  <div class="col-3">
+                    <span class="badge badge-pill badge-primary">{{task.priority}}</span>
+                  </div>
+                  <div class="col-3">
+                    <span class="badge badge-pill badge-secondary">{{task.state}}</span>
+                  </div>
+                  <div class="col-12">
+                    <p>
+                      {{task.description}}
+                    </p>
+                  </div>
+                </div>
+                
+              
+              </div>
+              
+
+
+
+              <!-- Fin Tarea -->
+            </div>
+            <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-message-list">
+              <table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+                <thead>
+                  <tr>
+                    <th class="th-sm">Contacto
+                        
+                    </th>
+                    <th class="th-sm">Asunto
+                
+                    </th>
+                    <!-- <th class="th-sm">Estado
+                
+                    </th> -->
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let k of messages | keys; let i = index">
+                      <td>{{messages[k].subject}}</td>
+                      <td>{{messages[k].subject}}</td>
+                      <!-- <td>{{tasks[k].state}}</td> -->
+                  </tr>
+                </tbody>
+              </table>          
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
