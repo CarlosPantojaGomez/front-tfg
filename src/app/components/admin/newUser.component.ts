@@ -13,7 +13,7 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 })
 export class NewUserComponent implements OnInit {
     
-    @Input() type: string;
+    @Input() type: number;
 
     usuario: Usuario;
     header: string;
@@ -40,7 +40,6 @@ export class NewUserComponent implements OnInit {
   ngOnInit() {
     this.header = 'Usuarios';
     this.modal = false;
-    console.log(this.type);
     
     this.editForm.get(['nickname']).disable();
     this.editForm.get(['password']).disable();
@@ -71,7 +70,7 @@ export class NewUserComponent implements OnInit {
       email: this.editForm.get(['email']).value,
       nickname: this.editForm.get(['nickname']).value,
       password: this.editForm.get(['password']).value,
-      userType: 1,
+      userType: this.type,
       flagActive: 1
     };
     return usuario;
@@ -96,13 +95,13 @@ export class NewUserComponent implements OnInit {
     this.router.navigate(['/registrarse','nuevo']);
   }
 
-  protected setTyping(){ 
+  public setTyping(){ 
     console.log('true');
     
     this.typing = true;
   }
 
-  protected checkInput(value: any, input: string, disable: string[]) {
+  public checkInput(value: any, input: string, disable: string[]) {
     console.log(value);
     console.log(input);
     console.log(disable);

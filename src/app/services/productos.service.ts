@@ -5,6 +5,8 @@ import { Producto } from '../interfaces/producto.interface';
 import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Observable } from 'rxjs/Rx';
 import { map } from 'rxjs/operators';
+import { ProductoRequest } from '../interfaces/productRequest.interface';
+import { BACK_URL } from '../helpers/img.constants';
 
 type EntityResponseType = HttpResponse<Producto>;
 type EntityArrayResponseType = HttpResponse<Producto[]>;
@@ -19,11 +21,13 @@ export class ProductosService {
   extend: string;
 
   constructor(private http:HttpClient) { 
-    this.URL = 'http://localhost:8080';
+    //this.URL = 'http://localhost:8080';
+    this.URL = BACK_URL;
   }
 
-  nuevoProducto(producto: Producto){
-    
+  nuevoProducto(productRequest: ProductoRequest): Observable<EntityResponseType>{
+    this.extend = this.URL + '/product';
+    return this.http.post<any>(this.extend, productRequest, { observe: 'response' });
   }
 
   getProducto(key$:string):Observable<EntityResponseType> {

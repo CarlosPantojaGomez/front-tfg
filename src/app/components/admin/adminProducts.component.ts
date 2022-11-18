@@ -6,22 +6,28 @@ import { ProductosService } from 'src/app/services/productos.service';
 
 @Component({
   selector: 'app-admin-products',
-  templateUrl: './adminUsers.component.html'
+  templateUrl: './adminProducts.component.html'
 })
 export class AdminProductsComponent implements OnInit {
 
   productos: Producto[];
   header: string;
+  buttonNewUser: string;
+
+  creatingProduct: boolean;
 
   constructor(
     private productoService: ProductosService
   ) { }
 
   ngOnInit() {
-    this.header = 'Usuarios';
+    //this.header = 'Usuarios';
     this.productoService.getProductos().subscribe(data =>{
         this.productos=data.body;
     });
+
+    this.creatingProduct = false;
+    this.buttonNewUser = 'Nuevo Producto';
         
   }
 
@@ -32,8 +38,15 @@ export class AdminProductsComponent implements OnInit {
     
   }
 
+  protected loadState(state: boolean) {
+    this.creatingProduct = state;
+  }
+  
   protected changeHeader(tag: string) {
     this.header = tag;
   }
 
+  protected deleteProduct(tag: string) {
+    this.header = tag;
+  }
 }

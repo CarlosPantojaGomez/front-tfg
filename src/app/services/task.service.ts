@@ -4,6 +4,7 @@ import 'rxjs/Rx';
 import { Task } from '../interfaces/task.interface';
 import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Observable } from 'rxjs/Rx';
+import { BACK_URL } from '../helpers/img.constants';
 
 type EntityResponseType = HttpResponse<Task>;
 type EntityArrayResponseType = HttpResponse<Task[]>;
@@ -17,7 +18,8 @@ export class TaskService {
   extend: string;
 
   constructor(private http:HttpClient) { 
-    this.URL = 'http://localhost:8080';
+    //this.URL = 'http://localhost:8080';
+    this.URL = BACK_URL;
   }
 
   nuevoProducto(task: Task){

@@ -23,7 +23,7 @@ export class AuthenticationService {
   }
 
   login(username: string, password: string): Observable<EntityResponseType> {
-    return this.http.get<any>('http://localhost:8080/user/authenticate/' + username + '/' + password, { observe: 'response' })
+    return this.http.get<any>('https://tfg-uma.herokuapp.com/user/authenticate/' + username + '/' + password, { observe: 'response' })
         .pipe(map(user => {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
             sessionStorage.setItem('currentUser', JSON.stringify(user.body));
@@ -51,7 +51,7 @@ export class AuthenticationService {
   }
 
   validateCredentials(username: string, password: string): Observable<EntityResponseType> {
-    return this.http.get<any>('http://localhost:8080/user/authenticate/' + username + '/' + password, { observe: 'response' })
+    return this.http.get<any>('https://tfg-uma.herokuapp.com/user/authenticate/' + username + '/' + password, { observe: 'response' })
         .pipe(map(user => {
           return user;
         }));

@@ -17,7 +17,7 @@
                   </svg>
             </button> 
             <app-table-users *ngIf="clientes" [type]="1" [buttonNewUser]="buttonNewUser"></app-table-users>
-            <app-newUser *ngIf="creatingClient" [type]="1"></app-newUser>
+            <app-newUser *ngIf="creatingClient" [type]=1></app-newUser>
         </div>
         <div class="tab-pane fade animated fadeIn" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
             <button type="button" *ngIf="!creatingEmployee" style="margin-top: 2%; margin-bottom: 2%;" class="btn btn-secondary btn-sm animated fadeIn" (click)="loadState('creatingEmployee')">{{buttonNewUser}}</button>
@@ -28,7 +28,7 @@
                   </svg>
             </button>
             <app-table-users *ngIf="trabajadores" [type]="2" [buttonNewUser]="buttonNewUser"></app-table-users>
-            <app-newUser *ngIf="creatingEmployee" [type]="2"></app-newUser>
+            <app-newUser *ngIf="creatingEmployee" [type]=2></app-newUser>
         </div>
         <div class="tab-pane fade animated fadeIn" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
             <button type="button" *ngIf="!creatingManager" style="margin-top: 2%; margin-bottom: 2%;" class="btn btn-secondary btn-sm animated fadeIn" (click)="loadState('creatingManager')">{{buttonNewUser}}</button>
@@ -39,7 +39,7 @@
                   </svg>
             </button>
             <app-table-users *ngIf="responsables"[type]="3" [buttonNewUser]="buttonNewUser"></app-table-users>
-            <app-newUser *ngIf="creatingManager" [type]="3"></app-newUser>
+            <app-newUser *ngIf="creatingManager" [type]=3></app-newUser>
         </div>
     </div>
 </div>

@@ -10,7 +10,7 @@ import { Noticia } from 'src/app/interfaces/noticia.interface';
 })
 export class NoticiaComponent implements OnInit {
 
-  private noticia: Noticia;
+  public noticia: Noticia;
   id:string;
 
   constructor(private _noticiasService:NoticiasService,
@@ -21,7 +21,7 @@ export class NoticiaComponent implements OnInit {
         this.id = parametros['id']; 
 
         if(this.id!=="nuevo"){
-          this._noticiasService.getNoticia(this.id).subscribe(noticia => this.noticia = noticia);
+          this._noticiasService.getNoticia(this.id).subscribe(noticia => this.noticia = noticia.body);
           
         }
 

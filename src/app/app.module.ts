@@ -18,6 +18,10 @@ import {ChatService} from './services/chat.service';
 import {AuthenticationService} from './services/authentication.service';
 import {NoticiasService} from './services/noticias.service';
 import {EventManagerService} from './services/eventManager.service';
+import {BillService} from './services/bill.service';
+import {CountryService} from './services/country.service';
+import {MailService} from './services/mail.service';
+import {ProjectService} from './services/project.service';
 //pipes
 import { KeysPipe } from './pipes/keys.pipe';
 
@@ -53,6 +57,7 @@ import { ModalComponent } from './components/modal/modal.component';
 import { UsersTableComponent } from './components/admin/usersTable.component';
 import { NewUserComponent } from './components/admin/newUser.component';
 import { EmployeeComponent } from './components/employee/employee.component';
+import { NewProductComponent } from './components/admin/new-product.component';
 
 @NgModule({
   declarations: [
@@ -86,7 +91,8 @@ import { EmployeeComponent } from './components/employee/employee.component';
     ModalComponent,
     UsersTableComponent,
     NewUserComponent,
-    EmployeeComponent
+    EmployeeComponent,
+    NewProductComponent
   ],
   imports: [
     BrowserModule,
@@ -104,7 +110,11 @@ import { EmployeeComponent } from './components/employee/employee.component';
               ChatService,
               AuthenticationService,
               NoticiasService,
-              EventManagerService],
+              EventManagerService,
+              BillService,
+              CountryService,
+              MailService,
+              ProjectService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -33,7 +33,7 @@ export class ProfileComponent implements OnInit {
     }
   }
   
-  protected changeHeader(tag: string){
+  public changeHeader(tag: string){
     this.header = tag;
   }
 

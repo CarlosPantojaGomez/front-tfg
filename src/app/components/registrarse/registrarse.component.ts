@@ -56,13 +56,13 @@ export class RegistrarseComponent {
       console.log("ERROR");
     }
 
-    protected setTyping(){ 
+    public setTyping(){ 
       console.log('true');
       
       this.typing = true;
     }
 
-    protected checkInput(value: any, input: string, disable: string[]) {
+    public checkInput(value: any, input: string, disable: string[]) {
       this.usuarioService.getUsuarioBy(value, input).subscribe(res => this.decideDisable(disable, res.body));
     }
     

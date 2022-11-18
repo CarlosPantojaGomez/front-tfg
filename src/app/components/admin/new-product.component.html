@@ -1,0 +1,62 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+  <div class="container main-container">
+      <div class="row animated fadeIn">
+          <div class="col-4 ">
+            <div class="form-group">
+              <label>Nombre</label>
+              <input  formControlName="name"
+                name="nombre"
+                type="text"
+                class="form-control"
+                placeholder="Nombre del producto"
+                required>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="form-group">
+              <label>Precio</label>
+              <input formControlName="price"
+                name="price"
+                type="number"
+                class="form-control"
+                placeholder="Precio del producto"
+                required>
+            </div>
+        </div>
+        <div class="col-12">
+          <div class="form-group">
+              <label>Descripción</label>
+              <textarea id="description" formControlName="description" name="description" rows="4" cols="50" class="form-control" placeholder="Descripción del producto"></textarea>
+              
+            </div>
+        </div>
+        <div class="col-12 form-group">
+          <input type="file" hidden  accept="image/*" #uploader (change)="uploadFile($event)" />
+          <button type="button" style="border-radius: 28px;" class="commonButton" (click)="uploader.click()">
+            
+            Adjuntar miniatura
+            <i class="fa fa-image"></i>
+          </button>
+        </div>
+        <div class="col-12 form-group">
+          <input formControlName="mainPicture" type="file" hidden  accept="image/*" #uploader2 (change)="uploadMainFile($event)" />
+          <button type="button" style="border-radius: 28px;" class="commonButton" (click)="uploader2.click()">
+            
+            Adjuntar imagen principal
+            <i class="fa fa-image"></i>
+          </button>
+        </div>
+
+        <div class="col-12 form-group">
+          <label for="file">Choose File</label>
+          <input type="file" id="file" (change)="handleFileInput($event.target.files)">
+        </div>
+          
+      </div>
+      <button [disabled]="editForm.invalid"
+        type="submit" 
+        class="btn btn-outline-primary">
+          Crear Producto
+      </button>
+  </div>
+</form>

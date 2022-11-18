@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Usuario } from '../interfaces/usuario.interface';
 import { Observable } from 'rxjs/Rx';
+import { BACK_URL } from '../helpers/img.constants';
 
 type EntityResponseType = HttpResponse<Usuario>;
 type EntityArrayResponseType = HttpResponse<Usuario[]>;
@@ -15,7 +16,9 @@ export class UsuariosService {
   extend: string;
 
   constructor(private http:HttpClient) { 
-    this.URL = 'http://localhost:8080';
+    
+    //this.URL = 'http://localhost:8080';
+    this.URL = BACK_URL;
   }
   create(usuario: Usuario): Observable<EntityResponseType> {
     this.extend = this.URL + '/user';

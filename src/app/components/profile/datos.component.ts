@@ -103,7 +103,7 @@ export class DatosComponent implements OnInit {
            console.log(btoa(binaryString));
    }
 
-   protected save() {
+   public save() {
     const user = this.createFromForm();
     this.subscribeToSaveResponse(this.usuarioService.actualizarUsuario(user));
    }
@@ -119,7 +119,7 @@ export class DatosComponent implements OnInit {
     console.log("ERROR");
   }
 
-  protected changeCountry() {
+  public changeCountry() {
 
   }
 }

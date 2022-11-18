@@ -35,7 +35,7 @@ export class ProductoComponent implements OnInit {
     this.manuals = false;
   }
 
-  protected onClickMe(option: number) {
+  public onClickMe(option: number) {
     switch (option) {
       case 1:
         this.features = true;

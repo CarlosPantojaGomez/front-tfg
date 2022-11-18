@@ -23,6 +23,7 @@ export class AdminUsersComponent implements OnInit {
   creatingClient: boolean;
   creatingEmployee: boolean;
   creatingManager: boolean;
+  
   constructor(
     private usuarioService: UsuariosService,
     private router: Router
@@ -38,7 +39,7 @@ export class AdminUsersComponent implements OnInit {
         
   }
 
-  protected loadState(state: string) {
+  public loadState(state: string) {
     switch (state) {
       case 'clientes':
         this.clientes = true;
@@ -108,7 +109,4 @@ export class AdminUsersComponent implements OnInit {
   protected newUser() {
     this.router.navigate(['/registrarse','nuevo']);
   }
-
-  
-
 }

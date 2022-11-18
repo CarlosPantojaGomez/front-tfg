@@ -42,7 +42,7 @@ export class ContactoComponent implements OnInit {
     
   }
 
-  protected submit() {
+  public submit() {
     
     
     let subject =  this.editForm.get(['motivo']).value;
@@ -64,7 +64,7 @@ export class ContactoComponent implements OnInit {
     console.log("ERROR");
   }
 
-  protected changeOption(event: any) {
+  public changeOption(event: any) {
     console.log(event);
     console.log(this.usuario);
     

@@ -46,7 +46,7 @@ export class SeguridadComponent implements OnInit {
     
   }
 
-  protected checkInput(value: any, disable: string[]) {
+  public checkInput(value: any, disable: string[]) {
     this.authenticationService.validateCredentials(this.usuario.nickname, value).subscribe(
       (res: HttpResponse<Usuario>) => this.decideDisable(disable, res.body),
       (res: HttpErrorResponse) => this.onError(res.message)
@@ -73,13 +73,13 @@ export class SeguridadComponent implements OnInit {
     this.editForm.patchValue({ [input]: null })
   }
   
-  protected setTyping() { 
+  public setTyping() { 
     console.log('true');
     
     this.typing = true;
   }
 
-  protected submit() {
+  public submit() {
     const user = this.usuario;
 
     user.password = this.editForm.get(['newPassword2']).value
