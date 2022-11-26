@@ -15,8 +15,10 @@ export class ProductoComponent implements OnInit {
   producto: Producto;
   features: boolean;
   manuals: boolean;
+  descarga: boolean;
   nuevo:boolean = false;
   id: string;
+  productFound:boolean = false;
 
 
   constructor (
@@ -29,10 +31,16 @@ export class ProductoComponent implements OnInit {
 
   ngOnInit() {
     this._productosService.getProducto(this.id).subscribe(data =>{
+      console.log(data);
+      
       this.producto=data.body;
+      console.log(this.producto);
+      
+      this.productFound = true;
     });
-    this.features = false;
+    this.features = true;
     this.manuals = false;
+    this.descarga = false;
   }
 
   public onClickMe(option: number) {
@@ -40,10 +48,17 @@ export class ProductoComponent implements OnInit {
       case 1:
         this.features = true;
         this.manuals = false;
+        this.descarga = false;
         break;
       case 2:
         this.features = false;
         this.manuals = true;
+        this.descarga = false;
+        break;
+      case 3:
+        this.features = false;
+        this.manuals = false;
+        this.descarga = true;
         break;
       default:
 

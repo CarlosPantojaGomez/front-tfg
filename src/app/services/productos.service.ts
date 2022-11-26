@@ -50,7 +50,7 @@ export class ProductosService {
 
   protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
     if (res.body) {
-      res.body.profileImage = res.body.profileImage != null ? res.body.profileImage : '';
+      res.body.profileImage = res.body.profileImage != null ? res.body.profileImage : undefined;
     }
     return res;
   }
@@ -58,7 +58,7 @@ export class ProductosService {
   protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
     if (res.body) {
       res.body.forEach((product: Producto) => {
-        product.profileImage = product.profileImage != null ? product.profileImage : '';
+        product.profileImage = product.profileImage != null ? product.profileImage : undefined;
       });
     }
     return res;

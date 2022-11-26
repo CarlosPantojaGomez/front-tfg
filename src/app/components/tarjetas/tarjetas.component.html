@@ -1,21 +1,19 @@
 <div class="container">
-    <div class="card container-cc animated fadeIn shadow-sm p-3 mb-5 bg-white rounded">
-        <div class="card-body">
-          <div class="card-deck">
-            <div class="card" *ngFor="let k of noticias | keys; let i = index">
-                      <!-- <img src="{{ noticias[k].img}}" class="card-img-top rounded-lg" > -->
-                      <div class="card-body">
-                        <h6 class="card-title"><a  class="text-muted" [routerLink]= "['productos']">{{ noticias[k].sortDescription }}</a></h6>
-                        <!-- <button (click)="verNoticia(k)"
-                                  type="button" class="btn btn-outline-secondary">
-                            Ver
-                        </button> -->
-                      </div>
-                    </div>
-            
-                </div>
-              
+  <div class="card container-cc animated fadeIn shadow-sm p-3 mb-5 bg-white rounded">
+    <div class="card-body">
+      <div class="card-deck">
+        <div class="card" *ngFor="let k of noticias | keys; let i = index">
+          <!-- <img src="{{ noticias[k].img}}" class="card-img-top rounded-lg" > -->
+          <div class="card-body">
+            <h6 class="card-title"><a  class="text-muted" [routerLink]= "['productos']">{{ noticias[k].sortDescription }}</a></h6>
+            <!-- <button (click)="verNoticia(k)"
+                      type="button" class="btn btn-outline-secondary">
+                Ver
+            </button> -->
+          </div>
         </div>
       </div>
+    </div>
+  </div>
 </div>
 

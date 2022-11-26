@@ -1,8 +1,15 @@
+import { FileEntity } from "./file.interface";
+import { Image } from "./image.interface";
+
 export interface Producto{
-    description: string;
+    id?: number;
     name: string;
+    description?: string;
+    features?: string;
     price: number;
-    miniature?: any;
-    profileImage?: any;
-    file?: File;
+    rating?: number;
+    file?: FileEntity;
+    profileImage?: Image;
+    images?: Array<Image>;
+    manuales?: Array<FileEntity>;
 }

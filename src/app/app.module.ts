@@ -58,6 +58,7 @@ import { UsersTableComponent } from './components/admin/usersTable.component';
 import { NewUserComponent } from './components/admin/newUser.component';
 import { EmployeeComponent } from './components/employee/employee.component';
 import { NewProductComponent } from './components/admin/new-product.component';
+import { DownloadComponent } from './components/download/download.component';
 
 @NgModule({
   declarations: [
@@ -92,7 +93,8 @@ import { NewProductComponent } from './components/admin/new-product.component';
     UsersTableComponent,
     NewUserComponent,
     EmployeeComponent,
-    NewProductComponent
+    NewProductComponent,
+    DownloadComponent
   ],
   imports: [
     BrowserModule,

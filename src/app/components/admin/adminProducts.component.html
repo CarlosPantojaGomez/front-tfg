@@ -1,43 +1,36 @@
 <div class="container ">
-    <button type="button" *ngIf="!creatingProduct" style="margin-top: 2%; margin-bottom: 2%;" class="btn btn-secondary btn-sm animated fadeIn" (click)="loadState(true)">{{buttonNewUser}}</button>
-    <button type="button" *ngIf="creatingProduct" style="margin-top: 2%; margin-bottom: 2%;" class="btn btn-secondary btn-sm animated fadeIn" (click)="loadState(false)">
+    <button type="button" *ngIf="!creatingProduct && !editingProduct" style="margin-top: 2%; margin-bottom: 2%;" class="btn btn-secondary btn-sm animated fadeIn" (click)="loadState(true,false)">{{buttonNewUser}}</button>
+    <button type="button" *ngIf="creatingProduct || editingProduct" style="margin-top: 2%; margin-bottom: 2%;" class="btn btn-secondary btn-sm animated fadeIn" (click)="loadState(false,false)">
         <svg class="bi bi-arrow-left-short" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" d="M7.854 4.646a.5.5 0 010 .708L5.207 8l2.647 2.646a.5.5 0 01-.708.708l-3-3a.5.5 0 010-.708l3-3a.5.5 0 01.708 0z" clip-rule="evenodd"/>
             <path fill-rule="evenodd" d="M4.5 8a.5.5 0 01.5-.5h6.5a.5.5 0 010 1H5a.5.5 0 01-.5-.5z" clip-rule="evenodd"/>
           </svg>
     </button>
     <div class="tab-pane fade show active animated fadeIn" id="nav-clientes" role="tabpanel" aria-labelledby="nav-home-tab" >
-        <table id="dtBasicExample" class="table table-striped table-bordered table-sm animated fadeIn" cellspacing="0" width="100%" *ngIf="!creatingProduct">
+        <table id="dtBasicExample" class="table table-striped table-bordered table-sm animated fadeIn" cellspacing="0" width="100%" *ngIf="!creatingProduct && !editingProduct">
             <thead>
                 <tr>
-                    <th class="th-sm">
-                        
-                    </th>
-                    <th class="th-sm">Descripcion
+                    <th class="th-sm">Nombre
                 
                     </th>
-                    <th class="th-sm">Name
-                
-                    </th>
-                    <th class="th-sm">Price
+                    <th class="th-sm">Opciones
                 
                     </th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let k of productos | keys; let i = index">
-                    <td>{{productos[k].miniature}}</td>
-                    <td>{{productos[k].description}}</td>
                     <td>{{productos[k].name}}</td>
-                    <td>{{productos[k].price}}</td>
                     <td>
-                    <div class="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" class="badge badge-light" (click)="deleteProduct(productos[k].id)">Eliminar</button>
-                    </div>
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <button type="button" class="badge badge-light" (click)="editProduct(productos[k].id)">Editar</button>
+                            <button type="button" class="badge badge-light" (click)="deleteProduct(productos[k].id)">Eliminar</button>
+                        </div>
                     </td>
                 </tr>
             </tbody>
         </table>
         <app-new-product *ngIf="creatingProduct"></app-new-product>
+        <app-new-product *ngIf="editingProduct" [id]="productId"></app-new-product>
     </div>
 </div>

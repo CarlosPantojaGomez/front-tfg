@@ -15,6 +15,9 @@ export class AdminProductsComponent implements OnInit {
   buttonNewUser: string;
 
   creatingProduct: boolean;
+  editingProduct: boolean;
+
+  productId: number;
 
   constructor(
     private productoService: ProductosService
@@ -27,6 +30,7 @@ export class AdminProductsComponent implements OnInit {
     });
 
     this.creatingProduct = false;
+    this.editingProduct = false;
     this.buttonNewUser = 'Nuevo Producto';
         
   }
@@ -38,8 +42,15 @@ export class AdminProductsComponent implements OnInit {
     
   }
 
-  protected loadState(state: boolean) {
-    this.creatingProduct = state;
+  protected loadState(create: boolean, edit: boolean) {
+    this.creatingProduct = create;
+    this.editingProduct = edit;
+  }
+
+  protected editProduct(id: number) {
+    this.productId = id;
+    this.creatingProduct = false;
+    this.editingProduct = true;
   }
   
   protected changeHeader(tag: string) {

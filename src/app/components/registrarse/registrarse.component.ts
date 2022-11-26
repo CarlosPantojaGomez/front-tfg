@@ -37,7 +37,6 @@ export class RegistrarseComponent {
 
     ngOnInit() {
       this.editForm.get(['nickname']).disable();
-      this.editForm.get(['password']).disable();
       this.typing = true;
     }
     
@@ -67,6 +66,8 @@ export class RegistrarseComponent {
     }
     
     protected decideDisable(disable: string[], result: any) { 
+      console.log(result);
+      console.log(disable[0]);
       if(result.length == 0) {
         this.editForm.get([disable[0]]).enable();
       } else {

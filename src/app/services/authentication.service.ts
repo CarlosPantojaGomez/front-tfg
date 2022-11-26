@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs/Rx';
 import { map } from 'rxjs/operators';
 
 import { Usuario } from '../interfaces/usuario.interface';
+import { BACK_URL } from '../helpers/img.constants';
 
 type EntityResponseType = HttpResponse<Usuario>;
 @Injectable({
@@ -13,9 +14,13 @@ export class AuthenticationService {
   private currentUserSubject: BehaviorSubject<Usuario>;
   public currentUser: Observable<Usuario>;
 
+  URL:string;
+
   constructor(private http: HttpClient) {
     this.currentUserSubject = new BehaviorSubject<Usuario>(JSON.parse(sessionStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
+
+    this.URL = BACK_URL;
   }
 
   public get currentUserValue(): Usuario {
@@ -23,7 +28,7 @@ export class AuthenticationService {
   }
 
   login(username: string, password: string): Observable<EntityResponseType> {
-    return this.http.get<any>('https://tfg-uma.herokuapp.com/user/authenticate/' + username + '/' + password, { observe: 'response' })
+    return this.http.get<any>(BACK_URL+'/user/authenticate/' + username + '/' + password, { observe: 'response' })
         .pipe(map(user => {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
             sessionStorage.setItem('currentUser', JSON.stringify(user.body));
@@ -51,7 +56,7 @@ export class AuthenticationService {
   }
 
   validateCredentials(username: string, password: string): Observable<EntityResponseType> {
-    return this.http.get<any>('https://tfg-uma.herokuapp.com/user/authenticate/' + username + '/' + password, { observe: 'response' })
+    return this.http.get<any>(BACK_URL+'/user/authenticate/' + username + '/' + password, { observe: 'response' })
         .pipe(map(user => {
           return user;
         }));
