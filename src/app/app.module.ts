@@ -59,6 +59,10 @@ import { NewUserComponent } from './components/admin/newUser.component';
 import { EmployeeComponent } from './components/employee/employee.component';
 import { NewProductComponent } from './components/admin/new-product.component';
 import { DownloadComponent } from './components/download/download.component';
+import { AdminProjectsComponent } from './components/admin/admin-projects/admin-projects.component';
+import { AdminTasksComponent } from './components/admin/admin-tasks/admin-tasks.component';
+import { NewProjectComponent } from './components/admin/admin-projects/new-project.component';
+import { NewTaskComponent } from './components/admin/admin-tasks/new-task/new-task.component';
 
 @NgModule({
   declarations: [
@@ -94,7 +98,11 @@ import { DownloadComponent } from './components/download/download.component';
     NewUserComponent,
     EmployeeComponent,
     NewProductComponent,
-    DownloadComponent
+    DownloadComponent,
+    AdminProjectsComponent,
+    AdminTasksComponent,
+    NewProjectComponent,
+    NewTaskComponent
   ],
   imports: [
     BrowserModule,

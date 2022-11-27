@@ -45,6 +45,12 @@ export class AdminProductsComponent implements OnInit {
   protected loadState(create: boolean, edit: boolean) {
     this.creatingProduct = create;
     this.editingProduct = edit;
+
+    if(!create && !edit){
+      this.productoService.getProductos().subscribe(data =>{
+        this.productos=data.body;
+    });
+    }
   }
 
   protected editProduct(id: number) {

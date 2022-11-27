@@ -30,6 +30,11 @@ export class ProductosService {
     return this.http.post<any>(this.extend, productRequest, { observe: 'response' });
   }
 
+  save(productRequest: ProductoRequest): Observable<EntityResponseType>{
+    this.extend = this.URL + '/product';
+    return this.http.put<any>(this.extend, productRequest, { observe: 'response' });
+  }
+
   getProducto(key$:string):Observable<EntityResponseType> {
     this.extend = this.URL + '/product/'+ key$;
     return this.http.get<any>(this.extend, { observe: 'response' }); 

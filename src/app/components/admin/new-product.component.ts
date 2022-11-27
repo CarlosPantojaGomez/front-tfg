@@ -26,7 +26,8 @@ export class NewProductComponent implements OnInit {
   
   @ViewChild('myInputManuales')
   myInputVariableManuales: ElementRef;
-
+  buttonDone: string;
+  
   edit: boolean;
 
   miniatura: boolean;
@@ -54,8 +55,8 @@ export class NewProductComponent implements OnInit {
   ngOnInit() {
     this.edit = false;
     this.miniatura = true;
-    console.log(this.manuales.length);
     
+    this.buttonDone = 'Crear';
     if(this.id != undefined){
       this.productoService.getProducto(this.id.toString(10)).subscribe(data =>{
         this.edit = true;
@@ -67,6 +68,7 @@ export class NewProductComponent implements OnInit {
         });
 
         this.profileImage = data.body.profileImage;
+        this.buttonDone = 'Guardar';
         
       });
     }
@@ -75,9 +77,12 @@ export class NewProductComponent implements OnInit {
 
   save(){
     const productRequest = this.createFromForm();
-    console.log(productRequest);
-    
-    this.subscribeToSaveResponse(this.productoService.nuevoProducto(productRequest));
+
+    if(!this.edit){
+      this.subscribeToSaveResponse(this.productoService.nuevoProducto(productRequest));
+    }else{
+      this.subscribeToSaveResponse(this.productoService.save(productRequest));
+    }
   }
 
   handleFileInput(files: any) {
@@ -259,12 +264,13 @@ export class NewProductComponent implements OnInit {
   private createFromForm(): ProductoRequest {
 
     const producto={
+      id: this.edit ? this.id : null,
       name: this.editForm.get(['name']).value,
       description: this.editForm.get(['description']).value,
       price: this.editForm.get(['price']).value,
       features: this.editForm.get(['features']).value
     };
-
+    
     const productRequest={
       product: producto,
       profileImage: this.profileImage,

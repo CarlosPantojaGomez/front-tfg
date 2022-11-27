@@ -1,7 +1,11 @@
+import { Producto } from "./producto.interface";
+import { Task } from "./task.interface";
+
 export interface Project{
-    description: string;
+    id: number;
     name: string;
-    price: number;
-    miniature?: any;
-    profileImage?: any;
+    description: string;
+    priority: number;
+    tasks?: Array<Task>;
+    product?: Producto;
 }

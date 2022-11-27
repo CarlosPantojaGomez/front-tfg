@@ -4,6 +4,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Project } from '../interfaces/project.interface';
 import { BACK_URL } from '../helpers/img.constants';
+import { ProjectRequest } from '../interfaces/projectRequest';
 
 type EntityResponseType = HttpResponse<Project>;
 type EntityArrayResponseType = HttpResponse<Project[]>;
@@ -19,7 +20,6 @@ export class ProjectService {
   noticiaURL:string = "https://prtfg-74ef0.firebaseio.com/noticias"
 
   constructor(private http:HttpClient) { 
-    //this.URL = 'http://localhost:8080';
     this.URL = BACK_URL;
   }
 
@@ -32,8 +32,14 @@ export class ProjectService {
 
   }
 
-  getNoticias( ):Observable<EntityArrayResponseType>{
-    this.extend = this.URL + "/news";
+  nuevoProyecto(projectRequest: ProjectRequest): Observable<EntityResponseType>{
+    this.extend = this.URL + '/project';
+    return this.http.post<any>(this.extend, projectRequest, { observe: 'response' });
+  }
+
+
+  getProjects( ):Observable<EntityArrayResponseType>{
+    this.extend = this.URL + "/projects";
     return this.http
       .get<any>(this.extend, { observe: 'response' })
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res))); 
@@ -49,7 +55,7 @@ export class ProjectService {
 
   protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
     if (res.body) {
-      res.body.forEach((product: Project) => {
+      res.body.forEach((project: Project) => {
         // product.cardImage = product.cardImage != null ? product.cardImage : '';
       });
     }
