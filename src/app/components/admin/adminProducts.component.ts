@@ -9,7 +9,7 @@ import { ProductosService } from 'src/app/services/productos.service';
   templateUrl: './adminProducts.component.html'
 })
 export class AdminProductsComponent implements OnInit {
-
+  
   productos: Producto[];
   header: string;
   buttonNewUser: string;
@@ -49,7 +49,7 @@ export class AdminProductsComponent implements OnInit {
     if(!create && !edit){
       this.productoService.getProductos().subscribe(data =>{
         this.productos=data.body;
-    });
+      });
     }
   }
 
@@ -65,5 +65,13 @@ export class AdminProductsComponent implements OnInit {
 
   protected deleteProduct(tag: string) {
     this.header = tag;
+  }
+
+  refresh(event: any){
+    console.log('entra2');
+    
+    this.productoService.getProductos().subscribe(data =>{
+      this.productos=data.body;
+    });
   }
 }

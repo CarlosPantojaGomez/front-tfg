@@ -1,3 +1,58 @@
-<p>
-  new-task works!
-</p>
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+  <div class="container main-container">
+    <h4>{{header}} </h4>
+      <div class="row animated fadeIn">
+          <div class="col-4 ">
+            <div class="form-group">
+              <label>Nombre</label>
+              <input  formControlName="name"
+                name="nombre"
+                type="text"
+                class="form-control"
+                placeholder="Nombre de la tarea"
+                required>
+            </div>
+          </div>
+          <!-- <div class="col-4">
+            <div class="form-group">
+              <label>Fecha de comienzo</label>
+              <input formControlName="creationDate"
+                name="price"
+                type="number"
+                class="form-control"
+                placeholder="Fecha de comienzo"
+                required>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="form-group">
+              <label>Fecha de finalización</label>
+              <input formControlName="endDate"
+                name="price"
+                type="number"
+                class="form-control"
+                placeholder="Fecha de finalizacion"
+                required>
+            </div>
+          </div> -->
+          
+        <div class="col-12">
+          <div class="form-group">
+              <label>Descripción</label>
+              <textarea id="description" formControlName="description" name="description" rows="4" cols="50" class="form-control" placeholder="Descripción de la tarea"></textarea>
+              
+            </div>
+        </div>
+      </div>
+        
+      <div class="col-2">
+        <div class="form-group">
+          <br>
+          <button [disabled]="editForm.invalid" type="submit" class="btn btn-outline-primary form-control">
+            {{buttonDone}} 
+          </button>
+        </div>
+      </div>
+      
+  </div>
+</form>

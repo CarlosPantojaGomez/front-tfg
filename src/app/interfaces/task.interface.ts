@@ -1,3 +1,5 @@
+import { Project } from "./project.interface";
+
 export interface Task {
     id?: number;
     name?: string;
@@ -5,4 +7,5 @@ export interface Task {
     priority?: number;
     state?: number;
     numHours?: number;
+    project?: Project;
 }

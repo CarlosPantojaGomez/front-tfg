@@ -24,17 +24,20 @@ export class ProjectService {
   }
 
 
-  getNoticia( key$:string):any {
-    /* let url =`${this.noticiaURL}/${key$}.json`;
-   
-    return this.http.get(url)
-      .pipe(map(res=>res.json() )) */
+  getProject(key$:string):any {
+    this.extend = this.URL + '/project/'+ key$;
+    return this.http.get<any>(this.extend, { observe: 'response' }); 
 
   }
 
-  nuevoProyecto(projectRequest: ProjectRequest): Observable<EntityResponseType>{
+  nuevoProyecto(projectRequest: Project): Observable<EntityResponseType>{
     this.extend = this.URL + '/project';
     return this.http.post<any>(this.extend, projectRequest, { observe: 'response' });
+  }
+  
+  save(projectRequest: Project): Observable<EntityResponseType>{
+    this.extend = this.URL + '/project';
+    return this.http.put<any>(this.extend, projectRequest, { observe: 'response' });
   }
 
 

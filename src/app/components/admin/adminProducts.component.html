@@ -30,7 +30,7 @@
                 </tr>
             </tbody>
         </table>
-        <app-new-product *ngIf="creatingProduct"></app-new-product>
-        <app-new-product *ngIf="editingProduct" [id]="productId"></app-new-product>
+        <app-new-product *ngIf="creatingProduct" (goBack)="loadState(false,false)"></app-new-product>
+        <app-new-product *ngIf="editingProduct" [id]="productId" (goBack)="loadState(false,false)"></app-new-product>
     </div>
 </div>

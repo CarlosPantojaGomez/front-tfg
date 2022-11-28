@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, ViewChild ,Output, EventEmitter} from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ProductoRequest } from 'src/app/interfaces/productRequest.interface';
 import { ProductosService } from 'src/app/services/productos.service';
@@ -13,6 +13,8 @@ import { Image } from 'src/app/interfaces/image.interface';
 })
 export class NewProductComponent implements OnInit {
 
+  @Output() goBack = new EventEmitter();
+
   @Input() id: number;
 
   @ViewChild('myInputMiniatura')
@@ -26,7 +28,9 @@ export class NewProductComponent implements OnInit {
   
   @ViewChild('myInputManuales')
   myInputVariableManuales: ElementRef;
+  
   buttonDone: string;
+  header: string;
   
   edit: boolean;
 
@@ -57,6 +61,7 @@ export class NewProductComponent implements OnInit {
     this.miniatura = true;
     
     this.buttonDone = 'Crear';
+    this.header = 'Nuevo Producto';
     if(this.id != undefined){
       this.productoService.getProducto(this.id.toString(10)).subscribe(data =>{
         this.edit = true;
@@ -68,7 +73,10 @@ export class NewProductComponent implements OnInit {
         });
 
         this.profileImage = data.body.profileImage;
+        this.mainImages = data.body.images;
+        
         this.buttonDone = 'Guardar';
+        this.header = 'Editar Producto';
         
       });
     }
@@ -253,7 +261,9 @@ export class NewProductComponent implements OnInit {
   }
 
   protected onSaveSuccess() {
-    console.log("CREADO");
+    console.log('entra');
+    
+    this.goBack.emit();
   }
   protected onSaveError() {
     console.log("ERROR");

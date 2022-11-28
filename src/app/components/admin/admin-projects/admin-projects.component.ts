@@ -39,7 +39,7 @@ export class AdminProjectsComponent implements OnInit {
     this.editingProject = edit;
   }
 
-  protected editProduct(id: number) {
+  protected editProject(id: number) {
     this.projectId = id;
     this.creatingProject = false;
     this.editingProject = true;

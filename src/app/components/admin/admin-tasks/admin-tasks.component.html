@@ -1,3 +1,36 @@
-<p>
-  admin-tasks works!
-</p>
+<div class="container ">
+  <button type="button" *ngIf="!creatingTask && !editingTask && createAllowed" style="margin-top: 2%; margin-bottom: 2%;" class="btn btn-secondary btn-sm animated fadeIn" (click)="loadState(true,false)">{{buttonNewTask}}</button>
+  <button type="button" *ngIf="creatingTask || editingTask" style="margin-top: 2%; margin-bottom: 2%;" class="btn btn-secondary btn-sm animated fadeIn" (click)="loadState(false,false)">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+      </svg>
+  </button>
+  <div class="tab-pane fade show active animated fadeIn" id="nav-clientes" role="tabpanel" aria-labelledby="nav-home-tab" >
+      <table id="dtBasicExample" class="table table-striped table-bordered table-sm animated fadeIn" cellspacing="0" width="100%" *ngIf="!creatingTask && !editingTask">
+          <thead>
+              <tr>
+                  <th class="th-sm">Nombre
+              
+                  </th>
+                  <th class="th-sm">Opciones
+              
+                  </th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let k of tasks | keys; let i = index">
+                  <td>{{tasks[k].name}}</td>
+                  <td>
+                      <div class="btn-group" role="group" aria-label="Basic example">
+                          <button type="button" class="badge badge-light" (click)="editTask(tasks[k].id)">Editar</button>
+                          <button type="button" class="badge badge-light" (click)="deleteTask(tasks[k].id)">Eliminar</button>
+                      </div>
+                  </td>
+              </tr>
+          </tbody>
+      </table>
+      <app-new-task *ngIf="creatingTask" [projectId]="projectId" (goBack)="loadState(false,false)"></app-new-task>
+      <app-new-task *ngIf="editingTask" [id]="TaskId" [projectId]="projectId" (goBack)="loadState(false,false)"></app-new-task>
+  </div>
+</div>
