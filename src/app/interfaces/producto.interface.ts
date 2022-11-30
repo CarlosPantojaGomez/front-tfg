@@ -1,15 +1,16 @@
 import { FileEntity } from "./file.interface";
 import { Image } from "./image.interface";
+import { ManualEntity } from "./manual.interface";
 
 export interface Producto{
     id?: number;
-    name: string;
+    name?: string;
     description?: string;
     features?: string;
-    price: number;
+    price?: number;
     rating?: number;
     file?: FileEntity;
     profileImage?: Image;
     images?: Array<Image>;
-    manuales?: Array<FileEntity>;
+    manuals?: Array<ManualEntity>;
 }

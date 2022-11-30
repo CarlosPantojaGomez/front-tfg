@@ -1,0 +1,36 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+  <div class="container main-container">
+    <h4>{{header}} </h4>
+      <div class="row animated fadeIn">
+        <div class="col-4 ">
+          <div class="form-group">
+            <label>Titular</label>
+            <input  formControlName="title"
+              name="nombre"
+              type="text"
+              class="form-control"
+              placeholder="Titular de la noticia"
+              required>
+          </div>
+        </div>
+        
+        <div class="col-12">
+          <div class="form-group">
+            <label>Descripción</label>
+            <textarea id="description" formControlName="description" name="description" rows="4" cols="50" class="form-control" placeholder="Descripción de la noticia"></textarea>
+            
+          </div>
+        </div>
+      </div>
+        
+      <div class="col-2">
+        <div class="form-group">
+          <br>
+          <button [disabled]="editForm.invalid" type="submit" class="btn btn-outline-primary form-control">
+            {{buttonDone}} 
+          </button>
+        </div>
+      </div>
+      
+  </div>
+</form>

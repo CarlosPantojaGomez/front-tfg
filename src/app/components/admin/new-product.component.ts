@@ -73,7 +73,19 @@ export class NewProductComponent implements OnInit {
         });
 
         this.profileImage = data.body.profileImage;
-        this.mainImages = data.body.images;
+
+        this.mainImages = data.body.images.filter(obj => {
+          return obj.imageType == 2
+        });
+
+        this.fileToUpload = data.body.file;
+
+        data.body.manuals.forEach((element,index)=>{
+          this.manuales.push(element.file);
+        });
+
+        console.log(this.manuales);
+        
         
         this.buttonDone = 'Guardar';
         this.header = 'Editar Producto';
@@ -200,10 +212,8 @@ export class NewProductComponent implements OnInit {
     this.profileImage = null;
   }
 
-  eliminarMainPicture(id: number) {
-    this.profileImage = null;
-    let indexx = this.mainImages.findIndex(x => x.id$ === id);
-
+  eliminarMainPicture(indexx: number) {
+    
     this.mainImages.forEach((element,index)=>{
       if(index==indexx) this.mainImages.splice(index,1);
     });
@@ -213,14 +223,10 @@ export class NewProductComponent implements OnInit {
     this.fileToUpload = undefined;
   }
 
-  eliminarManual(name: string) {
-    this.manuales = [];
-    let indexx = this.manuales.findIndex(x => x.name === name);
-
+  eliminarManual(indexx: number) {
     this.manuales.forEach((element,index)=>{
       if(index==indexx) this.manuales.splice(index,1);
     });
-
   }
 
   public onClickMe(option: number) {

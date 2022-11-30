@@ -34,7 +34,7 @@
               </tr>
           </tbody>
       </table>
-      <app-new-project *ngIf="creatingProject"></app-new-project>
-      <app-new-project *ngIf="editingProject" [id]="projectId"></app-new-project>
+      <app-new-project *ngIf="creatingProject" (goBack)="loadState(false,false)"></app-new-project>
+      <app-new-project *ngIf="editingProject" [id]="projectId" (goBack)="loadState(false,false)"></app-new-project>
   </div>
 </div>

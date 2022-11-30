@@ -31,6 +31,6 @@
           </tbody>
       </table>
       <app-new-task *ngIf="creatingTask" [projectId]="projectId" (goBack)="loadState(false,false)"></app-new-task>
-      <app-new-task *ngIf="editingTask" [id]="TaskId" [projectId]="projectId" (goBack)="loadState(false,false)"></app-new-task>
+      <app-new-task *ngIf="editingTask" [id]="taskId" [projectId]="projectId" (goBack)="loadState(false,false)"></app-new-task>
   </div>
 </div>

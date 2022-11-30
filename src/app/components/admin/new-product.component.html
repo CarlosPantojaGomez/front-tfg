@@ -116,7 +116,7 @@
                   <div class="col-md-8">
                     <div class="card-body">
                       <!-- <h5 class="mt-0 mb-1">{{mainImages[k].name}}</h5> -->
-                      <button (click)="eliminarMainPicture(mainImages[k].id$)" type="button" class="btn btn-outline-secondary btn-sm">Eliminar
+                      <button (click)="eliminarMainPicture(k)" type="button" class="btn btn-outline-secondary btn-sm">Eliminar
                       </button>
                     </div>
                   </div>
@@ -154,7 +154,7 @@
         </div>
         <div class="col-6 form-group" *ngIf="manuals">
           <label for="file">Elegir manuales</label>
-          <input myInputManuales type="file" id="file" accept="application/pdf" (change)="handleManuals($event.target.files)">
+          <input #myInputManuales type="file" id="file" accept="application/pdf" (change)="handleManuals($event.target.files)">
           <div *ngIf="manuales.length > 0">
 
             <div *ngFor="let k of manuales | keys; let i = index" style="margin-bottom: 8%">
@@ -166,7 +166,7 @@
                   <div class="col-md-8">
                     <div class="card-body">
                       <h5 class="mt-0 mb-1">{{manuales[k].name}}</h5>
-                      <button (click)="eliminarManual(manuales[k].name)" type="button" class="btn btn-outline-secondary btn-sm">Eliminar
+                      <button (click)="eliminarManual(k)" type="button" class="btn btn-outline-secondary btn-sm">Eliminar
                       </button>
                     </div>
                   </div>

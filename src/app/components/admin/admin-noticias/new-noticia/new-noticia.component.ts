@@ -2,18 +2,16 @@ import { Component, OnInit, Input, ElementRef, ViewChild ,Output, EventEmitter} 
 import { FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { TaskService } from 'src/app/services/task.service';
-import { Task } from 'src/app/interfaces/task.interface';
+import { NoticiasService } from 'src/app/services/noticias.service';
+import { Noticia } from 'src/app/interfaces/noticia.interface';
 
 @Component({
-  selector: 'app-new-task',
-  templateUrl: './new-task.component.html',
-  styleUrls: ['./new-task.component.css']
+  selector: 'app-new-noticia',
+  templateUrl: './new-noticia.component.html',
+  styleUrls: ['./new-noticia.component.css']
 })
-export class NewTaskComponent implements OnInit {
-
+export class NewNoticiaComponent implements OnInit {
   @Input() id: number;
-  @Input() projectId: number;
   @Output() goBack = new EventEmitter();
 
   buttonDone: string;
@@ -22,35 +20,35 @@ export class NewTaskComponent implements OnInit {
   edit: boolean;
 
   editForm = this.fb.group({
-    name: [],
+    title: [],
     description: [],
+    sortDescription: [],
     creationDate: [],
     endDate: []
   });
 
   constructor(
     private fb: FormBuilder,
-    private taskService: TaskService) { }
+    private noticiaService: NoticiasService) { }
 
   ngOnInit() {
     this.edit = false;
     
     this.buttonDone = 'Crear';
-    this.header = 'Nueva Tarea';
-    console.log(this.id);
-    
+    this.header = 'Nueva Noticia';
+
     if(this.id != undefined){
-      this.taskService.getTask(this.id.toString(10)).subscribe(data =>{
+      this.noticiaService.getNoticia(this.id.toString(10)).subscribe(data =>{
         console.log(data);
         
         this.edit = true;
         this.editForm.patchValue({
-          name: data.body.name,
+          title: data.body.title,
           description: data.body.description
         });
         
         this.buttonDone = 'Guardar';
-        this.header = 'Editar Producto';
+        this.header = 'Editar Noticia';
         
       });
     }
@@ -60,23 +58,19 @@ export class NewTaskComponent implements OnInit {
     const productRequest = this.createFromForm();
 
     if(!this.edit){
-      this.subscribeToSaveResponse(this.taskService.newTask(productRequest));
+      this.subscribeToSaveResponse(this.noticiaService.nuevaNoticia(productRequest));
     }else{
-      this.subscribeToSaveResponse(this.taskService.save(productRequest));
+      this.subscribeToSaveResponse(this.noticiaService.updateNoticia(productRequest));
     }
   }
 
-  private createFromForm(): Task {
-
-    const project={
-      id: this.projectId
-    };
+  private createFromForm(): Noticia {
 
     const task={
       id: this.edit ? this.id : null,
-      name: this.editForm.get(['name']).value,
       description: this.editForm.get(['description']).value,
-      project: project
+      sortDescription: this.editForm.get(['sortDescription']).value,
+      title: this.editForm.get(['title']).value
     };
     
     return task;

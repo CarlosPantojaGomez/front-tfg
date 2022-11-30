@@ -37,6 +37,12 @@ export class AdminProjectsComponent implements OnInit {
   protected loadState(create: boolean, edit: boolean) {
     this.creatingProject = create;
     this.editingProject = edit;
+
+    if(!create && !edit){
+      this.projectervice.getProjects().subscribe(data =>{
+        this.proyectos=data.body;
+      });
+    }
   }
 
   protected editProject(id: number) {

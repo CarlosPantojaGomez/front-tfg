@@ -32,6 +32,7 @@ export class AdminTasksComponent implements OnInit {
       this.taskService.getTasksByProject(this.projectId.toString(10)).subscribe(data =>{
         
 
+        console.log(data.body);
         this.tasks = data.body;
         this.header = 'Editar Producto';
         
@@ -58,9 +59,22 @@ export class AdminTasksComponent implements OnInit {
     this.editingTask = edit;
 
     if(!create && !edit){
-      this.taskService.getTasks().subscribe(data =>{
-        this.tasks=data.body;
-      });
+      if(this.projectId != null){
+        this.taskService.getTasksByProject(this.projectId.toString(10)).subscribe(data =>{
+          
+          console.log(data.body);
+          
+          this.tasks = data.body;
+          
+        });
+      } else {
+        this.taskService.getTasks().subscribe(data =>{
+          
+  
+          this.tasks = data.body;
+          
+        });
+      }
     }
   }
 
