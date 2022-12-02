@@ -15,25 +15,31 @@ export class MailService {
   URL:string;
   extend: string;
 
-  noticiasURL:string = "https://prtfg-74ef0.firebaseio.com/noticias.json"
-  noticiaURL:string = "https://prtfg-74ef0.firebaseio.com/noticias"
-
-  constructor(private http:HttpClient) { 
-    //this.URL = 'http://localhost:8080';
+  constructor(private http:HttpClient) {
     this.URL = BACK_URL;
   }
 
+  nuevoMail(mail: Mail): Observable<EntityResponseType>{
+    this.extend = this.URL + '/mail';
+    return this.http.post<any>(this.extend, mail, { observe: 'response' });
+  }
 
-  getNoticia( key$:string):any {
-    /* let url =`${this.noticiaURL}/${key$}.json`;
-   
-    return this.http.get(url)
-      .pipe(map(res=>res.json() )) */
+  getMail( key$:string):any {
+    this.extend = this.URL + '/mail/'+ key$;
+    return this.http.get<any>(this.extend, { observe: 'response' }); 
 
   }
 
-  getNoticias( ):Observable<EntityArrayResponseType>{
+  getMails( ):Observable<EntityArrayResponseType>{
     this.extend = this.URL + "/news";
+    return this.http
+      .get<any>(this.extend, { observe: 'response' })
+      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res))); 
+
+  }
+
+  getMailsByUserId(id: number):Observable<EntityArrayResponseType>{
+    this.extend = this.URL + "/mails_receiver/" + id;
     return this.http
       .get<any>(this.extend, { observe: 'response' })
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res))); 

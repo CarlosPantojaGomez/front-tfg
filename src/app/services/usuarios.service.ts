@@ -20,6 +20,7 @@ export class UsuariosService {
     //this.URL = 'http://localhost:8080';
     this.URL = BACK_URL;
   }
+
   create(usuario: Usuario): Observable<EntityResponseType> {
     this.extend = this.URL + '/user';
     return this.http.post<any>(this.extend, usuario, { observe: 'response' });
@@ -51,6 +52,10 @@ export class UsuariosService {
     return this.http.get<any>(this.extend, { observe: 'response' });
   } */
 
+  findbyNickname(input: string): Observable<EntityArrayResponseType> {
+    this.extend = this.URL + '/users/findByNickname/' + input;
+    return this.http.get<any>(this.extend, { observe: 'response' });
+  }
   getUsuarioBy(key$:string, input: string): Observable<EntityResponseType> {
     this.extend = this.URL + '/user/find' + input +'/' + key$;
     return this.http.get<any>(this.extend, { observe: 'response' });

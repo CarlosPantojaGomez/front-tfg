@@ -27,7 +27,13 @@ export class NavbarComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    this.loadState(0);
+    if(JSON.parse(sessionStorage.getItem('currentUser'))!= null){
+      this.loadState(JSON.parse(sessionStorage.getItem('currentUser')).userType);
+        this.id = JSON.parse(sessionStorage.getItem('currentUser')).id;
+    }else {
+
+      this.loadState(0);
+    }
     this.subscribeLogIn();
     
   }

@@ -1,7 +1,14 @@
+import { Usuario } from "./usuario.interface";
+
 export interface Mail{
-    id$?: number;
-    nombre: string;
-    mensaje: string;
-    fecha?:number;
+    id?: number;
+    subject: string;
+    text: string;
+    creationDate?:number;
+    writer?:Usuario;
+    writerName?:string;
+    receiver?:Usuario;
+    receiverName?:string;
+    saw?: boolean;
 
 }
