@@ -8,6 +8,8 @@ import { ProductosService } from 'src/app/services/productos.service';
 import { ProjectService } from 'src/app/services/project.service';
 import { Observable } from 'rxjs';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { Usuario } from 'src/app/interfaces/usuario.interface';
+import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
   selector: 'app-new-project',
@@ -19,6 +21,8 @@ export class NewProjectComponent implements OnInit {
 
   @Input() id: number;
   products: Array<Producto> = [];
+  usuariosRelated: Array<Usuario> = [];
+  usuariosSearch: Usuario[];
 
   public PriorityLabelMapping = PriorityLabelMapping;
 
@@ -31,6 +35,7 @@ export class NewProjectComponent implements OnInit {
 
   proyectoView: boolean;
   tareasView: boolean;
+  usuariosView: boolean;
 
   editForm = this.fb.group({
     name: [],
@@ -43,11 +48,13 @@ export class NewProjectComponent implements OnInit {
     private fb: FormBuilder,
     private projectService: ProjectService,
     private productService: ProductosService,
+    private userService: UsuariosService
   ) { }
 
   ngOnInit() {
     console.log(this.priorities);
     this.proyectoView = true;
+    this.usuariosView = false;
     this.buttonDone = 'Crear';
     this.header = 'Nuevo Proyecto';
     if(this.id != undefined){
@@ -103,13 +110,26 @@ export class NewProjectComponent implements OnInit {
       return obj.id === this.editForm.get(['producto']).value
     })
 
+    var creatorNickname = "";
+    if(JSON.parse(sessionStorage.getItem('currentUser'))!= null){
+      creatorNickname = JSON.parse(sessionStorage.getItem('currentUser')).nickname
+    }
+    const creator={
+      id: null,
+      nickname: creatorNickname,
+    };
+
     const project={
       id: this.edit ? this.id : null,
       name: this.editForm.get(['name']).value,
       priority: this.editForm.get(['prioridad']).value,
       description: this.editForm.get(['description']).value,
-      product: this.product
+      product: this.product,
+      usersRelated: this.usuariosRelated,
+      creator: creator
     };
+
+    project.usersRelated
 
     return project;
   }
@@ -124,14 +144,43 @@ export class NewProjectComponent implements OnInit {
       case 1:
         this.tareasView = false;
         this.proyectoView = true;
+        this.usuariosView = false;
         break;
       case 2:
         this.tareasView = true;
         this.proyectoView = false;
+        this.usuariosView = false;
+      case 3:
+        this.tareasView = false;
+        this.proyectoView = false;
+        this.usuariosView = true;
       default:
 
         break;
     }
+    
+  }
+
+  onSearchSetUser(searchValue: string): void {  
+    if(searchValue.length > 2){
+      this.userService.findbyNickname(searchValue).subscribe(data =>{
+        if (data.body.length > 0){
+          this.usuariosSearch = data.body;
+        }else {
+          this.usuariosSearch = undefined;
+        }
+      });
+    } else {
+      this.usuariosSearch = undefined;
+    }
+  }
+
+  selectUser(i: number) {
+    console.log(this.usuariosSearch[i]);
+    
+    this.usuariosRelated.push(this.usuariosSearch[i]);
+    
+    this.usuariosSearch = undefined;
     
   }
 

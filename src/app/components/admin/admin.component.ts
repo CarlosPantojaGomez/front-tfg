@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminComponent implements OnInit {
 
+  nonreadMensjaes: number = 0;
   constructor() { }
 
   ngOnInit() {
@@ -14,5 +15,10 @@ export class AdminComponent implements OnInit {
 
   changeHeader() {
     
+  }
+
+  loadNonReadCount(event: number){
+    console.log(event);
+    this.nonreadMensjaes = event;
   }
 }

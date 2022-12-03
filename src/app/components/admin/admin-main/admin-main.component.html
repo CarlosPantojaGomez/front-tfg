@@ -1,3 +1,18 @@
-<p>
-  admin-main works!
-</p>
+<div class="container ">
+  <div class="tab-pane fade show active animated fadeIn" id="nav-clientes" role="tabpanel" aria-labelledby="nav-home-tab" >
+    <h4 *ngIf="usuario != undefined">Bienvenido {{usuario.nickname}}</h4>
+    <br>
+    <h5>Actividad reciente:</h5>
+    <div class="list-group" *ngIf="activities != undefined">
+        <a *ngFor="let k of activities | keys; let i = index" class="list-group-item flex-column align-items-start list-group-item-action"
+        style="cursor: pointer;"
+        (click)="verMensaje(k)">
+          <div class="d-flex w-100 justify-content-start">
+            <h6 class="mb-1" style="margin-right: 2%;">{{activities[k].creator.nickname}} ha {{activities[k].action}} {{activities[k].object}}</h6>
+            <h6 class="mb-1 ml-auto">{{activities[k].activityDate}}</h6>
+          </div>
+          
+        </a>
+      </div>
+  </div>
+</div>

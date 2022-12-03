@@ -10,5 +10,4 @@ export interface Mail{
     receiver?:Usuario;
     receiverName?:string;
     saw?: boolean;
-
 }

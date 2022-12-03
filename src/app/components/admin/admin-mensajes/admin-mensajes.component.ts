@@ -10,6 +10,8 @@ import { MailService } from 'src/app/services/mail.service';
 })
 export class AdminMensajesComponent implements OnInit {
 
+  @Output() loadNonReadCount = new EventEmitter<number>();
+
   mensajes: Mail[];
   header: string;
   buttonNewMensaje: string;
@@ -68,6 +70,10 @@ export class AdminMensajesComponent implements OnInit {
     if(JSON.parse(sessionStorage.getItem('currentUser'))!= null){
       this.mailService.getMailsByUserId(JSON.parse(sessionStorage.getItem('currentUser')).id).subscribe(data =>{
         this.mensajes=data.body;
+        
+        this.loadNonReadCount.emit(this.mensajes.filter(obj => {
+          return obj.saw == false
+        }).length);
       });
     }
   }
@@ -76,6 +82,7 @@ export class AdminMensajesComponent implements OnInit {
     this.mensajeId = this.mensajes[indice].id;
     this.creatingMensaje = false;
     this.editingMensaje = true;
+    
   }
 
 
