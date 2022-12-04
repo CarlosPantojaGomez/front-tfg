@@ -1,13 +1,19 @@
-<div class="container ">
-  <button type="button" *ngIf="!creatingProject && !editingProject" style="margin-top: 2%; margin-bottom: 2%;" class="btn btn-secondary btn-sm animated fadeIn" (click)="loadState(true,false)">{{buttonNewUser}}</button>
-  <button type="button" *ngIf="creatingProject || editingProject" style="margin-top: 2%; margin-bottom: 2%;" class="btn btn-secondary btn-sm animated fadeIn" (click)="loadState(false,false)">
+<div class="">
+  <button type="button" *ngIf="!creatingProject && !editingProject && !detailsProject && !detailsTask" style="margin-top: 2%; margin-bottom: 2%;" class="btn btn-secondary btn-sm animated fadeIn" (click)="loadState(true,false,false,false)">{{buttonNewUser}}</button>
+  <button type="button" *ngIf="(creatingProject || editingProject || detailsProject ) && !detailsTask" style="margin-top: 2%; margin-bottom: 2%;" class="btn btn-secondary btn-sm animated fadeIn" (click)="loadState(false,false, false,false)">
       <svg class="bi bi-arrow-left-short" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" d="M7.854 4.646a.5.5 0 010 .708L5.207 8l2.647 2.646a.5.5 0 01-.708.708l-3-3a.5.5 0 010-.708l3-3a.5.5 0 01.708 0z" clip-rule="evenodd"/>
           <path fill-rule="evenodd" d="M4.5 8a.5.5 0 01.5-.5h6.5a.5.5 0 010 1H5a.5.5 0 01-.5-.5z" clip-rule="evenodd"/>
         </svg>
   </button>
+  <button type="button" *ngIf="detailsTask" style="margin-top: 2%; margin-bottom: 2%;" class="btn btn-secondary btn-sm animated fadeIn" (click)="loadState(false,false, true,false)">
+    <svg class="bi bi-arrow-left-short" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" d="M7.854 4.646a.5.5 0 010 .708L5.207 8l2.647 2.646a.5.5 0 01-.708.708l-3-3a.5.5 0 010-.708l3-3a.5.5 0 01.708 0z" clip-rule="evenodd"/>
+        <path fill-rule="evenodd" d="M4.5 8a.5.5 0 01.5-.5h6.5a.5.5 0 010 1H5a.5.5 0 01-.5-.5z" clip-rule="evenodd"/>
+      </svg>
+    </button>
   <div class="tab-pane fade show active animated fadeIn" id="nav-clientes" role="tabpanel" aria-labelledby="nav-home-tab" >
-      <table id="dtBasicExample" class="table table-striped table-bordered table-sm animated fadeIn" cellspacing="0" width="100%" *ngIf="!creatingProject && !editingProject">
+      <!-- <table id="dtBasicExample" class="table table-striped table-bordered table-sm animated fadeIn" cellspacing="0" width="100%" *ngIf="!creatingProject && !editingProject">
           <thead>
             <tr>
                 <th class="th-sm">Nombre
@@ -33,8 +39,32 @@
                   </td>
               </tr>
           </tbody>
-      </table>
-      <app-new-project *ngIf="creatingProject" (goBack)="loadState(false,false)"></app-new-project>
-      <app-new-project *ngIf="editingProject" [id]="projectId" (goBack)="loadState(false,false)"></app-new-project>
+      </table> -->
+      <div class="list-group"*ngIf="(!creatingProject && !editingProject && !detailsProject && !detailsTask) && proyectos != undefined">
+        <a *ngFor="let k of proyectos | keys; let i = index" class="list-group-item flex-column align-items-start list-group-item-action"
+        style="cursor: pointer;"
+        (click)="verProyecto(proyectos[k].id)">
+            <div class="d-flex w-100 justify-content-start align-items-center">
+                <h5 class="mb-1" style="margin-right: 2%;">{{proyectos[k].name}}</h5>
+
+                <p class="mb-1">{{proyectos[k].product?.name}}</p>
+
+                <div class="btn-group ml-auto p-2" role="group" aria-label="Basic example">
+                    <button type="button" 
+                        class="btn btn-secondary btn-sm animated fadeIn " 
+                        (click)="editProject(proyectos[k].id)">Editar
+                    </button>
+                    <button type="button" 
+                        class="btn btn-secondary btn-sm animated fadeIn " 
+                        (click)="deleteProject(proyectos[k].id)">Eliminar
+                    </button>
+                </div>
+            </div>
+        </a>
+      </div>
+      <app-new-project *ngIf="creatingProject" (goBack)="loadState(false,false, false,false)"></app-new-project>
+      <app-new-project *ngIf="editingProject" [id]="projectId" (goBack)="loadState(false,false,false,false)"></app-new-project>
+      <app-details-project *ngIf="detailsProject" [id]="projectId" (goBack)="loadState(false,false,false,false)" (goTask)="verTarea($event)"></app-details-project>
+      <app-details-task *ngIf="detailsTask" [id]="taskId" (goBack)="loadState(false,false,true,false)"></app-details-task>
   </div>
 </div>

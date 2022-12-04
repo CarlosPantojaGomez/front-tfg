@@ -15,30 +15,36 @@ export class AdminProjectsComponent implements OnInit {
 
   creatingProject: boolean;
   editingProject: boolean;
+  detailsProject: boolean;
+  detailsTask: boolean;
 
   projectId: number;
+  taskId: number;
 
   constructor(
     private projectervice: ProjectService) { }
 
   ngOnInit() {
-
     this.projectervice.getProjects().subscribe(data =>{
       this.proyectos=data.body;
     });
 
     this.creatingProject = false;
     this.editingProject = false;
+    this.detailsProject = false;
+    this.detailsTask = false;
     this.buttonNewUser = 'Nuevo Proyecto';
   }
 
   
 
-  protected loadState(create: boolean, edit: boolean) {
+  protected loadState(create: boolean, edit: boolean, detailsProject: boolean, detailsTask: boolean) {
     this.creatingProject = create;
     this.editingProject = edit;
+    this.detailsProject = detailsProject;
+    this.detailsTask = detailsTask;
 
-    if(!create && !edit){
+    if(!create && !edit && !detailsProject && !detailsTask){
       this.projectervice.getProjects().subscribe(data =>{
         this.proyectos=data.body;
       });
@@ -49,6 +55,24 @@ export class AdminProjectsComponent implements OnInit {
     this.projectId = id;
     this.creatingProject = false;
     this.editingProject = true;
+    this.detailsProject = false;
+    this.detailsTask = false;
+  }
+
+  verProyecto(id: number){
+    this.projectId = id;
+    this.creatingProject = false;
+    this.editingProject = false;
+    this.detailsProject = true;
+    this.detailsTask = false;
+  }
+
+  verTarea(id: number){
+    this.taskId = id;
+    this.creatingProject = false;
+    this.editingProject = false;
+    this.detailsProject = false;
+    this.detailsTask = true;
   }
 
 }

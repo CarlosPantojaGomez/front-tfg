@@ -33,6 +33,11 @@ export class TaskService {
     return this.http.put<any>(this.extend, productRequest, { observe: 'response' });
   }
 
+  updatePriorityAndState(productRequest: Task): Observable<EntityResponseType>{
+    this.extend = this.URL + '/taskUpdatePriorityState';
+    return this.http.put<any>(this.extend, productRequest, { observe: 'response' });
+  }
+
   getTask(id: string):Observable<EntityResponseType> {
     this.extend = this.URL + '/task/'+ id;
     return this.http.get<any>(this.extend, { observe: 'response' }); 

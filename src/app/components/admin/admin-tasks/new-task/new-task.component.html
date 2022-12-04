@@ -13,6 +13,17 @@
                 required>
             </div>
           </div>
+          <div class="col-4">
+            <div class="form-group">
+              <label>Prioridad</label>
+              <select class="custom-select" formControlName="prioridad" required>
+                <option *ngFor="let priority of priorities"
+                        [value]="priority">
+                        {{PriorityLabelMapping[priority]}}
+                </option>
+              </select>
+            </div>
+          </div>
           <!-- <div class="col-4">
             <div class="form-group">
               <label>Fecha de comienzo</label>

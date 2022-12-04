@@ -1,4 +1,4 @@
-<div class="container ">
+<div class="">
   <button type="button" *ngIf="!creatingMensaje && !editingMensaje" style="margin-top: 2%; margin-bottom: 2%;" class="btn btn-secondary btn-sm animated fadeIn" (click)="loadState(true,false)">{{buttonNewMensaje}}</button>
   <button type="button" *ngIf="creatingMensaje || editingMensaje" style="margin-top: 2%; margin-bottom: 2%;" class="btn btn-secondary btn-sm animated fadeIn" (click)="loadState(false,false)">
       <svg class="bi bi-arrow-left-short" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

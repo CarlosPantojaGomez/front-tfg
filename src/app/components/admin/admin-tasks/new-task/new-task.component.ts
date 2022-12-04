@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { TaskService } from 'src/app/services/task.service';
 import { Task } from 'src/app/interfaces/task.interface';
+import { PriorityLabelMapping, TaskPriority } from 'src/app/interfaces/priorities';
 
 @Component({
   selector: 'app-new-task',
@@ -19,10 +20,13 @@ export class NewTaskComponent implements OnInit {
   buttonDone: string;
   header: string;
   
+  public PriorityLabelMapping = PriorityLabelMapping;
+  public priorities = Object.values(TaskPriority).filter(value => typeof value === 'number');
   edit: boolean;
 
   editForm = this.fb.group({
     name: [],
+    prioridad: [],
     description: [],
     creationDate: [],
     endDate: []
@@ -50,7 +54,7 @@ export class NewTaskComponent implements OnInit {
         });
         
         this.buttonDone = 'Guardar';
-        this.header = 'Editar Producto';
+        this.header = 'Editar Tarea';
         
       });
     }
@@ -76,6 +80,8 @@ export class NewTaskComponent implements OnInit {
       id: this.edit ? this.id : null,
       name: this.editForm.get(['name']).value,
       description: this.editForm.get(['description']).value,
+      priority: this.editForm.get(['prioridad']).value,
+      state: 0,
       project: project
     };
     

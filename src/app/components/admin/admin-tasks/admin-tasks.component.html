@@ -1,4 +1,4 @@
-<div class="container ">
+<div class="">
   <button type="button" *ngIf="!creatingTask && !editingTask && createAllowed" style="margin-top: 2%; margin-bottom: 2%;" class="btn btn-secondary btn-sm animated fadeIn" (click)="loadState(true,false)">{{buttonNewTask}}</button>
   <button type="button" *ngIf="creatingTask || editingTask" style="margin-top: 2%; margin-bottom: 2%;" class="btn btn-secondary btn-sm animated fadeIn" (click)="loadState(false,false)">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">

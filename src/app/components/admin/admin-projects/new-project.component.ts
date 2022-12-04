@@ -52,7 +52,6 @@ export class NewProjectComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.priorities);
     this.proyectoView = true;
     this.usuariosView = false;
     this.buttonDone = 'Crear';
@@ -64,7 +63,7 @@ export class NewProjectComponent implements OnInit {
           name: data.body.name,
           prioridad: data.body.priority,
           description: data.body.description,
-          producto: data.body.product.id
+          producto: data.body.product != undefined ? data.body.product.id : null
         });
         
         this.buttonDone = 'Guardar';
@@ -76,7 +75,6 @@ export class NewProjectComponent implements OnInit {
     this.productService.getProductos().subscribe(data =>{
 
       this.products = data.body;
-      console.log(this.products);
     
     });
   }
@@ -140,6 +138,8 @@ export class NewProjectComponent implements OnInit {
   }
 
   public onClickMe(option: number) {
+    console.log(option);
+    
     switch (option) {
       case 1:
         this.tareasView = false;
@@ -150,10 +150,12 @@ export class NewProjectComponent implements OnInit {
         this.tareasView = true;
         this.proyectoView = false;
         this.usuariosView = false;
+        break;
       case 3:
         this.tareasView = false;
         this.proyectoView = false;
         this.usuariosView = true;
+        break;
       default:
 
         break;

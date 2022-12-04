@@ -1,0 +1,96 @@
+<div class="media animated fadeIn">
+  <div class="btn-group btn-group-toggle btn-block" data-toggle="buttons">
+      <label class="btn btn-light" (click)="onClickMe(1)">
+          <input type="radio" name="options" id="option1"> Tarea
+      </label>
+      <label class="btn btn-light" (click)="onClickMe(2)">
+          <input type="radio" name="options" id="option2"> Usuarios
+      </label>
+  </div>
+</div>
+
+<div class="media animated fadeIn cuerpo" *ngIf="task != undefined && tareaView">
+  <div class="col-9">
+    <div class="col-12">
+      <h1>{{task.name}}</h1>
+      <h5>Proyecto: {{task.project?.name}}</h5>
+    </div>
+    <div class="col-12">
+      <p>
+        {{task.description}}
+      </p>
+    </div>
+    <div class="col-12">
+      <h6 class="card-title">Comentarios: {{task.creator?.nickname}}</h6>
+    </div>
+    <div class="col-12">
+      <form name="writeComment" role="form" novalidate (ngSubmit)="save()" [formGroup]="writeComment">
+        <div class="col-12">
+          <div class="form-group">
+            <textarea id="text" formControlName="text" name="text" rows="4" cols="50" class="form-control" placeholder="Escribe un comentario..."></textarea>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-2">
+      <div class="form-group">
+        <br>
+        <button [disabled]="writeComment.invalid" type="submit" class="btn btn-outline-primary form-control">
+          Enviar
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="col-3">
+    <div class="card" >
+      <div class="card-body">
+        <h5 class="card-title">Creador: {{task.creator?.nickname}}</h5>
+        <p class="card-text">{{task.creator?.name}} {{task.creator?.firstLastName}} {{task.creator?.secondLastName}}</p>
+      </div>
+    </div>
+    <div class="card" >
+      <form name="editForm" role="form" novalidate (ngSubmit)="updateStatePriority()" [formGroup]="editForm">
+        <div class="container main-container">
+          <h4>{{header}} </h4>
+            <div class="row animated fadeIn">
+                <div class="col-12">
+                  <div class="form-group">
+                    <label>Estado</label>
+                    <select class="custom-select" formControlName="state" required>
+                      <option *ngFor="let state of states"
+                              [value]="state">
+                              {{StateLabelMapping[state]}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+            </div>
+
+            <div class="row animated fadeIn">
+              <div class="col-12">
+                <div class="form-group">
+                  <label>Prioridad</label>
+                  <select class="custom-select" formControlName="prioridad" required>
+                    <option *ngFor="let priority of priorities"
+                            [value]="priority">
+                            {{PriorityLabelMapping[priority]}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+          </div>
+              
+            <div class="col-12">
+              <div class="form-group">
+                <br>
+                <button [disabled]="editForm.invalid" type="submit" class="btn btn-outline-primary form-control">
+                  Guardar
+                </button>
+              </div>
+            </div>
+            
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

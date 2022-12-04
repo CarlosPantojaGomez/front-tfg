@@ -1,0 +1,116 @@
+<div class="media animated fadeIn" *ngIf="project != undefined">
+  <div class="col-8">
+    <div class="col-12">
+      <h1>{{project.name}}</h1>
+      <h5>Producto: {{project.product?.name}}</h5>
+    </div>
+    <div class="col-12">
+      <p>
+        {{project.description}}
+      </p>
+    </div>
+  </div>
+  <div class="col-2">
+    <div class="card" >
+      <div class="card-body">
+        <h5 class="card-title">Creador: {{project.creator.nickname}}</h5>
+        <p class="card-text">{{project.creator.name}} {{project.creator.firstLastName}} {{project.creator.secondLastName}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-2">
+    <div class="card" >
+      <div class="card-body">
+        <h5 class="card-title">Usuarios:</h5>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Cras justo odio</li>
+        <li class="list-group-item">Dapibus ac facilisis in</li>
+        <li class="list-group-item">Vestibulum at eros</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="media animated fadeIn cuerpo" *ngIf="project && tasks != undefined && tasks.length != 0">
+  
+  <div class="list-group col-3">
+    <h5>Para desarrollar</h5>
+    <div *ngFor="let k of tasks | keys; let i = index" class="col-11">
+      <a  class="list-group-item flex-column align-items-start list-group-item-action"
+        *ngIf="tasks[k].state == 0"
+        style="cursor: pointer;"
+        (click)="verTarea(tasks[k].id)">
+        <div class="d-flex w-100 justify-content-start align-items-center" >
+          <h6 class="mb-1" style="margin-right: 2%;">{{tasks[k].name}}</h6>
+
+            <div class="btn-group ml-auto p-2" role="group" aria-label="Basic example">
+                
+            <h6 class="mb-1" style="margin-right: 2%;">{{PriorityLabelMapping[tasks[k].priority]}}</h6>
+            </div>
+
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="list-group col-3">
+    <h5>En desarrollo</h5>
+    <div *ngFor="let k of tasks | keys; let i = index" class="col-11">
+      <a  class="list-group-item flex-column align-items-start list-group-item-action"
+        *ngIf="tasks[k].state == 1"
+        style="cursor: pointer;"
+        (click)="verTarea(tasks[k].id)">
+        <div class="d-flex w-100 justify-content-start align-items-center" >
+            <h6 class="mb-1" style="margin-right: 2%;">{{tasks[k].name}}</h6>
+
+            <div class="btn-group ml-auto p-2" role="group" aria-label="Basic example">
+                
+                
+            <h6 class="mb-1" style="margin-right: 2%;">{{PriorityLabelMapping[tasks[k].priority]}}</h6>
+            </div>
+
+        </div>
+      </a>
+    </div>
+  </div>
+  <div class="list-group col-3">
+    <h5>Listas para verificar</h5>
+    <div *ngFor="let k of tasks | keys; let i = index" class="col-11">
+      <a  class="list-group-item flex-column align-items-start list-group-item-action"
+        *ngIf="tasks[k].state == 2"
+        style="cursor: pointer;"
+        (click)="verTarea(tasks[k].id)">
+        <div class="d-flex w-100 justify-content-start align-items-center" >
+            <h6 class="mb-1" style="margin-right: 2%;">{{tasks[k].name}}</h6>
+
+            <div class="btn-group ml-auto p-2" role="group" aria-label="Basic example">
+                
+                
+            <h6 class="mb-1" style="margin-right: 2%;">{{PriorityLabelMapping[tasks[k].priority]}}</h6>
+            </div>
+
+        </div>
+      </a>
+    </div>
+  </div>
+  <div class="list-group col-3">
+    <h5>Completadas</h5>
+    <div *ngFor="let k of tasks | keys; let i = index" class="col-11">
+      <a  class="list-group-item flex-column align-items-start list-group-item-action"
+        *ngIf="tasks[k].state == 3"
+        style="cursor: pointer;"
+        (click)="verTarea(tasks[k].id)">
+        <div class="d-flex w-100 justify-content-start align-items-center" >
+            <h6 class="mb-1" style="margin-right: 2%;">{{tasks[k].name}}</h6>
+
+            <div class="btn-group ml-auto p-2" role="group" aria-label="Basic example">
+                
+                
+            <h6 class="mb-1" style="margin-right: 2%;">{{PriorityLabelMapping[tasks[k].priority]}}</h6>
+            </div>
+
+        </div>
+      </a>
+    </div>
+  </div>
+</div>

@@ -68,6 +68,8 @@ import { NewNoticiaComponent } from './components/admin/admin-noticias/new-notic
 import { AdminMainComponent } from './components/admin/admin-main/admin-main.component';
 import { AdminMensajesComponent } from './components/admin/admin-mensajes/admin-mensajes.component';
 import { NewMensajeComponent } from './components/admin/admin-mensajes/new-mensaje/new-mensaje.component';
+import { DetailsProjectComponent } from './components/admin/admin-projects/details-project/details-project.component';
+import { DetailsTaskComponent } from './components/admin/admin-tasks/details-task/details-task.component';
 
 @NgModule({
   declarations: [
@@ -112,7 +114,9 @@ import { NewMensajeComponent } from './components/admin/admin-mensajes/new-mensa
     NewNoticiaComponent,
     AdminMainComponent,
     AdminMensajesComponent,
-    NewMensajeComponent
+    NewMensajeComponent,
+    DetailsProjectComponent,
+    DetailsTaskComponent
   ],
   imports: [
     BrowserModule,
