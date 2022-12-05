@@ -6,6 +6,7 @@ import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Observable } from 'rxjs/Rx';
 import { BACK_URL } from '../helpers/img.constants';
 import { Project } from '../interfaces/project.interface';
+import { TaskComment } from '../interfaces/taskComment.interface';
 
 type EntityResponseType = HttpResponse<Task>;
 type EntityArrayResponseType = HttpResponse<Task[]>;
@@ -31,6 +32,11 @@ export class TaskService {
   save(productRequest: Task): Observable<EntityResponseType>{
     this.extend = this.URL + '/task';
     return this.http.put<any>(this.extend, productRequest, { observe: 'response' });
+  }
+
+  writeComment(taskCommentt: TaskComment): Observable<EntityResponseType>{
+    this.extend = this.URL + '/taskComment';
+    return this.http.post<any>(this.extend, taskCommentt, { observe: 'response' });
   }
 
   updatePriorityAndState(productRequest: Task): Observable<EntityResponseType>{

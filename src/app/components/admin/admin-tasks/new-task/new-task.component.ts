@@ -76,13 +76,23 @@ export class NewTaskComponent implements OnInit {
       id: this.projectId
     };
 
+    var creatorNickname = "";
+    if(JSON.parse(sessionStorage.getItem('currentUser'))!= null){
+      creatorNickname = JSON.parse(sessionStorage.getItem('currentUser')).nickname
+    }
+    const creator={
+      id: null,
+      nickname: creatorNickname,
+    };
+
     const task={
       id: this.edit ? this.id : null,
       name: this.editForm.get(['name']).value,
       description: this.editForm.get(['description']).value,
       priority: this.editForm.get(['prioridad']).value,
       state: 0,
-      project: project
+      project: project,
+      creator: creator
     };
     
     return task;

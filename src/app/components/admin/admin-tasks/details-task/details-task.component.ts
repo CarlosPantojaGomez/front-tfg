@@ -6,6 +6,7 @@ import { StateLabelMapping, TaskState } from 'src/app/interfaces/priorities';
 import { PriorityLabelMapping, TaskPriority } from 'src/app/interfaces/priorities';
 import { Observable } from 'rxjs';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { TaskComment } from 'src/app/interfaces/taskComment.interface';
 
 @Component({
   selector: 'app-details-task',
@@ -26,7 +27,7 @@ export class DetailsTaskComponent implements OnInit {
     prioridad: []
   });
 
-  writeComment= this.fb.group({
+  commentForm= this.fb.group({
     text: [],
   });
 
@@ -80,6 +81,14 @@ export class DetailsTaskComponent implements OnInit {
       this.subscribeToSaveResponse(this.taskService.updatePriorityAndState(productRequest));
   }
 
+  writeComment(){
+    console.log('esd');
+    
+    const comment = this.createCommentFromForm();
+
+    this.subscribeCommentWriteToSaveResponse(this.taskService.writeComment(comment));
+  }
+
   private createFromForm(): Task {
 
     const task={
@@ -89,6 +98,27 @@ export class DetailsTaskComponent implements OnInit {
     };
     
     return task;
+  }
+
+  private createCommentFromForm(): TaskComment {
+
+    var creatorId = 0;
+
+    if(JSON.parse(sessionStorage.getItem('currentUser'))!= null){
+      creatorId = JSON.parse(sessionStorage.getItem('currentUser')).id
+    }
+
+    const creator={
+      id: creatorId
+    };
+
+    const taskComment={
+      text: this.commentForm.get(['text']).value,
+      task: this.task,
+      creator: creator
+    };
+    
+    return taskComment;
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<any>>) {
@@ -101,5 +131,34 @@ export class DetailsTaskComponent implements OnInit {
   protected onSaveError() {
     console.log("ERROR");
   }
+
+  protected subscribeCommentWriteToSaveResponse(result: Observable<HttpResponse<any>>) {
+    result.subscribe((res: HttpResponse<any>) => this.onCommentWriteSaveSuccess(res), (res: HttpErrorResponse) => this.onCommentWriteSaveError());
+  }
+
+  protected onCommentWriteSaveSuccess(res: any) {
+
+    this.commentForm.patchValue({
+      
+      text: "",
+    });
+
+    if(this.id != undefined && this.id != 0){
+      this.taskService.getTask(this.id.toString(10)).subscribe(data =>{
+        this.task = data.body;
+
+        this.editForm.patchValue({
+          state: this.task.state,
+          prioridad: this.task.priority
+        });
+        
+      });
+    }
+  }
+  protected onCommentWriteSaveError() {
+    console.log("ERROR");
+  }
+
+  
 
 }

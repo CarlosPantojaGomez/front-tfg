@@ -1,4 +1,15 @@
-<div class="media animated fadeIn" *ngIf="project != undefined">
+<div class="media animated fadeIn">
+  <div class="btn-group btn-group-toggle btn-block" data-toggle="buttons">
+      <label class="btn btn-light" (click)="onClickMe(1)">
+          <input type="radio" name="options" id="option1"> Proyecto
+      </label>
+      <label class="btn btn-light" (click)="onClickMe(2)">
+          <input type="radio" name="options" id="option2"> Usuarios
+      </label>
+  </div>
+</div>
+
+<div class="media animated cuerpo fadeIn" *ngIf="project != undefined && proyectoView">
   <div class="col-8">
     <div class="col-12">
       <h1>{{project.name}}</h1>
@@ -10,28 +21,16 @@
       </p>
     </div>
   </div>
-  <div class="col-2">
+  <div class="col-4">
     <div class="card" >
       <div class="card-body">
         <h5 class="card-title">Creador: {{project.creator.nickname}}</h5>
-        <p class="card-text">{{project.creator.name}} {{project.creator.firstLastName}} {{project.creator.secondLastName}}</p>
+        <p class="card-text"><app-profile-picture [imagePatch]="project.creator.profilePicture"></app-profile-picture> {{project.creator.name}} {{project.creator.firstLastName}} {{project.creator.secondLastName}}</p>
       </div>
-    </div>
-  </div>
-  <div class="col-2">
-    <div class="card" >
-      <div class="card-body">
-        <h5 class="card-title">Usuarios:</h5>
-      </div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">Cras justo odio</li>
-        <li class="list-group-item">Dapibus ac facilisis in</li>
-        <li class="list-group-item">Vestibulum at eros</li>
-      </ul>
     </div>
   </div>
 </div>
-<div class="media animated fadeIn cuerpo" *ngIf="project && tasks != undefined && tasks.length != 0">
+<div class="media animated fadeIn cuerpo" *ngIf="project && tasks != undefined && tasks.length != 0 && proyectoView">
   
   <div class="list-group col-3">
     <h5>Para desarrollar</h5>
@@ -112,5 +111,17 @@
         </div>
       </a>
     </div>
+  </div>
+</div>
+<div class="col-12 form-group cuerpo" *ngIf="usuariosView">
+  <div class="list-group" *ngIf="this.project.usersRelated != undefined">
+    <a *ngFor="let k of project.usersRelated | keys; let i = index" class="list-group-item flex-column align-items-start list-group-item-action" 
+    style="cursor: pointer;">
+      <div class="d-flex w-100 justify-content-start">
+        <app-profile-picture [imagePatch]="project.usersRelated[k].profilePicture"></app-profile-picture>
+        <h5 class="mb-1" style="margin-right: 2%;">{{project.usersRelated[k].nickname}}</h5>
+        <p class="mb-1"> {{project.creator.name}} {{project.creator.firstLastName}} {{project.creator.secondLastName}} ({{project.usersRelated[k].email}})</p>
+      </div>
+    </a>
   </div>
 </div>

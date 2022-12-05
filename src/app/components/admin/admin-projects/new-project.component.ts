@@ -66,6 +66,7 @@ export class NewProjectComponent implements OnInit {
           producto: data.body.product != undefined ? data.body.product.id : null
         });
         
+        this.usuariosRelated = data.body.usersRelated;
         this.buttonDone = 'Guardar';
         this.header = 'Editar Proyecto';
         

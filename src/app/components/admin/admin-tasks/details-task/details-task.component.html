@@ -21,25 +21,33 @@
       </p>
     </div>
     <div class="col-12">
-      <h6 class="card-title">Comentarios: {{task.creator?.nickname}}</h6>
-    </div>
-    <div class="col-12">
-      <form name="writeComment" role="form" novalidate (ngSubmit)="save()" [formGroup]="writeComment">
+      <form name="commentForm" role="form" novalidate (ngSubmit)="writeComment()" [formGroup]="commentForm">
         <div class="col-12">
           <div class="form-group">
-            <textarea id="text" formControlName="text" name="text" rows="4" cols="50" class="form-control" placeholder="Escribe un comentario..."></textarea>
+            <textarea id="text" formControlName="text" name="text" rows="4" cols="50" class="form-control" placeholder="Escribe un comentario..." required></textarea>
+          </div>
+        </div>
+        <div class="col-2">
+          <div class="form-group">
+            <br>
+            <button [disabled]="commentForm.invalid" type="submit" class="btn btn-outline-primary form-control">
+              Enviar
+            </button>
           </div>
         </div>
       </form>
     </div>
-    <div class="col-2">
-      <div class="form-group">
-        <br>
-        <button [disabled]="writeComment.invalid" type="submit" class="btn btn-outline-primary form-control">
-          Enviar
-        </button>
+    <div class="my-3 p-3 bg-white rounded box-shadow">
+      <h6 class="border-bottom border-gray pb-2 mb-0">Comentarios</h6>
+      <div class="media text-muted pt-3" *ngFor="let k of task.comments | keys; let i = index">
+        <app-profile-picture [imagePatch]="task.comments[k].creator?.profilePicture"></app-profile-picture>
+        <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+          <strong class="d-block text-gray-dark">@{{task.comments[k].creator.nickname}}</strong>
+          {{task.comments[k].text}}
+        </p>
       </div>
     </div>
+    
   </div>
   <div class="col-3">
     <div class="card" >

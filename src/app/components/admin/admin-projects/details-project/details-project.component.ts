@@ -17,6 +17,9 @@ export class DetailsProjectComponent implements OnInit {
 
   project: Project;
 
+  proyectoView: boolean;
+  usuariosView: boolean;
+
   public PriorityLabelMapping = PriorityLabelMapping;
   
   tasks: Array<Task> = [];
@@ -26,6 +29,7 @@ export class DetailsProjectComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.project);
+    this.proyectoView = true;
     
     if(this.id != undefined && this.id != 0){
       this.projectService.getProject(this.id.toString(10)).subscribe(data =>{
@@ -37,6 +41,24 @@ export class DetailsProjectComponent implements OnInit {
   }
   verTarea(id: number){
     this.goTask.emit(id);
+  }
+
+  public onClickMe(option: number) {
+    switch (option) {
+      case 1:
+        this.proyectoView = true;
+        this.usuariosView = false;
+        break;
+      case 2:
+        this.proyectoView = false;
+        this.usuariosView = true;
+        break;
+      case 3:
+      default:
+
+        break;
+    }
+    
   }
 
 }

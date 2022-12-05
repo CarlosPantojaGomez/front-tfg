@@ -70,6 +70,7 @@ import { AdminMensajesComponent } from './components/admin/admin-mensajes/admin-
 import { NewMensajeComponent } from './components/admin/admin-mensajes/new-mensaje/new-mensaje.component';
 import { DetailsProjectComponent } from './components/admin/admin-projects/details-project/details-project.component';
 import { DetailsTaskComponent } from './components/admin/admin-tasks/details-task/details-task.component';
+import { ProfilePictureComponent } from './components/profile/profile-picture/profile-picture.component';
 
 @NgModule({
   declarations: [
@@ -116,7 +117,8 @@ import { DetailsTaskComponent } from './components/admin/admin-tasks/details-tas
     AdminMensajesComponent,
     NewMensajeComponent,
     DetailsProjectComponent,
-    DetailsTaskComponent
+    DetailsTaskComponent,
+    ProfilePictureComponent
   ],
   imports: [
     BrowserModule,

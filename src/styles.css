@@ -51,6 +51,10 @@ footer {
   margin-bottom: 2%;
 }
 
+.rounded-circle {
+  border-radius: 50%!important;
+}
+
 
 /* Animaciones */
 .animated {
