@@ -92,8 +92,14 @@
     <div class="list-group" *ngIf="this.usuariosRelated != undefined">
       <a *ngFor="let k of usuariosRelated | keys; let i = index" class="list-group-item flex-column align-items-start list-group-item-action" 
       style="cursor: pointer;">
-        <div class="d-flex w-100 justify-content-start">
+        <div class="d-flex w-100 justify-content-start align-items-center">
           <h5 class="mb-1" style="margin-right: 2%;">{{usuariosRelated[k].nickname}}</h5>
+          <div class="btn-group ml-auto p-2" role="group" aria-label="Basic example">
+            <button type="button" 
+                class="btn btn-secondary btn-sm animated fadeIn " 
+                (click)="deleteUser(k)">Eliminar
+            </button>
+        </div>
         </div>
         
       </a>

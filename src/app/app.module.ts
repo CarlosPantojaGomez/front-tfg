@@ -71,6 +71,7 @@ import { NewMensajeComponent } from './components/admin/admin-mensajes/new-mensa
 import { DetailsProjectComponent } from './components/admin/admin-projects/details-project/details-project.component';
 import { DetailsTaskComponent } from './components/admin/admin-tasks/details-task/details-task.component';
 import { ProfilePictureComponent } from './components/profile/profile-picture/profile-picture.component';
+import { OrderByPipe } from './helpers/orderByPipe';
 
 @NgModule({
   declarations: [
@@ -118,7 +119,8 @@ import { ProfilePictureComponent } from './components/profile/profile-picture/pr
     NewMensajeComponent,
     DetailsProjectComponent,
     DetailsTaskComponent,
-    ProfilePictureComponent
+    ProfilePictureComponent,
+    OrderByPipe
   ],
   imports: [
     BrowserModule,

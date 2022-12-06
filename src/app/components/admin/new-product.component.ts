@@ -48,7 +48,8 @@ export class NewProductComponent implements OnInit {
     name: [],
     description: [],
     features: [],
-    price: []
+    price: [],
+    forSale: []
   });
   
   constructor(
@@ -69,7 +70,8 @@ export class NewProductComponent implements OnInit {
           name: data.body.name,
           description: data.body.description,
           features: data.body.features,
-          price: data.body.price
+          price: data.body.price,
+          forSale: data.body.forSale
         });
 
         this.profileImage = data.body.profileImage;
@@ -278,11 +280,13 @@ export class NewProductComponent implements OnInit {
   
 
   private createFromForm(): ProductoRequest {
-
+    console.log(this.editForm.get(['forSale']).value);
+    
     const producto={
       id: this.edit ? this.id : null,
       name: this.editForm.get(['name']).value,
       description: this.editForm.get(['description']).value,
+      forSale: this.editForm.get(['forSale']).value,
       price: this.editForm.get(['price']).value,
       features: this.editForm.get(['features']).value
     };

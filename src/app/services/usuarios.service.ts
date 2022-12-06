@@ -56,6 +56,11 @@ export class UsuariosService {
     this.extend = this.URL + '/users/findByNickname/' + input;
     return this.http.get<any>(this.extend, { observe: 'response' });
   }
+
+  findbyNicknameForTask(input: string, projectId: string): Observable<EntityArrayResponseType> {
+    this.extend = this.URL + '/users/findByNicknameForTask/' + input + "/" + projectId;
+    return this.http.get<any>(this.extend, { observe: 'response' });
+  }
   getUsuarioBy(key$:string, input: string): Observable<EntityResponseType> {
     this.extend = this.URL + '/user/find' + input +'/' + key$;
     return this.http.get<any>(this.extend, { observe: 'response' });

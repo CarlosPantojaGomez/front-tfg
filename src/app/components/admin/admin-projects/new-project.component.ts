@@ -186,5 +186,10 @@ export class NewProjectComponent implements OnInit {
     this.usuariosSearch = undefined;
     
   }
-
+  
+  deleteUser(indexx: number) {
+    this.usuariosRelated.forEach((element,index)=>{
+      if(index==indexx) this.usuariosRelated.splice(index,1);
+    });
+  }
 }

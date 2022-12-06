@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class AdminComponent implements OnInit {
 
   nonreadMensjaes: number = 0;
+  showActividades: number = 0;
   constructor() { }
 
   ngOnInit() {
@@ -20,5 +21,10 @@ export class AdminComponent implements OnInit {
   loadNonReadCount(event: number){
     console.log(event);
     this.nonreadMensjaes = event;
+  }
+
+  goToHome(){
+    this.showActividades++;
+    
   }
 }

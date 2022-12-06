@@ -20,6 +20,12 @@ export class DetailsProjectComponent implements OnInit {
   proyectoView: boolean;
   usuariosView: boolean;
 
+  
+  paraDesarrollar: number = 0 ;
+  enDesarrollo: number = 0 ;
+  listasParaVerificar: number = 0 ;
+  completadas: number = 0 ;
+
   public PriorityLabelMapping = PriorityLabelMapping;
   
   tasks: Array<Task> = [];
@@ -35,6 +41,24 @@ export class DetailsProjectComponent implements OnInit {
       this.projectService.getProject(this.id.toString(10)).subscribe(data =>{
         this.project = data.body;
 
+        this.project.tasks.forEach((element,index)=>{
+          switch (element.state) {
+            case 0:
+              this.paraDesarrollar++;
+              break;
+            case 1:
+              this.enDesarrollo++;
+              break;
+            case 2:
+              this.listasParaVerificar++;
+              break;
+            case 3:
+              this.completadas++;
+              break;
+            default:
+              break;
+          }
+        });
         this.tasks = this.project.tasks;
       });
     }

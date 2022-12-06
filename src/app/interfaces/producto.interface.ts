@@ -6,6 +6,7 @@ export interface Producto{
     id?: number;
     name?: string;
     description?: string;
+    forSale?: boolean;
     features?: string;
     price?: number;
     rating?: number;

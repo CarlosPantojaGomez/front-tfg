@@ -1,7 +1,7 @@
 <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
   <div class="container main-container">
     <h4>{{header}} </h4>
-      <div class="row animated fadeIn">
+      <div class="row animated fadeIn align-items-center">
           <div class="col-4 ">
             <div class="form-group">
               <label>Nombre</label>
@@ -24,7 +24,14 @@
                 required>
             </div>
           </div>
-          <div class="col-2"> </div>
+          <div class="col-auto my-1">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="autoSizingCheck2" formControlName="forSale">
+              <label class="form-check-label" for="autoSizingCheck2">
+                A la venta
+              </label>
+            </div>
+          </div>
           <div class="col-2">
             <div class="form-group">
               <br>

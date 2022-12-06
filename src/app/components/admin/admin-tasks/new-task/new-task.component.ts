@@ -5,6 +5,8 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { TaskService } from 'src/app/services/task.service';
 import { Task } from 'src/app/interfaces/task.interface';
 import { PriorityLabelMapping, TaskPriority } from 'src/app/interfaces/priorities';
+import { Usuario } from 'src/app/interfaces/usuario.interface';
+import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
   selector: 'app-new-task',
@@ -24,6 +26,12 @@ export class NewTaskComponent implements OnInit {
   public priorities = Object.values(TaskPriority).filter(value => typeof value === 'number');
   edit: boolean;
 
+  tareaView: boolean;
+  usuariosView: boolean;
+
+  usuariosRelated: Array<Usuario> = [];
+  usuariosSearch: Usuario[];
+
   editForm = this.fb.group({
     name: [],
     prioridad: [],
@@ -34,11 +42,15 @@ export class NewTaskComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private taskService: TaskService) { }
+    private taskService: TaskService,
+    private userService: UsuariosService) { }
 
   ngOnInit() {
     this.edit = false;
     
+    this.tareaView = true;
+    this.usuariosView = false;
+
     this.buttonDone = 'Crear';
     this.header = 'Nueva Tarea';
     console.log(this.id);
@@ -52,6 +64,8 @@ export class NewTaskComponent implements OnInit {
           name: data.body.name,
           description: data.body.description
         });
+
+        this.usuariosRelated = data.body.assignedUsers;
         
         this.buttonDone = 'Guardar';
         this.header = 'Editar Tarea';
@@ -92,6 +106,7 @@ export class NewTaskComponent implements OnInit {
       priority: this.editForm.get(['prioridad']).value,
       state: 0,
       project: project,
+      assignedUsers: this.usuariosRelated,
       creator: creator
     };
     
@@ -109,6 +124,54 @@ export class NewTaskComponent implements OnInit {
   }
   protected onSaveError() {
     console.log("ERROR");
+  }
+
+  public onClickMe(option: number) {
+    console.log(option);
+    
+    switch (option) {
+      case 1:
+        this.tareaView = true;
+        this.usuariosView = false;
+        break;
+      case 2:
+        this.tareaView = false ;
+        this.usuariosView = true;
+        break;
+      default:
+
+        break;
+    }
+    
+  }
+
+  onSearchSetUser(searchValue: string): void {  
+    if(searchValue.length > 2){
+      this.userService.findbyNicknameForTask(searchValue, this.projectId.toString(10)).subscribe(data =>{
+        if (data.body.length > 0){
+          this.usuariosSearch = data.body;
+        }else {
+          this.usuariosSearch = undefined;
+        }
+      });
+    } else {
+      this.usuariosSearch = undefined;
+    }
+  }
+
+  selectUser(i: number) {
+    console.log(this.usuariosSearch[i]);
+    
+    this.usuariosRelated.push(this.usuariosSearch[i]);
+    
+    this.usuariosSearch = undefined;
+    
+  }
+  
+  deleteUser(indexx: number) {
+    this.usuariosRelated.forEach((element,index)=>{
+      if(index==indexx) this.usuariosRelated.splice(index,1);
+    });
   }
 
 }

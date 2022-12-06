@@ -33,7 +33,7 @@
 <div class="media animated fadeIn cuerpo" *ngIf="project && tasks != undefined && tasks.length != 0 && proyectoView">
   
   <div class="list-group col-3">
-    <h5>Para desarrollar</h5>
+    <h5>Para desarrollar ({{paraDesarrollar}}/{{tasks.length}})</h5>
     <div *ngFor="let k of tasks | keys; let i = index" class="col-11">
       <a  class="list-group-item flex-column align-items-start list-group-item-action"
         *ngIf="tasks[k].state == 0"
@@ -53,7 +53,7 @@
   </div>
 
   <div class="list-group col-3">
-    <h5>En desarrollo</h5>
+    <h5>En desarrollo ({{enDesarrollo}}/{{tasks.length}})</h5>
     <div *ngFor="let k of tasks | keys; let i = index" class="col-11">
       <a  class="list-group-item flex-column align-items-start list-group-item-action"
         *ngIf="tasks[k].state == 1"
@@ -73,7 +73,7 @@
     </div>
   </div>
   <div class="list-group col-3">
-    <h5>Listas para verificar</h5>
+    <h5>Listas para verificar ({{listasParaVerificar}}/{{tasks.length}})</h5>
     <div *ngFor="let k of tasks | keys; let i = index" class="col-11">
       <a  class="list-group-item flex-column align-items-start list-group-item-action"
         *ngIf="tasks[k].state == 2"
@@ -93,7 +93,7 @@
     </div>
   </div>
   <div class="list-group col-3">
-    <h5>Completadas</h5>
+    <h5>Completadas ({{completadas}}/{{tasks.length}})</h5>
     <div *ngFor="let k of tasks | keys; let i = index" class="col-11">
       <a  class="list-group-item flex-column align-items-start list-group-item-action"
         *ngIf="tasks[k].state == 3"
@@ -117,7 +117,7 @@
   <div class="list-group" *ngIf="this.project.usersRelated != undefined">
     <a *ngFor="let k of project.usersRelated | keys; let i = index" class="list-group-item flex-column align-items-start list-group-item-action" 
     style="cursor: pointer;">
-      <div class="d-flex w-100 justify-content-start">
+      <div class="d-flex w-100 justify-content-start align-items-center">
         <app-profile-picture [imagePatch]="project.usersRelated[k].profilePicture"></app-profile-picture>
         <h5 class="mb-1" style="margin-right: 2%;">{{project.usersRelated[k].nickname}}</h5>
         <p class="mb-1"> {{project.creator.name}} {{project.creator.firstLastName}} {{project.creator.secondLastName}} ({{project.usersRelated[k].email}})</p>

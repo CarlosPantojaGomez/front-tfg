@@ -90,11 +90,22 @@ export class DetailsTaskComponent implements OnInit {
   }
 
   private createFromForm(): Task {
+    var creatorNickname = "";
+
+    if(JSON.parse(sessionStorage.getItem('currentUser'))!= null){
+      creatorNickname = JSON.parse(sessionStorage.getItem('currentUser')).nickname
+    }
+
+    const creator={
+      nickname: creatorNickname
+    };
 
     const task={
       id: this.id,
       priority: this.editForm.get(['prioridad']).value,
-      state: this.editForm.get(['state']).value
+      state: this.editForm.get(['state']).value,
+      creator: creator
+
     };
     
     return task;
@@ -102,14 +113,14 @@ export class DetailsTaskComponent implements OnInit {
 
   private createCommentFromForm(): TaskComment {
 
-    var creatorId = 0;
+    var creatorNickname = "";
 
     if(JSON.parse(sessionStorage.getItem('currentUser'))!= null){
-      creatorId = JSON.parse(sessionStorage.getItem('currentUser')).id
+      creatorNickname = JSON.parse(sessionStorage.getItem('currentUser')).nickname
     }
 
     const creator={
-      id: creatorId
+      nickname: creatorNickname
     };
 
     const taskComment={

@@ -3,7 +3,7 @@
     <nav class="col-md-2 d-none d-md-block bg-light sidebar">
       <div class="sidebar-sticky">
         <div class="list-group" id="list-tab" role="tablist">
-          <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">Home</a>
+          <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home" (click)="goToHome()">Home</a>
           <a class="list-group-item list-group-item-action" id="list-users-list" data-toggle="list" href="#list-users" role="tab" aria-controls="Usuarios">Usuarios</a>
           <a class="list-group-item list-group-item-action" id="list-products-list" data-toggle="list" href="#list-products" role="tab" aria-controls="Contraseña">Productos</a>
           <a class="list-group-item list-group-item-action" id="list-projects-list" data-toggle="list" href="#list-projects" role="tab" aria-controls="projects">Proyectos</a>
@@ -21,7 +21,7 @@
         <div class="card-body">
           <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
-              <app-admin-main></app-admin-main>
+              <app-admin-main [change]="showActividades"></app-admin-main>
             </div>
             <div class="tab-pane fade" id="list-users" role="tabpanel" aria-labelledby="list-users-list">
               <app-admin-users></app-admin-users>

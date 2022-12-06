@@ -1,18 +1,54 @@
-<div class="">
+<button type="button" *ngIf="(detailsProject || detailsTask)" style="margin-top: 2%; margin-bottom: 2%;" class="btn btn-secondary btn-sm animated fadeIn" (click)="loadState(false,false, false,false)">
+  <svg class="bi bi-arrow-left-short" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" d="M7.854 4.646a.5.5 0 010 .708L5.207 8l2.647 2.646a.5.5 0 01-.708.708l-3-3a.5.5 0 010-.708l3-3a.5.5 0 01.708 0z" clip-rule="evenodd"/>
+    <path fill-rule="evenodd" d="M4.5 8a.5.5 0 01.5-.5h6.5a.5.5 0 010 1H5a.5.5 0 01-.5-.5z" clip-rule="evenodd"/>
+  </svg>
+</button>
+<div class="" *ngIf="!detailsProject && !detailsTask">
+  
   <div class="tab-pane fade show active animated fadeIn" id="nav-clientes" role="tabpanel" aria-labelledby="nav-home-tab" >
     <h4 *ngIf="usuario != undefined">Bienvenido {{usuario.nickname}}</h4>
     <br>
+    <div class="input-group mb-3">
+      
+      <input type="text" class="form-control" aria-label="Text input with checkbox">
+      <div class="input-group-append">
+        <span class="input-group-text" id="basic-addon2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+          </svg>
+        </span>
+      </div>
+      <div class="input-group-prepend align-items-center">
+        <div class="input-group-text form-check">
+          <input type="checkbox" style="margin-right: 5%;" [(ngModel)]="proyectos" aria-label="Checkbox for following text input" (change)="filterActivities()">
+          <label class="form-check-label" for="autoSizingCheck2">
+             Proyectos
+          </label>
+        </div>
+        <div class="input-group-text">
+          <input type="checkbox" style="margin-right: 5%;" [(ngModel)]="tareas"  aria-label="Checkbox for following text input" (change)="filterActivities()">
+          <label class="form-check-label" for="autoSizingCheck2">
+             Tareas
+          </label>
+        </div>
+      </div>
+    </div>
     <h5>Actividad reciente:</h5>
     <div class="list-group" *ngIf="activities != undefined">
-        <a *ngFor="let k of activities | keys; let i = index" class="list-group-item flex-column align-items-start list-group-item-action"
+      <div *ngFor="let act of activitiesToShow | orderByy: 'id' ">
+        <a  class="list-group-item flex-column align-items-start list-group-item-action"
         style="cursor: pointer;"
-        (click)="verMensaje(k)">
-          <div class="d-flex w-100 justify-content-start">
-            <h6 class="mb-1" style="margin-right: 2%;">{{activities[k].creator.nickname}} ha {{activities[k].action}} {{activities[k].object}}</h6>
-            <h6 class="mb-1 ml-auto">{{activities[k].activityDate}}</h6>
+        (click)="verActividad(act)">
+          <div class="d-flex w-100 justify-content-start ">
+            <app-profile-picture [imagePatch]="act.creator?.profilePicture"></app-profile-picture>
+            <h6 class="mb-1" style="margin-right: 2%;">{{act.creator?.nickname}} ha {{act.action}} {{act.object}}</h6>
+            <h6 class="mb-1 ml-auto">{{act.activityDate}}</h6>
           </div>
-          
         </a>
       </div>
+    </div>
   </div>
 </div>
+<app-details-project *ngIf="detailsProject" [id]="projectId" (goBack)="loadState(false,false)" (goTask)="verTarea($event)"></app-details-project>
+<app-details-task *ngIf="detailsTask" [id]="taskId" (goBack)="loadState(true,false)"></app-details-task>

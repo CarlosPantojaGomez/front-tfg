@@ -1,5 +1,16 @@
-<form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-  <div class="container main-container">
+<div class="media animated fadeIn">
+  <div class="btn-group btn-group-toggle btn-block" data-toggle="buttons">
+      <label class="btn btn-light" (click)="onClickMe(1)">
+          <input type="radio" name="options" id="option1">Tarea
+      </label>
+      <label class="btn btn-light" (click)="onClickMe(2)">
+        <input type="radio" name="options" id="option2"> Usuarios
+    </label>
+  </div>
+</div>
+
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm" *ngIf="tareaView">
+  <div class="main-container">
     <h4>{{header}} </h4>
       <div class="row animated fadeIn">
           <div class="col-4 ">
@@ -67,3 +78,38 @@
       
   </div>
 </form>
+
+<div class="col-12 form-group" *ngIf="usuariosView">
+  <div class="input-group mb-3 cuerpo">
+    <input type="text" class="form-control" placeholder="Buscar Usarios" aria-label="Buscar Usarios" aria-describedby="basic-addon2"
+    (input)="onSearchSetUser($event.target.value)"
+    >
+    <div class="input-group-append">
+      <span class="input-group-text" id="basic-addon2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+          <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+        </svg>
+      </span>
+    </div>
+    <div class="dropdown-menu dropdown" [ngClass]="{'show': this.usuariosSearch != undefined}">
+      <a class="dropdown-item" *ngFor="let k of this.usuariosSearch | keys; let i = index" (click)="selectUser(k)">
+        {{this.usuariosSearch[k].name}}
+      </a>
+    </div>
+  </div>
+  <div class="list-group" *ngIf="this.usuariosRelated != undefined">
+    <a *ngFor="let k of usuariosRelated | keys; let i = index" class="list-group-item flex-column align-items-start list-group-item-action" 
+    style="cursor: pointer;">
+      <div class="d-flex w-100 justify-content-start align-items-center">
+        <h5 class="mb-1" style="margin-right: 2%;">{{usuariosRelated[k].nickname}}</h5>
+        <div class="btn-group ml-auto p-2" role="group" aria-label="Basic example">
+          <button type="button" 
+              class="btn btn-secondary btn-sm animated fadeIn " 
+              (click)="deleteUser(k)">Eliminar
+          </button>
+      </div>
+      </div>
+      
+    </a>
+  </div>
+</div>
