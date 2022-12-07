@@ -14,5 +14,6 @@ export interface Activity{
     task?: Task;
     project?: Project;
     mail?: Mail;
-    object: string;
+    object?: string;
+    filterField?: string;
 }

@@ -1,4 +1,4 @@
-<div class="container main-container">
+<div class="container main-container" *ngIf="this.usuario">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
         <div class="row animated fadeIn">
             <div class="col-6">

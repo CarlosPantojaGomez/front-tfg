@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ElementRef, ViewChild ,Output, EventEmitter} from '@angular/core';
+import { Component, OnInit, Output, EventEmitter} from '@angular/core';
 import { Mail } from 'src/app/interfaces/mail.interface';
 import { Mensaje } from 'src/app/interfaces/mensaje.interface';
 import { MailService } from 'src/app/services/mail.service';

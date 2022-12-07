@@ -1,11 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import { FirestoreSettingsToken} from '@angular/fire/firestore';
+import { SETTINGS} from '@angular/fire/firestore';
 import { HttpClientModule } from "@angular/common/http";
 
 //rutas
@@ -72,6 +72,7 @@ import { DetailsProjectComponent } from './components/admin/admin-projects/detai
 import { DetailsTaskComponent } from './components/admin/admin-tasks/details-task/details-task.component';
 import { ProfilePictureComponent } from './components/profile/profile-picture/profile-picture.component';
 import { OrderByPipe } from './helpers/orderByPipe';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -130,9 +131,10 @@ import { OrderByPipe } from './helpers/orderByPipe';
     AngularFirestoreModule,
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
-    APP_ROUTING
+    APP_ROUTING,
+    BrowserAnimationsModule
   ],
-  providers: [{ provide: FirestoreSettingsToken, useValue: {} },
+  providers: [{ provide: SETTINGS, useValue: {} },
               UsuariosService,
               ProductosService,
               ChatService,

@@ -20,6 +20,7 @@ export class NavbarComponent implements OnInit {
   trabajo: boolean;
   perfil: boolean;
 
+  routeHome: string;
   id: string;
 
   constructor(
@@ -27,6 +28,8 @@ export class NavbarComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
+    this.routeHome = "home";
+
     if(JSON.parse(sessionStorage.getItem('currentUser'))!= null){
       this.loadState(JSON.parse(sessionStorage.getItem('currentUser')).userType);
         this.id = JSON.parse(sessionStorage.getItem('currentUser')).id;
@@ -77,6 +80,28 @@ export class NavbarComponent implements OnInit {
         this.perfil = true;
         break;
       case 2:
+        this.productos = false;
+        this.registrarse = false;
+        this.chat = false;
+        this.usuarios = false;
+        this.login = false;
+        this.logout = true;
+        this.trabajo = true;
+        this.perfil = true;
+        this.routeHome = "admin";
+        this.router.navigate(['/admin']);
+        break;
+      case 3:
+        this.productos = false;
+        this.registrarse = false;
+        this.chat = false;
+        this.usuarios = false;
+        this.login = false;
+        this.logout = true;
+        this.trabajo = true;
+        this.perfil = true;
+        this.routeHome = "admin";
+        this.router.navigate(['/admin']);
         break;
       case 4:
         this.productos = false;
@@ -87,6 +112,7 @@ export class NavbarComponent implements OnInit {
         this.logout = true;
         this.trabajo = false;
         this.perfil = false;
+        this.routeHome = "admin";
         this.router.navigate(['/admin']);
       default:
         console.log('nulo');

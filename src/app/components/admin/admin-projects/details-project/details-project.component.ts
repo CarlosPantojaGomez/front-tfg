@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ElementRef, ViewChild ,Output, EventEmitter} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import { PriorityLabelMapping } from 'src/app/interfaces/priorities';
 import { Project } from 'src/app/interfaces/project.interface';
 import { Task } from 'src/app/interfaces/task.interface';

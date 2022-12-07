@@ -25,9 +25,19 @@ export class AdminProjectsComponent implements OnInit {
     private projectervice: ProjectService) { }
 
   ngOnInit() {
-    this.projectervice.getProjects().subscribe(data =>{
-      this.proyectos=data.body;
-    });
+
+    if(JSON.parse(sessionStorage.getItem('currentUser'))!= null){
+      if(JSON.parse(sessionStorage.getItem('currentUser')).userType != 4){
+        this.projectervice.getProjectsForUser(JSON.parse(sessionStorage.getItem('currentUser')).id.toString(10)).subscribe(data =>{
+          this.proyectos=data.body;
+        });
+      }else {
+        this.projectervice.getProjects().subscribe(data =>{
+          this.proyectos=data.body;
+        });
+      }
+    }
+    
 
     this.creatingProject = false;
     this.editingProject = false;

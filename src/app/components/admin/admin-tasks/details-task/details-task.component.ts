@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ElementRef, ViewChild ,Output, EventEmitter} from '@angular/core';
+import { Component, OnInit, Input} from '@angular/core';
 import { Task } from 'src/app/interfaces/task.interface';
 import { FormBuilder } from '@angular/forms';
 import { TaskService } from 'src/app/services/task.service';
@@ -113,14 +113,14 @@ export class DetailsTaskComponent implements OnInit {
 
   private createCommentFromForm(): TaskComment {
 
-    var creatorNickname = "";
+    var creatorId;
 
     if(JSON.parse(sessionStorage.getItem('currentUser'))!= null){
-      creatorNickname = JSON.parse(sessionStorage.getItem('currentUser')).nickname
+      creatorId = JSON.parse(sessionStorage.getItem('currentUser')).id
     }
 
     const creator={
-      nickname: creatorNickname
+      id: creatorId
     };
 
     const taskComment={

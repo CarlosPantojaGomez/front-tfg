@@ -33,6 +33,11 @@ export class ActivityService {
     if (res.body) {
       res.body.forEach((activity: Activity) => {
         activity.object = activity.mail != null ? "el mensaje: " + activity.mail.subject : activity.product != null ? "el producto: " + activity.product.name : activity.project != null ? "el proyecto: " + activity.project.name : activity.task != null ? "la tarea: " + activity.task.name : "";
+        var prodcut = activity.product != null ? activity.product.name : "";
+        var project = activity.project != null ? activity.project.name : "";
+        var mail = activity.mail != null ?  activity.mail.subject : "";
+        var task = activity.task != null ? activity.task.name : "";
+        activity.filterField = activity.action + " " + prodcut+ " " + project+ " " + mail+ " " +  task;
         // product.cardImage = product.cardImage != null ? product.cardImage : '';
       });
     }

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ElementRef, ViewChild ,Output, EventEmitter} from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+
 import { Observable } from 'rxjs';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { TaskService } from 'src/app/services/task.service';
@@ -38,6 +39,11 @@ export class NewTaskComponent implements OnInit {
     description: [],
     creationDate: [],
     endDate: []
+  });
+
+  range = new FormGroup({
+    start: new FormControl(null),
+    end: new FormControl(null),
   });
 
   constructor(

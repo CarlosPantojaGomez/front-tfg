@@ -49,6 +49,14 @@ export class ProjectService {
 
   }
 
+  getProjectsForUser(userId: string):Observable<EntityArrayResponseType>{
+    this.extend = this.URL + "/projects/user/" + userId;
+    return this.http
+      .get<any>(this.extend, { observe: 'response' })
+      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res))); 
+
+  }
+
   protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
     if (res.body) {
     //   res.body.cardImage = res.body.cardImage != null ? res.body.cardImage : '';

@@ -4,14 +4,14 @@
       <div class="sidebar-sticky">
         <div class="list-group" id="list-tab" role="tablist">
           <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home" (click)="goToHome()">Home</a>
-          <a class="list-group-item list-group-item-action" id="list-users-list" data-toggle="list" href="#list-users" role="tab" aria-controls="Usuarios">Usuarios</a>
-          <a class="list-group-item list-group-item-action" id="list-products-list" data-toggle="list" href="#list-products" role="tab" aria-controls="Contraseña">Productos</a>
-          <a class="list-group-item list-group-item-action" id="list-projects-list" data-toggle="list" href="#list-projects" role="tab" aria-controls="projects">Proyectos</a>
-          <a class="list-group-item list-group-item-action" id="list-tasks-list" data-toggle="list" href="#list-tasks" role="tab" aria-controls="tasks">Tareas</a>
-          <a class="list-group-item list-group-item-action" id="list-mails-list" data-toggle="list" href="#list-mails" role="tab" aria-controls="mails">Mensajes
+          <a *ngIf="usuariosView" class="list-group-item list-group-item-action" id="list-users-list" data-toggle="list" href="#list-users" role="tab" aria-controls="Usuarios">Usuarios</a>
+          <a *ngIf="ProductosView" class="list-group-item list-group-item-action" id="list-products-list" data-toggle="list" href="#list-products" role="tab" aria-controls="Contraseña">Productos</a>
+          <a *ngIf="ProyectosView" class="list-group-item list-group-item-action" id="list-projects-list" data-toggle="list" href="#list-projects" role="tab" aria-controls="projects">Proyectos</a>
+          <a *ngIf="TareasView" class="list-group-item list-group-item-action" id="list-tasks-list" data-toggle="list" href="#list-tasks" role="tab" aria-controls="tasks">Tareas</a>
+          <a *ngIf="MensajesView" class="list-group-item list-group-item-action" id="list-mails-list" data-toggle="list" href="#list-mails" role="tab" aria-controls="mails">Mensajes
             <span class="badge badge-primary badge-pill" *ngIf="nonreadMensjaes > 0" >{{nonreadMensjaes}}</span>
           </a>
-          <a class="list-group-item list-group-item-action" id="list-news-list" data-toggle="list" href="#list-news" role="tab" aria-controls="news">Noticias</a>
+          <a *ngIf="NoticiasView" class="list-group-item list-group-item-action" id="list-news-list" data-toggle="list" href="#list-news" role="tab" aria-controls="news">Noticias</a>
         </div>
       </div>
     </nav>

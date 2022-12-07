@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ElementRef, ViewChild ,Output, EventEmitter} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { PriorityLabelMapping, TaskPriority } from 'src/app/interfaces/priorities';
 import { Producto } from 'src/app/interfaces/producto.interface';
