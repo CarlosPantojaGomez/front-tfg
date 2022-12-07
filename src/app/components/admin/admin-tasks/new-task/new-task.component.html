@@ -13,7 +13,7 @@
   <div class="main-container">
     <h4>{{header}} </h4>
       <div class="row animated fadeIn">
-          <div class="col-4 ">
+          <div class="col-6 ">
             <div class="form-group">
               <label>Nombre</label>
               <input  formControlName="name"
@@ -24,7 +24,7 @@
                 required>
             </div>
           </div>
-          <div class="col-4">
+          <div class="col-2">
             <div class="form-group">
               <label>Prioridad</label>
               <select class="custom-select" formControlName="prioridad" required>
@@ -35,15 +35,39 @@
               </select>
             </div>
           </div>
-          <div class="col-4">
-            <mat-label>Enter a date range</mat-label>
-            <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
-              <input matStartDate formControlName="start" placeholder="Start date">
-              <input matEndDate formControlName="end" placeholder="End date">
-            </mat-date-range-input>
-            <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
-            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-date-range-picker #picker></mat-date-range-picker>
+          <div class="col-2">
+            <label>Nombre</label>
+            <div class="input-group mb-3 ">
+              <input 
+                name="nombre"
+                type="text"
+                class="form-control"
+                placeholder="Fecha"
+                required
+                readonly
+                matInput [matDatepicker]="picker">
+                <div class="input-group-append">
+                  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </div>
+            </div>
+          </div>
+          <div class="col-2">
+            <label>Nombre</label>
+            <div class="input-group mb-3 ">
+              <input 
+                name="nombre"
+                type="text"
+                class="form-control"
+                placeholder="Fecha"
+                required
+                readonly
+                matInput [matDatepicker]="picker2">
+                <div class="input-group-append">
+                  <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                  <mat-datepicker #picker2></mat-datepicker>
+                </div>
+            </div>
           </div>
           <!-- <div class="col-4">
             <div class="form-group">

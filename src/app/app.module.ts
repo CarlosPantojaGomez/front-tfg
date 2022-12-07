@@ -24,7 +24,8 @@ import {MailService} from './services/mail.service';
 import {ProjectService} from './services/project.service';
 //pipes
 import { KeysPipe } from './pipes/keys.pipe';
-
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatFormFieldModule, MatInputModule, MatNativeDateModule, MatSliderModule } from '@angular/material';
 ///////////////////
 
 import { AppComponent } from './app.component';
@@ -132,7 +133,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
     APP_ROUTING,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSliderModule,
+    MatNativeDateModule
+    
   ],
   providers: [{ provide: SETTINGS, useValue: {} },
               UsuariosService,
