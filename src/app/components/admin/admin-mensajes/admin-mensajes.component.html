@@ -1,4 +1,14 @@
 <div class="">
+  <div class="media animated fadeIn">
+    <div class="btn-group btn-group-toggle btn-block" data-toggle="buttons">
+        <label class="btn btn-light" (click)="onClickMe(1)">
+            <input type="radio" name="options" id="option1"> Recibidos
+        </label>
+        <label class="btn btn-light" (click)="onClickMe(2)">
+            <input type="radio" name="options" id="option2"> Escritos
+        </label>
+    </div>
+  </div>
   <button type="button" *ngIf="!creatingMensaje && !editingMensaje" style="margin-top: 2%; margin-bottom: 2%;" class="btn btn-secondary btn-sm animated fadeIn" (click)="loadState(true,false)">{{buttonNewMensaje}}</button>
   <button type="button" *ngIf="creatingMensaje || editingMensaje" style="margin-top: 2%; margin-bottom: 2%;" class="btn btn-secondary btn-sm animated fadeIn" (click)="loadState(false,false)">
       <svg class="bi bi-arrow-left-short" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -7,42 +17,35 @@
         </svg>
   </button>
   <div class="tab-pane fade show active animated fadeIn" id="nav-clientes" role="tabpanel" aria-labelledby="nav-home-tab" >
-      <!-- <table id="dtBasicExample" class="table table-striped table-bordered table-sm animated fadeIn" cellspacing="0" width="100%" *ngIf="!creatingMensaje && !editingMensaje">
-          <thead>
-              <tr>
-                  <th class="col-sm-2">
-              
-                  </th>
-                  <th class="col-sm-8">
-              
-                  </th>
-                  <th class="col-sm-2">
-              
-                  </th>
-              </tr>
-          </thead>
-          <tbody>
-              <tr *ngFor="let k of mensajes | keys; let i = index" style="cursor: pointer;">
-                  <td style="font-weight:bold">{{mensajes[k].writer.name}}</td>
-                  <td>{{mensajes[k].subject}}</td>
-                  <td>{{mensajes[k].creationDate}}</td>
-              </tr>
-          </tbody>
-      </table> -->
-      <div class="list-group" *ngIf="!creatingMensaje && !editingMensaje">
-        <a *ngFor="let k of mensajes | keys; let i = index" class="list-group-item flex-column align-items-start" 
-        [ngClass]="{'list-group-item-action': mensajes[k].saw == false, 'list-group-item-secondary' : mensajes[k].saw == true }"
-        style="cursor: pointer;"
-        (click)="verMensaje(k)">
-          <div class="d-flex w-100 justify-content-start">
-            <h5 class="mb-1" style="margin-right: 2%;">{{mensajes[k].writer.name}}</h5>
-            <p class="mb-1">{{mensajes[k].subject}}</p>
-            <small class="ml-auto p-2">{{mensajes[k].creationDate}}</small>
-          </div>
-          
-        </a>
-      </div>
-      <app-new-mensaje *ngIf="creatingMensaje" (goBack)="loadState(false,false)"></app-new-mensaje>
-      <app-new-mensaje *ngIf="editingMensaje" [id]="mensajeId" (goBack)="loadState(false,false)"></app-new-mensaje>
+    <div class="list-group" *ngIf="!creatingMensaje && !editingMensaje && escritos">
+      
+      <a *ngFor="let k of mensajesRecibidos | keys; let i = index" class="list-group-item flex-column align-items-start" 
+      [ngClass]="{'list-group-item-action': mensajesRecibidos[k].saw == false, 'list-group-item-secondary' : mensajesRecibidos[k].saw == true }"
+      style="cursor: pointer;"
+      (click)="verMensaje(k)">
+        <div class="d-flex w-100 justify-content-start">
+          <h5 class="mb-1" style="margin-right: 2%;">{{mensajesRecibidos[k].writer.name}}</h5>
+          <p class="mb-1">{{mensajesRecibidos[k].subject}}</p>
+          <small class="ml-auto p-2">{{mensajesRecibidos[k].creationDate}}</small>
+        </div>
+        
+      </a>
+    </div>
+    <div class="list-group" *ngIf="!creatingMensaje && !editingMensaje && recibidos">
+      
+      <a *ngFor="let k of mensajesEscritos | keys; let i = index" class="list-group-item flex-column align-items-start" 
+      [ngClass]="{'list-group-item-action': mensajesEscritos[k].saw == false, 'list-group-item-secondary' : mensajesEscritos[k].saw == true }"
+      style="cursor: pointer;"
+      (click)="verMensajeRecibido(k)">
+        <div class="d-flex w-100 justify-content-start">
+          <h5 class="mb-1" style="margin-right: 2%;">{{mensajesEscritos[k].writer.name}}</h5>
+          <p class="mb-1">{{mensajesEscritos[k].subject}}</p>
+          <small class="ml-auto p-2">{{mensajesEscritos[k].creationDate}}</small>
+        </div>
+        
+      </a>
+    </div>
+    <app-new-mensaje *ngIf="creatingMensaje" (goBack)="loadState(false,false)"></app-new-mensaje>
+    <app-new-mensaje *ngIf="editingMensaje" [id]="mensajeId" (goBack)="loadState(false,false)"></app-new-mensaje>
   </div>
 </div>

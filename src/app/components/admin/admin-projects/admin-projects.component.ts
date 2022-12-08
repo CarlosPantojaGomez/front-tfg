@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Project } from 'src/app/interfaces/project.interface';
+import { Usuario } from 'src/app/interfaces/usuario.interface';
 import { ProjectService } from 'src/app/services/project.service';
 
 @Component({
@@ -85,4 +86,15 @@ export class AdminProjectsComponent implements OnInit {
     this.detailsTask = true;
   }
 
+  showOptions(creator: Usuario){
+    if(JSON.parse(sessionStorage.getItem('currentUser'))!= null && creator != null){
+      if(JSON.parse(sessionStorage.getItem('currentUser')).id == creator.id){
+        return true;
+      }else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
 }

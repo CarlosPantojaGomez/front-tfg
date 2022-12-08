@@ -102,3 +102,15 @@
     </div>
   </div>
 </div>
+<div class="col-12 form-group cuerpo" *ngIf="usuariosView">
+  <div class="list-group" *ngIf="this.task.assignedUsers != undefined">
+    <a *ngFor="let k of task.assignedUsers | keys; let i = index" class="list-group-item flex-column align-items-start list-group-item-action" 
+    style="cursor: pointer;">
+      <div class="d-flex w-100 justify-content-start align-items-center">
+        <app-profile-picture [imagePatch]="task.assignedUsers[k].profilePicture"></app-profile-picture>
+        <h5 class="mb-1" style="margin-right: 2%;">{{task.assignedUsers[k].nickname}}</h5>
+        <p class="mb-1"> {{task.assignedUsers[k].name}} {{task.assignedUsers[k].firstLastName}} {{task.assignedUsers[k].secondLastName}} ({{task.assignedUsers[k].email}})</p>
+      </div>
+    </a>
+  </div>
+</div>

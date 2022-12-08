@@ -110,12 +110,19 @@ export class AdminMainComponent implements OnInit {
   }
 
   protected loadState(detailsProject: boolean, detailsTask: boolean) {
-    this.detailsProject = detailsProject;
-    this.detailsTask = detailsTask;
+    if(this.detailsTask){
 
-    if(!detailsProject && !detailsTask){
-      this.load();
+      this.detailsProject = true;
+      this.detailsTask = false;
+    }else {
+      this.detailsProject = detailsProject;
+      this.detailsTask = detailsTask;
+  
+      if(!detailsProject && !detailsTask){
+        this.load();
+      }
     }
+    
   }
 
   verProyecto(id: number){

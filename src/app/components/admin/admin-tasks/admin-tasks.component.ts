@@ -40,12 +40,8 @@ export class AdminTasksComponent implements OnInit {
         
       });
     } else {
-      this.taskService.getTasks().subscribe(data =>{
-        
-
-        this.tasks = data.body;
-        
-      });
+      
+      this.loadTasks();
     }
   }
 
@@ -65,18 +61,11 @@ export class AdminTasksComponent implements OnInit {
       if(this.projectId != null){
         this.taskService.getTasksByProject(this.projectId.toString(10)).subscribe(data =>{
           
-          console.log(data.body);
-          
           this.tasks = data.body;
           
         });
       } else {
-        this.taskService.getTasks().subscribe(data =>{
-          
-  
-          this.tasks = data.body;
-          
-        });
+        this.loadTasks();
       }
     }
   }
@@ -97,6 +86,21 @@ export class AdminTasksComponent implements OnInit {
   
   protected changeHeader(tag: string) {
     this.header = tag;
+  }
+
+  loadTasks(){
+    if(JSON.parse(sessionStorage.getItem('currentUser'))!= null){
+      if(JSON.parse(sessionStorage.getItem('currentUser')).userType != 4){
+        this.taskService.getTasksByUser(JSON.parse(sessionStorage.getItem('currentUser')).id.toString(10)).subscribe(data =>{
+          this.tasks=data.body;
+        });
+      }else {
+        this.taskService.getTasks().subscribe(data =>{
+          this.tasks=data.body;
+        });
+      }
+    }
+
   }
 
   
