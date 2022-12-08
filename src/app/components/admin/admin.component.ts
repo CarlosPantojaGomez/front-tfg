@@ -18,6 +18,7 @@ export class AdminComponent implements OnInit {
   TareasView: boolean;
   MensajesView: boolean;
   NoticiasView: boolean;
+  GraficasView: boolean;
 
   constructor() { }
 
@@ -48,7 +49,6 @@ export class AdminComponent implements OnInit {
   }
 
   protected loadState(userType: number){
-    console.log(userType);
     
     switch (userType) {
       case 2:
@@ -58,6 +58,7 @@ export class AdminComponent implements OnInit {
         this.TareasView = true;
         this.MensajesView = true;
         this.NoticiasView = false;
+        this.GraficasView = false;
         break;
       case 3:
         this.usuariosView = true;
@@ -66,6 +67,7 @@ export class AdminComponent implements OnInit {
         this.TareasView = true;
         this.MensajesView = true;
         this.NoticiasView = true;
+        this.GraficasView = true;
         break;
       case 4:
         this.usuariosView = true;
@@ -74,6 +76,7 @@ export class AdminComponent implements OnInit {
         this.TareasView = true;
         this.MensajesView = true;
         this.NoticiasView = true;
+        this.GraficasView = true;
         break;
       default:
         break;

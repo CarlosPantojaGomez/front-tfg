@@ -166,7 +166,7 @@ export class NewProjectComponent implements OnInit {
 
   onSearchSetUser(searchValue: string): void {  
     if(searchValue.length > 2){
-      this.userService.findbyNickname(searchValue).subscribe(data =>{
+      this.userService.findbyNicknameForProject(searchValue).subscribe(data =>{
         if (data.body.length > 0){
           this.usuariosSearch = data.body;
         }else {

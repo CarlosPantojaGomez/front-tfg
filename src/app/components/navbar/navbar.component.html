@@ -13,6 +13,9 @@
   
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav mr-auto">
+        <li *ngIf ="trabajo" class="nav-item animated fadeIn" routerLinkActive = "active">
+          <a class="nav-link" [routerLink]= "['admin']">Trabajo</a>
+        </li>
         <li *ngIf ="productos" class="nav-item animated fadeIn" routerLinkActive = "active">
           <a class="nav-link" [routerLink]= "['productos']">Productos</a>
         </li>

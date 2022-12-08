@@ -10,11 +10,14 @@ import { Router } from '@angular/router';
 })
 export class AdminUsersComponent implements OnInit {
 
-  usuarios: Usuario[];
+  usuario: Usuario;
 
   header: string;
   buttonNewUser: string;
   state: string; 
+
+  vistaAdmin: boolean;
+  vistaAltoCargo: boolean;
 
   modal: boolean;
   clientes: boolean;
@@ -32,10 +35,24 @@ export class AdminUsersComponent implements OnInit {
   ngOnInit() {
     this.header = 'Usuarios';
     this.modal = false;
-    this.loadState('clientes');
-    this.usuarioService.getUsuarios().subscribe(data =>{
-        this.usuarios=data.body;
-    });
+
+    if(JSON.parse(sessionStorage.getItem('currentUser'))!= null){
+      console.log(JSON.parse(sessionStorage.getItem('currentUser')));
+      
+      this.usuario = JSON.parse(sessionStorage.getItem('currentUser'));
+      if (this.usuario.userType == 4){
+        this.vistaAdmin = true;
+        this.vistaAltoCargo = false;
+
+        this.loadState('clientes');
+      } else if (this.usuario.userType == 3){
+
+        this.vistaAdmin = false;
+        this.vistaAltoCargo = true;
+
+        this.loadState('trabajadores');
+      }
+    }
         
   }
 

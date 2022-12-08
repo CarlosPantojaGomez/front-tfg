@@ -8,6 +8,7 @@ import { Task } from 'src/app/interfaces/task.interface';
 import { PriorityLabelMapping, TaskPriority } from 'src/app/interfaces/priorities';
 import { Usuario } from 'src/app/interfaces/usuario.interface';
 import { UsuariosService } from 'src/app/services/usuarios.service';
+import { Image } from 'src/app/interfaces/image.interface';
 
 @Component({
   selector: 'app-new-task',
@@ -19,6 +20,9 @@ export class NewTaskComponent implements OnInit {
   @Input() id: number;
   @Input() projectId: number;
   @Output() goBack = new EventEmitter();
+
+  @ViewChild('myInputTaskImages', {static: false})
+  myInputVariableTaskImages: ElementRef;
 
   buttonDone: string;
   header: string;
@@ -33,11 +37,19 @@ export class NewTaskComponent implements OnInit {
   usuariosRelated: Array<Usuario> = [];
   usuariosSearch: Usuario[];
 
+  taskImages: Array<Image> = [];
+
+  minDate1: Date;
+  maxDate1: Date;
+
+  minDate2: Date;
+  maxDate2: Date;
+
   editForm = this.fb.group({
     name: [],
     prioridad: [],
     description: [],
-    creationDate: [],
+    startDate: [],
     endDate: []
   });
 
@@ -52,6 +64,15 @@ export class NewTaskComponent implements OnInit {
     private userService: UsuariosService) { }
 
   ngOnInit() {
+
+    const currentYear = new Date().getFullYear();
+    this.minDate1 = new Date(currentYear - 20, 0, 1);
+    this.maxDate1 = new Date(currentYear + 1, 11, 31);
+
+    
+    this.minDate2 = new Date(currentYear);
+    this.maxDate2 = new Date(currentYear + 10, 0, 0);
+    
     this.edit = false;
     
     this.tareaView = true;
@@ -68,8 +89,13 @@ export class NewTaskComponent implements OnInit {
         this.edit = true;
         this.editForm.patchValue({
           name: data.body.name,
-          description: data.body.description
+          description: data.body.description,
+          prioridad: data.body.priority,
+          startDate: data.body.startDate,
+          endDate: data.body.endDate,
         });
+
+        this.taskImages = data.body.images;
 
         this.usuariosRelated = data.body.assignedUsers;
         
@@ -110,10 +136,13 @@ export class NewTaskComponent implements OnInit {
       name: this.editForm.get(['name']).value,
       description: this.editForm.get(['description']).value,
       priority: this.editForm.get(['prioridad']).value,
+      startDate: this.editForm.get(['startDate']).value,
+      endDate: this.editForm.get(['endDate']).value,
       state: 0,
       project: project,
       assignedUsers: this.usuariosRelated,
-      creator: creator
+      creator: creator,
+      images: this.taskImages
     };
     
     return task;
@@ -178,6 +207,44 @@ export class NewTaskComponent implements OnInit {
     this.usuariosRelated.forEach((element,index)=>{
       if(index==indexx) this.usuariosRelated.splice(index,1);
     });
+  }
+
+  uploadtaskImage(evt) {
+    var files = evt.target.files;
+    var file = files[0];
+    
+    if (files && file) {
+      var reader = new FileReader();
+
+      reader.onload =this.handleReaderTaskImageLoaded.bind(this);
+
+      reader.readAsBinaryString(file);
+        
+      this.myInputVariableTaskImages.nativeElement.value = "";
+    }
+  }
+
+  protected handleReaderTaskImageLoaded(readerEvt) {
+    var binaryString = readerEvt.target.result;
+
+    const auxMainPicture = {
+      url: 'data:image/webp;base64,' + btoa(binaryString),
+      id$: Math.random() 
+    }
+
+    this.taskImages.push(auxMainPicture);
+
+  }
+
+  eliminarTaskImage(indexx: number) {
+    
+    this.taskImages.forEach((element,index)=>{
+      if(index==indexx) this.taskImages.splice(index,1);
+    });
+  }
+
+  setImageToShow(image: Image){
+    this.taskService.imageToShow = image.url;
   }
 
 }

@@ -74,6 +74,7 @@ import { DetailsTaskComponent } from './components/admin/admin-tasks/details-tas
 import { ProfilePictureComponent } from './components/profile/profile-picture/profile-picture.component';
 import { OrderByPipe } from './helpers/orderByPipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AdminGraficosComponent } from './components/admin/admin-graficos/admin-graficos/admin-graficos.component';
 
 @NgModule({
   declarations: [
@@ -122,7 +123,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     DetailsProjectComponent,
     DetailsTaskComponent,
     ProfilePictureComponent,
-    OrderByPipe
+    OrderByPipe,
+    AdminGraficosComponent
   ],
   imports: [
     BrowserModule,

@@ -17,16 +17,16 @@ export class NewProductComponent implements OnInit {
 
   @Input() id: number;
 
-  @ViewChild('myInputMiniatura', {static: true})
+  @ViewChild('myInputMiniatura', {static: false})
   myInputVariableMiniatura: ElementRef;
 
-  @ViewChild('myInputMainImages', {static: true})
+  @ViewChild('myInputMainImages', {static: false})
   myInputVariableMainImages: ElementRef;
 
-  @ViewChild('myInputFile', {static: true})
+  @ViewChild('myInputFile', {static: false})
   myInputVariableFile: ElementRef;
   
-  @ViewChild('myInputManuales', {static: true})
+  @ViewChild('myInputManuales', {static: false})
   myInputVariableManuales: ElementRef;
   
   buttonDone: string;
