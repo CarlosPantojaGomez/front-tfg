@@ -80,13 +80,49 @@ export class AdminMainComponent implements OnInit {
     
   }
 
-  protected loadState(detailsProject: boolean, detailsTask: boolean) {
-    this.detailsProject = detailsProject;
-    this.detailsTask = detailsTask;
-
-    if(!detailsProject && !detailsTask){
-      this.load();
+  protected filterByContentActivities(content: string){
+    if(content.length > 2){
+      if(this.proyectos && this.tareas){
+        this.activitiesToShow = this.activities;
+        this.activitiesToShow = this.activitiesToShow.filter(obj => {
+          return obj.filterField.includes(content)
+        });
+      } else if(this.proyectos){
+        this.activitiesToShow = this.activities.filter(obj => {
+          return obj.project != null
+        });
+        this.activitiesToShow = this.activitiesToShow.filter(obj => {
+          return obj.filterField.includes(content)
+        });
+      } else if (this.tareas){
+        this.activitiesToShow = this.activities.filter(obj => {
+          return obj.task != null
+        });
+        this.activitiesToShow = this.activitiesToShow.filter(obj => {
+          return obj.filterField.includes(content)
+        });
+      } else {
+        this.activitiesToShow= [];
+      }
+    } else {
+      this.filterActivities();
     }
+  }
+
+  protected loadState(detailsProject: boolean, detailsTask: boolean) {
+    if(this.detailsTask){
+
+      this.detailsProject = true;
+      this.detailsTask = false;
+    }else {
+      this.detailsProject = detailsProject;
+      this.detailsTask = detailsTask;
+  
+      if(!detailsProject && !detailsTask){
+        this.load();
+      }
+    }
+    
   }
 
   verProyecto(id: number){

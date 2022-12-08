@@ -27,7 +27,9 @@ export class DatosComponent implements OnInit {
     profilePicture: [],
     tlf: [],
     country: [],
-    city: []
+    city: [],
+    address: [],
+    zipcode: []
   });
 
   constructor(

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import { Usuario } from 'src/app/interfaces/usuario.interface';
 
 import { UsuariosService } from 'src/app/services/usuarios.service';
@@ -14,7 +14,7 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 export class NewUserComponent implements OnInit {
     
     @Input() type: number;
-
+    @Output() goBack = new EventEmitter();
     usuario: Usuario;
     header: string;
 
@@ -56,7 +56,7 @@ export class NewUserComponent implements OnInit {
     result.subscribe((res: HttpResponse<any>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
   }
   protected onSaveSuccess() {
-    this.router.navigate(['/login']);
+    this.goBack.emit();
   }
   protected onSaveError() {
     console.log("ERROR");

@@ -49,7 +49,7 @@
 
                 <p class="mb-1">{{proyectos[k].product?.name}}</p>
 
-                <div class="btn-group ml-auto p-2" role="group" aria-label="Basic example">
+                <div class="btn-group ml-auto p-2" role="group" aria-label="Basic example" *ngIf="showOptions(proyectos[k].creator)">
                     <button type="button" 
                         class="btn btn-secondary btn-sm animated fadeIn " 
                         (click)="editProject(proyectos[k].id)">Editar

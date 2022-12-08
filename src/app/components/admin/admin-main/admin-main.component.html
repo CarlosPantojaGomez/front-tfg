@@ -1,4 +1,4 @@
-<button type="button" *ngIf="(detailsProject || detailsTask)" style="margin-top: 2%; margin-bottom: 2%;" class="btn btn-secondary btn-sm animated fadeIn" (click)="loadState(false,false, false,false)">
+<button type="button" *ngIf="(detailsProject || detailsTask)" style="margin-top: 2%; margin-bottom: 2%;" class="btn btn-secondary btn-sm animated fadeIn" (click)="loadState(false,false)">
   <svg class="bi bi-arrow-left-short" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
     <path fill-rule="evenodd" d="M7.854 4.646a.5.5 0 010 .708L5.207 8l2.647 2.646a.5.5 0 01-.708.708l-3-3a.5.5 0 010-.708l3-3a.5.5 0 01.708 0z" clip-rule="evenodd"/>
     <path fill-rule="evenodd" d="M4.5 8a.5.5 0 01.5-.5h6.5a.5.5 0 010 1H5a.5.5 0 01-.5-.5z" clip-rule="evenodd"/>
@@ -11,7 +11,7 @@
     <br>
     <div class="input-group mb-3">
       
-      <input type="text" class="form-control" aria-label="Text input with checkbox">
+      <input type="text" class="form-control" aria-label="Text input with checkbox" (input)="filterByContentActivities($event.target.value)">
       <div class="input-group-append">
         <span class="input-group-text" id="basic-addon2">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">

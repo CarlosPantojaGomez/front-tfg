@@ -120,7 +120,7 @@
       <div class="d-flex w-100 justify-content-start align-items-center">
         <app-profile-picture [imagePatch]="project.usersRelated[k].profilePicture"></app-profile-picture>
         <h5 class="mb-1" style="margin-right: 2%;">{{project.usersRelated[k].nickname}}</h5>
-        <p class="mb-1"> {{project.creator.name}} {{project.creator.firstLastName}} {{project.creator.secondLastName}} ({{project.usersRelated[k].email}})</p>
+        <p class="mb-1"> {{project.usersRelated[k].name}} {{project.usersRelated[k].firstLastName}} {{project.usersRelated[k].secondLastName}} ({{project.usersRelated[k].email}})</p>
       </div>
     </a>
   </div>

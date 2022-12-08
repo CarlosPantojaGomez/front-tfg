@@ -28,13 +28,13 @@ export class UsersTableComponent implements OnInit {
     console.log(this.type);
     this.usuarioService.getUsuariosBy(this.type, 'Type').subscribe(data =>{
       this.usuarios=data.body;
-  });
+    });
     
   }
 
   protected loadData() {
-    this.usuarioService.getUsuarios().subscribe(data =>{
-        this.usuarios=data.body;
+    this.usuarioService.getUsuariosBy(this.type, 'Type').subscribe(data =>{
+      this.usuarios=data.body;
     });
   }
 

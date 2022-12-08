@@ -1,4 +1,5 @@
 import { Activity } from "./Activity.interface";
+import { Image } from "./image.interface";
 import { Project } from "./project.interface";
 import { TaskComment } from "./taskComment.interface";
 import { Usuario } from "./usuario.interface";
@@ -15,4 +16,8 @@ export interface Task {
     activities?: Array<Activity>;
     creator?: Usuario;
     assignedUsers?: Array<Usuario>;
+    creationDate?: Date;
+    startDate?: Date;
+    endDate?: Date;
+    images?: Array<Image>;
 }

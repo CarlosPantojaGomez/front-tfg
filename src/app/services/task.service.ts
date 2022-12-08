@@ -19,6 +19,9 @@ export class TaskService {
   URL:string;
   extend: string;
 
+  
+  imageToShow: string;
+
   constructor(private http:HttpClient) { 
     //this.URL = 'http://localhost:8080';
     this.URL = BACK_URL;
@@ -51,6 +54,12 @@ export class TaskService {
 
   getTasks():Observable<EntityArrayResponseType> {
     this.extend = this.URL + "/tasks";
+    return this.http
+      .get<any>(this.extend, { observe: 'response' });
+  }
+
+  getTasksByUser(userId: string):Observable<EntityArrayResponseType> {
+    this.extend = this.URL + "/tasks/user/" + userId;
     return this.http
       .get<any>(this.extend, { observe: 'response' });
   }

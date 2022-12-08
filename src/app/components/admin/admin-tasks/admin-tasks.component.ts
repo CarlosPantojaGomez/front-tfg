@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ElementRef, ViewChild ,Output, EventEmitter} from '@angular/core';
+import { Component, OnInit, Input} from '@angular/core';
 import { Task } from 'src/app/interfaces/task.interface';
 import { TaskService } from 'src/app/services/task.service';
 
@@ -17,6 +17,7 @@ export class AdminTasksComponent implements OnInit {
 
   creatingTask: boolean;
   editingTask: boolean;
+  detailsTask: boolean;
 
   taskId: number;
 
@@ -27,6 +28,7 @@ export class AdminTasksComponent implements OnInit {
   ngOnInit() {
     this.creatingTask = false;
     this.editingTask = false;
+    this.detailsTask = false;
     this.buttonNewTask = 'Nueva tarea';
     if(this.projectId != null){
       this.taskService.getTasksByProject(this.projectId.toString(10)).subscribe(data =>{
@@ -38,12 +40,8 @@ export class AdminTasksComponent implements OnInit {
         
       });
     } else {
-      this.taskService.getTasks().subscribe(data =>{
-        
-
-        this.tasks = data.body;
-        
-      });
+      
+      this.loadTasks();
     }
   }
 
@@ -54,40 +52,58 @@ export class AdminTasksComponent implements OnInit {
     
   }
 
-  protected loadState(create: boolean, edit: boolean) {
+  protected loadState(create: boolean, edit: boolean, detailsTask: boolean) {
     this.creatingTask = create;
     this.editingTask = edit;
+    this.detailsTask = detailsTask;
 
-    if(!create && !edit){
+    if(!create && !edit && !detailsTask){
       if(this.projectId != null){
         this.taskService.getTasksByProject(this.projectId.toString(10)).subscribe(data =>{
-          
-          console.log(data.body);
           
           this.tasks = data.body;
           
         });
       } else {
-        this.taskService.getTasks().subscribe(data =>{
-          
-  
-          this.tasks = data.body;
-          
-        });
+        this.loadTasks();
       }
     }
   }
 
-  protected editTask(id: number) {
+  editTask(id: number) {
     this.taskId = id;
     this.creatingTask = false;
     this.editingTask = true;
+    this.detailsTask = false;
+  }
+
+  verTarea(id: number){
+    this.taskId = id;
+    this.creatingTask = false;
+    this.editingTask = false;
+    this.detailsTask = true;
   }
   
   protected changeHeader(tag: string) {
     this.header = tag;
   }
 
+  loadTasks(){
+    if(JSON.parse(sessionStorage.getItem('currentUser'))!= null){
+      if(JSON.parse(sessionStorage.getItem('currentUser')).userType != 4){
+        this.taskService.getTasksByUser(JSON.parse(sessionStorage.getItem('currentUser')).id.toString(10)).subscribe(data =>{
+          this.tasks=data.body;
+        });
+      }else {
+        this.taskService.getTasks().subscribe(data =>{
+          this.tasks=data.body;
+        });
+      }
+    }
+
+  }
+
+  
   protected deleteTask(tag: string) {
     this.header = tag;
   }
@@ -98,5 +114,7 @@ export class AdminTasksComponent implements OnInit {
       this.tasks=data.body;
     });
   }
+
+  
 
 }

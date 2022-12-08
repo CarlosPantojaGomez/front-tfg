@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Project } from 'src/app/interfaces/project.interface';
+import { Usuario } from 'src/app/interfaces/usuario.interface';
 import { ProjectService } from 'src/app/services/project.service';
 
 @Component({
@@ -25,9 +26,19 @@ export class AdminProjectsComponent implements OnInit {
     private projectervice: ProjectService) { }
 
   ngOnInit() {
-    this.projectervice.getProjects().subscribe(data =>{
-      this.proyectos=data.body;
-    });
+
+    if(JSON.parse(sessionStorage.getItem('currentUser'))!= null){
+      if(JSON.parse(sessionStorage.getItem('currentUser')).userType != 4){
+        this.projectervice.getProjectsForUser(JSON.parse(sessionStorage.getItem('currentUser')).id.toString(10)).subscribe(data =>{
+          this.proyectos=data.body;
+        });
+      }else {
+        this.projectervice.getProjects().subscribe(data =>{
+          this.proyectos=data.body;
+        });
+      }
+    }
+    
 
     this.creatingProject = false;
     this.editingProject = false;
@@ -75,4 +86,15 @@ export class AdminProjectsComponent implements OnInit {
     this.detailsTask = true;
   }
 
+  showOptions(creator: Usuario){
+    if(JSON.parse(sessionStorage.getItem('currentUser'))!= null && creator != null){
+      if(JSON.parse(sessionStorage.getItem('currentUser')).id == creator.id){
+        return true;
+      }else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
 }

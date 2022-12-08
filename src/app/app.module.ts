@@ -1,11 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import { FirestoreSettingsToken} from '@angular/fire/firestore';
+import { SETTINGS} from '@angular/fire/firestore';
 import { HttpClientModule } from "@angular/common/http";
 
 //rutas
@@ -24,7 +24,8 @@ import {MailService} from './services/mail.service';
 import {ProjectService} from './services/project.service';
 //pipes
 import { KeysPipe } from './pipes/keys.pipe';
-
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatFormFieldModule, MatInputModule, MatNativeDateModule, MatSliderModule } from '@angular/material';
 ///////////////////
 
 import { AppComponent } from './app.component';
@@ -72,6 +73,8 @@ import { DetailsProjectComponent } from './components/admin/admin-projects/detai
 import { DetailsTaskComponent } from './components/admin/admin-tasks/details-task/details-task.component';
 import { ProfilePictureComponent } from './components/profile/profile-picture/profile-picture.component';
 import { OrderByPipe } from './helpers/orderByPipe';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AdminGraficosComponent } from './components/admin/admin-graficos/admin-graficos/admin-graficos.component';
 
 @NgModule({
   declarations: [
@@ -120,7 +123,8 @@ import { OrderByPipe } from './helpers/orderByPipe';
     DetailsProjectComponent,
     DetailsTaskComponent,
     ProfilePictureComponent,
-    OrderByPipe
+    OrderByPipe,
+    AdminGraficosComponent
   ],
   imports: [
     BrowserModule,
@@ -130,9 +134,16 @@ import { OrderByPipe } from './helpers/orderByPipe';
     AngularFirestoreModule,
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
-    APP_ROUTING
+    APP_ROUTING,
+    BrowserAnimationsModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSliderModule,
+    MatNativeDateModule
+    
   ],
-  providers: [{ provide: FirestoreSettingsToken, useValue: {} },
+  providers: [{ provide: SETTINGS, useValue: {} },
               UsuariosService,
               ProductosService,
               ChatService,

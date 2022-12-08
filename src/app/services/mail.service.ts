@@ -38,8 +38,16 @@ export class MailService {
 
   }
 
-  getMailsByUserId(id: number):Observable<EntityArrayResponseType>{
+  getReceivedMailsByUserId(id: number):Observable<EntityArrayResponseType>{
     this.extend = this.URL + "/mails_receiver/" + id;
+    return this.http
+      .get<any>(this.extend, { observe: 'response' })
+      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res))); 
+
+  }
+
+  getWroteMailsByUserId(id: number):Observable<EntityArrayResponseType>{
+    this.extend = this.URL + "/mails_writer/" + id;
     return this.http
       .get<any>(this.extend, { observe: 'response' })
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res))); 
