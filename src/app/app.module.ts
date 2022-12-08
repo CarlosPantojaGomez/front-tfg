@@ -75,6 +75,7 @@ import { ProfilePictureComponent } from './components/profile/profile-picture/pr
 import { OrderByPipe } from './helpers/orderByPipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AdminGraficosComponent } from './components/admin/admin-graficos/admin-graficos/admin-graficos.component';
+/* import { ChartModule } from 'primeng/chart'; */
 
 @NgModule({
   declarations: [
@@ -141,7 +142,6 @@ import { AdminGraficosComponent } from './components/admin/admin-graficos/admin-
     MatInputModule,
     MatSliderModule,
     MatNativeDateModule
-    
   ],
   providers: [{ provide: SETTINGS, useValue: {} },
               UsuariosService,
