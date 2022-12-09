@@ -15,11 +15,7 @@ export class BillService {
   URL:string;
   extend: string;
 
-  noticiasURL:string = "https://prtfg-74ef0.firebaseio.com/noticias.json"
-  noticiaURL:string = "https://prtfg-74ef0.firebaseio.com/noticias"
-
-  constructor(private http:HttpClient) { 
-    //this.URL = 'http://localhost:8080';
+  constructor(private http:HttpClient) {
     this.URL = BACK_URL;
   }
 
@@ -32,8 +28,16 @@ export class BillService {
 
   }
 
-  getNoticias( ):Observable<EntityArrayResponseType>{
-    this.extend = this.URL + "/news";
+  getBills( ):Observable<EntityArrayResponseType>{
+    this.extend = this.URL + "/bills";
+    return this.http
+      .get<any>(this.extend, { observe: 'response' })
+      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res))); 
+
+  }
+
+  getBillsByProduct(productId: number):Observable<EntityArrayResponseType>{
+    this.extend = this.URL + "/bills/product/"+ productId;
     return this.http
       .get<any>(this.extend, { observe: 'response' })
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res))); 

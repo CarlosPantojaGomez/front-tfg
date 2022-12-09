@@ -66,5 +66,8 @@
       <app-new-project *ngIf="editingProject" [id]="projectId" (goBack)="loadState(false,false,false,false)"></app-new-project>
       <app-details-project *ngIf="detailsProject" [id]="projectId" (goBack)="loadState(false,false,false,false)" (goTask)="verTarea($event)"></app-details-project>
       <app-details-task *ngIf="detailsTask" [id]="taskId" (goBack)="loadState(false,false,true,false)"></app-details-task>
+      <div *ngIf="proyectos == null || proyectos == undefined || proyectos.length == 0">
+        <h5>Sin proyectos creados o asignados</h5>
+      </div>
   </div>
 </div>

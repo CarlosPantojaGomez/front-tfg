@@ -1,1 +1,35 @@
-<p>admin-graficos works!</p>
+<div class="media animated fadeIn">
+    <div class="btn-group btn-group-toggle btn-block" data-toggle="buttons">
+        <label class="btn btn-light" (click)="onClickMe(1)">
+            <input type="radio" name="options" id="option1"> Productos
+        </label>
+        <label class="btn btn-light" (click)="onClickMe(2)">
+            <input type="radio" name="options" id="option2"> Proyectos
+        </label>
+        <label class="btn btn-light" (click)="onClickMe(3)">
+            <input type="radio" name="options" id="option3"> Tareas
+        </label>
+    </div>
+</div>
+<div class="cuerpo" *ngIf="productosView">
+    <div class="row col-12">
+        <div class="col-6" *ngIf="showDatasetsProductos">
+            <div class="card">
+                <h5>Unidades vendidas</h5>
+                <p-chart type="bar" [data]="basicData" [options]="basicOptions"></p-chart>
+            </div>
+        </div>
+        <div class="col-6" *ngIf="showDatasetsBeneficios">
+            <div class="card">
+                <h5>Beneficios</h5>
+                <p-chart type="bar" [data]="basicData2" [options]="basicOptions"></p-chart>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="cuerpo" *ngIf="proyectosView">
+    Proyectos
+</div>
+<div class="cuerpo" *ngIf="tareasView">
+    Tareas
+</div>

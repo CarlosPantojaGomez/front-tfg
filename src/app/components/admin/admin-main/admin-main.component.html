@@ -11,7 +11,7 @@
     <br>
     <div class="input-group mb-3">
       
-      <input type="text" class="form-control" aria-label="Text input with checkbox" (input)="filterByContentActivities($event.target.value)">
+      <input type="text" placeholder="Filtrar actividades" class="form-control" aria-label="Text input with checkbox" (input)="filterByContentActivities($event.target.value)">
       <div class="input-group-append">
         <span class="input-group-text" id="basic-addon2">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
@@ -34,8 +34,8 @@
         </div>
       </div>
     </div>
-    <h5>Actividad reciente:</h5>
-    <div class="list-group" *ngIf="activities != undefined">
+    <div class="list-group" *ngIf="activities != undefined && activities.length > 0">
+      <h5>Actividad reciente:</h5>
       <div *ngFor="let act of activitiesToShow | orderByy: 'id' ">
         <a  class="list-group-item flex-column align-items-start list-group-item-action"
         style="cursor: pointer;"
@@ -47,6 +47,9 @@
           </div>
         </a>
       </div>
+    </div>
+    <div class="list-group" *ngIf="activities == undefined || activities.length == 0">
+      <h5>Sin actividad reciente</h5>
     </div>
   </div>
 </div>

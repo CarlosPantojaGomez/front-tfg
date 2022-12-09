@@ -1,9 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { NoticiasService } from 'src/app/services/noticias.service';
 import { Noticia } from 'src/app/interfaces/noticia.interface';
+import { ProductosService } from 'src/app/services/productos.service';
+import { Producto } from 'src/app/interfaces/producto.interface';
 
 @Component({
   selector: 'app-new-noticia',
@@ -17,19 +19,25 @@ export class NewNoticiaComponent implements OnInit {
   buttonDone: string;
   header: string;
   
+  product: Producto;
   edit: boolean;
 
+  @ViewChild('myInputMiniatura', {static: false})
+  myInputVariableMiniatura: ElementRef;
+  profileImage: string;
+
+  products: Array<Producto> = [];
   editForm = this.fb.group({
     title: [],
-    description: [],
     sortDescription: [],
-    creationDate: [],
-    endDate: []
+    description: [],
+    producto: []
   });
 
   constructor(
     private fb: FormBuilder,
-    private noticiaService: NoticiasService) { }
+    private noticiaService: NoticiasService,
+    private productService: ProductosService) { }
 
   ngOnInit() {
     this.edit = false;
@@ -44,14 +52,24 @@ export class NewNoticiaComponent implements OnInit {
         this.edit = true;
         this.editForm.patchValue({
           title: data.body.title,
-          description: data.body.description
+          description: data.body.description,
+          sortDescription: data.body.sortDescription,
+          producto: data.body.product != undefined ? data.body.product.id : null
         });
         
+        this.profileImage = data.body.cardImage;
+
         this.buttonDone = 'Guardar';
         this.header = 'Editar Noticia';
         
       });
     }
+
+    this.productService.getProductos().subscribe(data =>{
+
+      this.products = data.body;
+    
+    });
   }
 
   save(){
@@ -66,14 +84,30 @@ export class NewNoticiaComponent implements OnInit {
 
   private createFromForm(): Noticia {
 
-    const task={
+    this.product = this.products.find(obj => {
+      return obj.id === this.editForm.get(['producto']).value
+    })
+
+    var creatorNickname = "";
+    if(JSON.parse(sessionStorage.getItem('currentUser'))!= null){
+      creatorNickname = JSON.parse(sessionStorage.getItem('currentUser')).nickname
+    }
+    const creator={
+      id: null,
+      nickname: creatorNickname,
+    };
+    
+    const noticia={
       id: this.edit ? this.id : null,
       description: this.editForm.get(['description']).value,
       sortDescription: this.editForm.get(['sortDescription']).value,
-      title: this.editForm.get(['title']).value
+      title: this.editForm.get(['title']).value,
+      creator: creator,
+      product: this.product,
+      cardImage: this.profileImage
     };
     
-    return task;
+    return noticia;
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<any>>) {
@@ -87,6 +121,42 @@ export class NewNoticiaComponent implements OnInit {
   }
   protected onSaveError() {
     console.log("ERROR");
+  }
+
+  uploadMiniatura(evt) {
+    console.log(evt);
+    
+    var files = evt.target.files;
+    var file = files[0];
+    
+    if (files && file) {
+      var reader = new FileReader();
+
+      reader.onload =this.handleReaderLoaded.bind(this);
+
+      reader.readAsBinaryString(file);
+    
+      this.myInputVariableMiniatura.nativeElement.value = "";
+    }
+  }
+
+  protected handleReaderLoaded(readerEvt) {
+    var binaryString = readerEvt.target.result;
+    console.log(btoa(binaryString));
+    const auxMainPicture = {
+      url: 'data:image/webp;base64,' + btoa(binaryString),
+      id$: Math.random() 
+    }
+    this.profileImage = auxMainPicture.url;
+  }
+
+  eliminarMiniatura() {
+    this.profileImage = null;
+  }
+
+  changeProducto(producto: any){
+    
+    this.product = producto;
   }
 
 }

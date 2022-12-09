@@ -36,25 +36,6 @@
             </div>
           </div>
           <div class="col-2">
-            <label>Fecha de Inicio</label>
-            <div class="input-group mb-3 ">
-              <input 
-                name="startDate"
-                formControlName="startDate"
-                class="form-control"
-                placeholder="Fecha"
-                required
-                readonly
-                matInput 
-                [min]="minDate1" [max]="maxDate1"
-                [matDatepicker]="picker" >
-                <div class="input-group-append">
-                  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                  <mat-datepicker #picker></mat-datepicker>
-                </div>
-            </div>
-          </div>
-          <div class="col-2">
             <label>Fecha de finalización</label>
             <div class="input-group mb-3 ">
               <input 

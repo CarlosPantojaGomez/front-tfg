@@ -62,4 +62,7 @@
       <app-new-task *ngIf="editingTask" [id]="taskId" [projectId]="projectId" (goBack)="loadState(false,false, false)"></app-new-task>
       <app-details-task *ngIf="detailsTask" [id]="taskId" (goBack)="loadState(false,false, false)"></app-details-task>
   </div>
+  <div *ngIf="tasks == null || tasks == undefined || tasks.length == 0">
+    <h5>Sin tareas asignadas</h5>
+  </div>
 </div>

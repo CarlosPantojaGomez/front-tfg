@@ -4,7 +4,7 @@
       <div class="row animated fadeIn">
         <div class="col-4 ">
           <div class="form-group">
-            <label>Titular</label>
+            <label>Titular*</label>
             <input  formControlName="title"
               name="nombre"
               type="text"
@@ -13,7 +13,25 @@
               required>
           </div>
         </div>
-        
+        <div class="col-4">
+          <div class="form-group">
+            <label>Producto*</label>
+            <select class="custom-select" required formControlName="producto" (change)="changeProducto($event.target.value)">
+              <option [ngValue]="null" disabled>Choose your Product</option>
+              <option *ngFor="let producto of products" [ngValue]="producto.id">
+                {{ producto.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-group">
+            <label>Cabecera</label>
+            <textarea id="sortDescription" formControlName="sortDescription" name="sortDescription" rows="2" cols="50" class="form-control" placeholder="Cabecera de la noticia"></textarea>
+            
+          </div>
+        </div>
+
         <div class="col-12">
           <div class="form-group">
             <label>Descripción</label>
@@ -21,8 +39,41 @@
             
           </div>
         </div>
+
       </div>
-        
+
+      <div class="col-12 form-group">
+        <div class="col-4">
+          <input #myInputMiniatura type="file" hidden  accept="image/*" #uploader (change)="uploadMiniatura($event)" />
+          <button type="button" class="btn btn-secondary btn-sm animated fadeIn" (click)="uploader.click()">
+            
+            Adjuntar miniatura
+            <i class="fa fa-image"></i>
+          </button>
+        </div>
+
+        <div class="col-10">
+          <div *ngIf="profileImage != undefined">
+            <div style="margin-bottom: 8% ">
+              <div class="card mb-3 cuerpo" style="max-width: 300px;">
+                <div class="row no-gutters">
+                  <div class="col-md-4">
+                    <img src="{{profileImage}}" class="card-img" height="100">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <button (click)="eliminarMiniatura()" type="button" class="btn btn-outline-secondary btn-sm">Eliminar
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
       <div class="col-2">
         <div class="form-group">
           <br>
