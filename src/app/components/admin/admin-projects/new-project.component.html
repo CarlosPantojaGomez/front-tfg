@@ -75,7 +75,7 @@
     <div class="input-group mb-3 cuerpo">
       <input type="text" class="form-control" placeholder="Buscar Usarios" aria-label="Buscar Usarios" aria-describedby="basic-addon2"
       (input)="onSearchSetUser($event.target.value)"
-      >
+      (focusout)="cleanUserSearch()">
       <div class="input-group-append">
         <span class="input-group-text" id="basic-addon2">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
@@ -85,7 +85,7 @@
       </div>
       <div class="dropdown-menu dropdown" [ngClass]="{'show': this.usuariosSearch != undefined}">
         <a class="dropdown-item" *ngFor="let k of this.usuariosSearch | keys; let i = index" (click)="selectUser(k)">
-          {{this.usuariosSearch[k].name}}
+          {{this.usuariosSearch[k].nickname}}
         </a>
       </div>
     </div>

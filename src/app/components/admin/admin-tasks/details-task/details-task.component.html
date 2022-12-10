@@ -20,14 +20,28 @@
         {{task.description}}
       </p>
     </div>
+    <div class="col-12 cuerpo">
+      <div *ngIf="task.images.length > 0">
+          
+        <div class="row">
+          <div class="col-sm-3" *ngFor="let k of task.images | keys; let i = index">
+            <div class="card">
+              <img class="card-img-top" style="max-height: 100px;" src="{{task.images[k].url}}" alt="Card image cap" data-toggle="modal" data-target="#exampleModalCenter" (click)="setImageToShow(task.images[k])">
+              
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
     <div class="col-12">
       <form name="commentForm" role="form" novalidate (ngSubmit)="writeComment()" [formGroup]="commentForm">
         <div class="col-12">
-          <div class="form-group">
+          <div class="">
             <textarea id="text" formControlName="text" name="text" rows="4" cols="50" class="form-control" placeholder="Escribe un comentario..." required></textarea>
           </div>
         </div>
-        <div class="col-2">
+        <div class="col-4">
           <div class="form-group">
             <br>
             <button [disabled]="commentForm.invalid" type="submit" class="btn btn-outline-primary form-control">
@@ -39,11 +53,11 @@
     </div>
     <div class="my-3 p-3 bg-white rounded box-shadow fadeIn" *ngIf="task.comments.length != 0">
       <h6 class="border-bottom border-gray pb-2 mb-0">Comentarios</h6>
-      <div class="media text-muted pt-3 fadeIn" *ngFor="let k of task.comments | keys; let i = index">
-        <app-profile-picture [imagePatch]="task.comments[k].creator?.profilePicture"></app-profile-picture>
+      <div class="media text-muted pt-3 fadeIn" *ngFor="let comment of task.comments | orderByy: 'id' ">
+        <app-profile-picture [imagePatch]="comment.creator?.profilePicture"></app-profile-picture>
         <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-          <strong class="d-block text-gray-dark">@{{task.comments[k].creator?.nickname}}</strong>
-          {{task.comments[k].text}}
+          <strong class="d-block text-gray-dark">@{{comment.creator?.nickname}}</strong>
+          {{comment.text}}
         </p>
       </div>
     </div>

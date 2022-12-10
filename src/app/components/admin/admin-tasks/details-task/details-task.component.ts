@@ -7,6 +7,7 @@ import { PriorityLabelMapping, TaskPriority } from 'src/app/interfaces/prioritie
 import { Observable } from 'rxjs';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { TaskComment } from 'src/app/interfaces/taskComment.interface';
+import { Image } from 'src/app/interfaces/image.interface';
 
 @Component({
   selector: 'app-details-task',
@@ -170,6 +171,10 @@ export class DetailsTaskComponent implements OnInit {
     console.log("ERROR");
   }
 
-  
+  setImageToShow(image: Image){
+    console.log("entra");
+    
+    this.taskService.imageToShow = image.url;
+  }
 
 }

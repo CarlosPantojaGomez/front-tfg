@@ -95,6 +95,8 @@ export class NewTaskComponent implements OnInit {
           endDate: data.body.endDate,
         });
 
+        this.projectId = data.body.project?.id;
+
         this.taskImages = data.body.images;
 
         this.usuariosRelated = data.body.assignedUsers;
@@ -228,8 +230,7 @@ export class NewTaskComponent implements OnInit {
     var binaryString = readerEvt.target.result;
 
     const auxMainPicture = {
-      url: 'data:image/webp;base64,' + btoa(binaryString),
-      id$: Math.random() 
+      url: 'data:image/webp;base64,' + btoa(binaryString) 
     }
 
     this.taskImages.push(auxMainPicture);
@@ -245,6 +246,11 @@ export class NewTaskComponent implements OnInit {
 
   setImageToShow(image: Image){
     this.taskService.imageToShow = image.url;
+  }
+
+  cleanUserSearch(){
+    setTimeout(() => this.usuariosSearch = undefined,300);
+    ;
   }
 
 }
