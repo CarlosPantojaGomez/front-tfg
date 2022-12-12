@@ -57,6 +57,12 @@ export class ProjectService {
 
   }
 
+  deleteProject(projectId: string):Observable<EntityArrayResponseType> {
+    this.extend = this.URL + "/project/delete/" + projectId;
+    return this.http
+      .delete<any>(this.extend, { observe: 'response' });
+  }
+
   protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
     if (res.body) {
     //   res.body.cardImage = res.body.cardImage != null ? res.body.cardImage : '';
