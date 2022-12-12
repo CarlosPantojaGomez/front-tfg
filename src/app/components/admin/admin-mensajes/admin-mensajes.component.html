@@ -30,6 +30,9 @@
         </div>
         
       </a>
+      <div *ngIf="mensajesRecibidos == null || mensajesRecibidos == undefined || mensajesRecibidos.length == 0">
+        <h5>Sin mensajes recibidos</h5>
+      </div>
     </div>
     <div class="list-group" *ngIf="!creatingMensaje && !editingMensaje && recibidos">
       
@@ -44,6 +47,9 @@
         </div>
         
       </a>
+      <div *ngIf="mensajesEscritos == null || mensajesEscritos == undefined || mensajesEscritos.length == 0">
+        <h5>Sin mensajes escritos</h5>
+      </div>
     </div>
     <app-new-mensaje *ngIf="creatingMensaje" (goBack)="loadState(false,false)"></app-new-mensaje>
     <app-new-mensaje *ngIf="editingMensaje" [id]="mensajeId" (goBack)="loadState(false,false)"></app-new-mensaje>

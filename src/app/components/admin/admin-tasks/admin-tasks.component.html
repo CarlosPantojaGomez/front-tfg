@@ -45,7 +45,7 @@
 
                 <p class="mb-1">{{tasks[k].project?.name}}</p>
 
-                <div class="btn-group ml-auto p-2" role="group" aria-label="Basic example">
+                <div class="btn-group ml-auto p-2" role="group" aria-label="Basic example" *ngIf="showOptions(tasks[k].creator)">
                     <button type="button" 
                         class="btn btn-secondary btn-sm animated fadeIn " 
                         (click)="editTask(tasks[k].id)">Editar
@@ -61,5 +61,8 @@
       <app-new-task *ngIf="creatingTask" [projectId]="projectId" (goBack)="loadState(false,false, false)"></app-new-task>
       <app-new-task *ngIf="editingTask" [id]="taskId" [projectId]="projectId" (goBack)="loadState(false,false, false)"></app-new-task>
       <app-details-task *ngIf="detailsTask" [id]="taskId" (goBack)="loadState(false,false, false)"></app-details-task>
+  </div>
+  <div *ngIf="(tasks == null || tasks == undefined || tasks.length == 0) && (!creatingTask && !editingTask && createAllowed && !detailsTask)">
+    <h5>Sin tareas asignadas</h5>
   </div>
 </div>

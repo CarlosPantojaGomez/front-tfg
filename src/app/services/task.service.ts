@@ -69,6 +69,12 @@ export class TaskService {
     return this.http
       .get<any>(this.extend, { observe: 'response' });
   }
+
+  deleteTask(taskId: string):Observable<EntityArrayResponseType> {
+    this.extend = this.URL + "/task/delete/" + taskId;
+    return this.http
+      .delete<any>(this.extend, { observe: 'response' });
+  }
   
   protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
     if (res.body) {

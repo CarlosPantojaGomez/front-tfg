@@ -192,4 +192,9 @@ export class NewProjectComponent implements OnInit {
       if(index==indexx) this.usuariosRelated.splice(index,1);
     });
   }
+
+  cleanUserSearch(){
+    setTimeout(() => this.usuariosSearch = undefined,300);
+    ;
+  }
 }

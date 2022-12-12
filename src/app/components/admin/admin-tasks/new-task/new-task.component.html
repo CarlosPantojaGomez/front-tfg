@@ -36,25 +36,6 @@
             </div>
           </div>
           <div class="col-2">
-            <label>Fecha de Inicio</label>
-            <div class="input-group mb-3 ">
-              <input 
-                name="startDate"
-                formControlName="startDate"
-                class="form-control"
-                placeholder="Fecha"
-                required
-                readonly
-                matInput 
-                [min]="minDate1" [max]="maxDate1"
-                [matDatepicker]="picker" >
-                <div class="input-group-append">
-                  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                  <mat-datepicker #picker></mat-datepicker>
-                </div>
-            </div>
-          </div>
-          <div class="col-2">
             <label>Fecha de finalización</label>
             <div class="input-group mb-3 ">
               <input 
@@ -142,6 +123,7 @@
   <div class="input-group mb-3 cuerpo">
     <input type="text" class="form-control" placeholder="Buscar Usarios" aria-label="Buscar Usarios" aria-describedby="basic-addon2"
     (input)="onSearchSetUser($event.target.value)"
+    (focusout)="cleanUserSearch()"
     >
     <div class="input-group-append">
       <span class="input-group-text" id="basic-addon2">
@@ -152,7 +134,7 @@
     </div>
     <div class="dropdown-menu dropdown" [ngClass]="{'show': this.usuariosSearch != undefined}">
       <a class="dropdown-item" *ngFor="let k of this.usuariosSearch | keys; let i = index" (click)="selectUser(k)">
-        {{this.usuariosSearch[k].name}}
+        {{this.usuariosSearch[k].nickname}}
       </a>
     </div>
   </div>

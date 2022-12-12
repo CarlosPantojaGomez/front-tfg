@@ -68,6 +68,7 @@ export class NavbarComponent implements OnInit {
         this.logout = false;
         this.trabajo = false;
         this.perfil = false;
+        this.routeHome = "home";
         break;
       case 1:
         this.productos = true;
@@ -78,6 +79,7 @@ export class NavbarComponent implements OnInit {
         this.logout = true;
         this.trabajo = false;
         this.perfil = true;
+        this.routeHome = "home";
         break;
       case 2:
         this.productos = false;

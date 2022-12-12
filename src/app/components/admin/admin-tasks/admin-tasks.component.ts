@@ -1,5 +1,6 @@
 import { Component, OnInit, Input} from '@angular/core';
 import { Task } from 'src/app/interfaces/task.interface';
+import { Usuario } from 'src/app/interfaces/usuario.interface';
 import { TaskService } from 'src/app/services/task.service';
 
 @Component({
@@ -77,6 +78,17 @@ export class AdminTasksComponent implements OnInit {
     this.detailsTask = false;
   }
 
+  deleteTask(id: number){
+    console.log(id);
+    
+    this.taskService.deleteTask(id.toString(10)).subscribe(data =>{
+        
+
+      console.log(data.body);
+      
+    });
+  }
+
   verTarea(id: number){
     this.taskId = id;
     this.creatingTask = false;
@@ -103,11 +115,6 @@ export class AdminTasksComponent implements OnInit {
 
   }
 
-  
-  protected deleteTask(tag: string) {
-    this.header = tag;
-  }
-
   refresh(event: any){
     
     this.taskService.getTasks().subscribe(data =>{
@@ -115,6 +122,17 @@ export class AdminTasksComponent implements OnInit {
     });
   }
 
+  showOptions(creator: Usuario){
+    if(JSON.parse(sessionStorage.getItem('currentUser'))!= null && creator != null){
+      if(JSON.parse(sessionStorage.getItem('currentUser')).id == creator.id){
+        return true;
+      }else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
   
 
 }
