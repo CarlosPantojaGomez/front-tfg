@@ -76,6 +76,9 @@ import { OrderByPipe } from './helpers/orderByPipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AdminGraficosComponent } from './components/admin/admin-graficos/admin-graficos/admin-graficos.component';
 import { ChartModule } from 'primeng/chart';
+import { AlertComponent } from './components/alert/alert.component';
+import { AlertService } from './services/alert.service';
+import { DetailsUserComponent } from './components/admin/details-user/details-user.component';
 
 @NgModule({
   declarations: [
@@ -125,7 +128,9 @@ import { ChartModule } from 'primeng/chart';
     DetailsTaskComponent,
     ProfilePictureComponent,
     OrderByPipe,
-    AdminGraficosComponent
+    AdminGraficosComponent,
+    AlertComponent,
+    DetailsUserComponent
     
   ],
   imports: [
@@ -155,7 +160,8 @@ import { ChartModule } from 'primeng/chart';
               BillService,
               CountryService,
               MailService,
-              ProjectService],
+              ProjectService,
+              AlertService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

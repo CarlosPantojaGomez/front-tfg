@@ -26,6 +26,16 @@
             </div>
         </div>
     </div>
+    <div class="row col-12 cuerpo">
+        <div class="col-3"></div>
+        <div class="col-6" *ngIf="showDatasetsRates">
+            <div class="card">
+                <h5>Valoración productos</h5>
+                <p-chart type="bar" [data]="basicData3" [options]="basicOptions"></p-chart>
+            </div>
+        </div>
+        <div class="col-3"></div>
+    </div>
 </div>
 <div class="cuerpo" *ngIf="proyectosView">
     Proyectos

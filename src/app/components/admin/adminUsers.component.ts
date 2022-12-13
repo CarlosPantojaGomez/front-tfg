@@ -26,7 +26,9 @@ export class AdminUsersComponent implements OnInit {
   creatingClient: boolean;
   creatingEmployee: boolean;
   creatingManager: boolean;
-  
+
+  userView: boolean;
+  userId: number;
   constructor(
     private usuarioService: UsuariosService,
     private router: Router
@@ -125,5 +127,15 @@ export class AdminUsersComponent implements OnInit {
   
   protected newUser() {
     this.router.navigate(['/registrarse','nuevo']);
+  }
+
+  viewUser(id: number){
+    this.userView = true;
+    this.userId = id;
+  }
+
+  loadStateList(){
+    
+    this.userView = false;
   }
 }

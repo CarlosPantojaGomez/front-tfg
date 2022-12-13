@@ -27,9 +27,15 @@ export class AdminGraficosComponent implements OnInit {
   showDatasetsProductos: boolean;
   datasetBeneficios: Array<DataSet> = new Array<DataSet>();
   showDatasetsBeneficios: boolean;
+  datasetRates: Array<DataSet> = new Array<DataSet>();
+  showDatasetsRates: boolean;
   
   basicData: any;
   basicData2: any;
+  basicData3: any;
+
+  
+  labelsProducts: Array<string> = [];
 
   basicOptions: any;
 
@@ -57,10 +63,12 @@ export class AdminGraficosComponent implements OnInit {
       this.productos=data.body;
 
       this.productos.forEach((element,index)=>{
+        this.datasetRates.push(this.buildProductsRate(element));
         this.datasetsProductos.push(this.buildDataSetForProductSales(element));
       });
 
       this.showDatasetsProductos = true;
+      this.showDatasetsRates = true;
     });
 
     this.billService.getBills().subscribe( data => {
@@ -76,6 +84,11 @@ export class AdminGraficosComponent implements OnInit {
     this.basicData2 = {
       labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
       datasets: this.datasetBeneficios
+    };
+
+    this.basicData3 = {
+      labels: ['Valoración (Sobre 5)'],
+      datasets: this.datasetRates
     };
 
     this.basicOptions = {
@@ -192,6 +205,32 @@ export class AdminGraficosComponent implements OnInit {
 
     const dataSet={
       label: "Ventas Totales",
+      backgroundColor: this.getRandomColor(),
+      data: sells
+    };
+
+    return dataSet;
+  }
+
+  buildProductsRate(product: Producto): DataSet{
+    var sells = new Array<number>();
+    console.log(product);
+    
+    var rate = 0;
+    if(product.rates != null && product.rates != undefined && product.rates.length > 0){
+      product.rates.forEach(element => {
+        rate += element.rate;
+      });
+    }
+
+    if(rate > 0){
+      rate = rate / product.rates.length;
+    }
+
+    sells.push(rate);
+
+    const dataSet={
+      label: product.name,
       backgroundColor: this.getRandomColor(),
       data: sells
     };

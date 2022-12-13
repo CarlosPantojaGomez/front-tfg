@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import { Usuario } from 'src/app/interfaces/usuario.interface';
 
 import { UsuariosService } from 'src/app/services/usuarios.service';
@@ -12,6 +12,8 @@ export class UsersTableComponent implements OnInit {
     
     @Input() type: string;
     @Input() buttonNewUser: string;
+
+    @Output() viewUser = new EventEmitter<number>();
 
     usuarios: Usuario[];
     header: string;
@@ -60,6 +62,12 @@ export class UsersTableComponent implements OnInit {
         
     });
     
+  }
+
+  verusuario(id: number){
+    console.log(id);
+    
+    this.viewUser.emit(id);
   }
 
 }

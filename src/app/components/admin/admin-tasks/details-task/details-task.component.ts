@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { TaskComment } from 'src/app/interfaces/taskComment.interface';
 import { Image } from 'src/app/interfaces/image.interface';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-details-task',
@@ -41,6 +42,7 @@ export class DetailsTaskComponent implements OnInit {
 
   constructor(
     private taskService: TaskService,
+    private alertService: AlertService,
     private fb: FormBuilder) { }
 
   ngOnInit() {
@@ -138,7 +140,8 @@ export class DetailsTaskComponent implements OnInit {
   }
 
   protected onSaveSuccess() {
-    console.log('entra');
+    this.alertService.showAlert("Estado actualizado con éxito");
+    this.taskService.refreshList.emit();
   }
   protected onSaveError() {
     console.log("ERROR");

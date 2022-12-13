@@ -158,6 +158,7 @@ export class NewTaskComponent implements OnInit {
     console.log('entra');
     
     this.goBack.emit();
+    this.taskService.refreshList.emit();
   }
   protected onSaveError() {
     console.log("ERROR");

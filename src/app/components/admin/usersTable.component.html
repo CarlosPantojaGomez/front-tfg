@@ -22,7 +22,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let k of usuarios | keys; let i = index">
+        <tr *ngFor="let k of usuarios | keys; let i = index" (click)="verusuario(usuarios[k].id)">
             <td>{{usuarios[k].name}}</td>
             <td>{{usuarios[k].firstLastName}}</td>
             <td>{{usuarios[k].secondLastName}}</td>

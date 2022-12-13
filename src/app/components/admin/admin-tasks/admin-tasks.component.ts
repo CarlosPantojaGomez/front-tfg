@@ -12,6 +12,8 @@ export class AdminTasksComponent implements OnInit {
   @Input() createAllowed: boolean = false;
   @Input() projectId: number;
 
+  subscription: any;
+
   tasks: Task[];
   header: string;
   buttonNewTask: string;
@@ -31,11 +33,14 @@ export class AdminTasksComponent implements OnInit {
     this.editingTask = false;
     this.detailsTask = false;
     this.buttonNewTask = 'Nueva tarea';
+    this.loadData();
+    this.subscription = this.taskService.getRefreshListEmitter().subscribe(() => this.loadData());
+  }
+
+  protected loadData() {
     if(this.projectId != null){
       this.taskService.getTasksByProject(this.projectId.toString(10)).subscribe(data =>{
         
-
-        console.log(data.body);
         this.tasks = data.body;
         this.header = 'Editar Producto';
         
@@ -46,12 +51,10 @@ export class AdminTasksComponent implements OnInit {
     }
   }
 
-  protected loadData(Task: Task) {
-  }
-
   protected onError(errorMessage: string) {
     
   }
+
 
   protected loadState(create: boolean, edit: boolean, detailsTask: boolean) {
     this.creatingTask = create;
@@ -59,15 +62,7 @@ export class AdminTasksComponent implements OnInit {
     this.detailsTask = detailsTask;
 
     if(!create && !edit && !detailsTask){
-      if(this.projectId != null){
-        this.taskService.getTasksByProject(this.projectId.toString(10)).subscribe(data =>{
-          
-          this.tasks = data.body;
-          
-        });
-      } else {
-        this.loadTasks();
-      }
+      this.loadData();
     }
   }
 

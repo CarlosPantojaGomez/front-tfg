@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import 'rxjs/Rx';
 
 import { Task } from '../interfaces/task.interface';
@@ -11,7 +11,6 @@ import { TaskComment } from '../interfaces/taskComment.interface';
 type EntityResponseType = HttpResponse<Task>;
 type EntityArrayResponseType = HttpResponse<Task[]>;
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -19,7 +18,8 @@ export class TaskService {
   URL:string;
   extend: string;
 
-  
+  refreshList: EventEmitter<number> = new EventEmitter();
+
   imageToShow: string;
 
   constructor(private http:HttpClient) { 
@@ -27,6 +27,9 @@ export class TaskService {
     this.URL = BACK_URL;
   }
 
+  getRefreshListEmitter() {
+    return this.refreshList;
+  }
   newTask(task: Task){
     this.extend = this.URL + '/task';
     return this.http.post<any>(this.extend, task, { observe: 'response' });

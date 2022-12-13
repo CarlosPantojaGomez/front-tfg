@@ -1,0 +1,98 @@
+<div class="" *ngIf="this.usuario">
+    <div class="row animated fadeIn">
+        <div class="col-4">
+            <div class="card mb-3 shadow-sm p-3 mb-5 bg-white rounded" style="max-width: 540px;">
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        <img src="{{profileImage}}" class="img-thumbnail">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <p class="card-text"><b>Nickname:</b> {{usuario.nickname}}</p>
+                            <p class="card-text"><b>Mail:</b> {{usuario.email}}</p>
+                            <span class="badge badge-pill badge-light">{{userType}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-4">
+            <div class="col-6">
+                <div class="form-group">
+                    <b>Nombre: </b>
+                    {{usuario.name}}
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <b>Primer Apellido: </b>{{usuario.firstLastName}}
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <b>Segundo Apellido: </b>{{usuario.secondLastName}}
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <b>Teléfono: </b>{{usuario.tlf}}
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="col-12">
+                <div class="form-group">
+                    <b>País: </b>{{usuario.name}}
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="form-group">
+                    <b>Ciudad: </b>{{usuario.city}}
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="form-group">
+                    <b>Dirección: </b>{{usuario.address}}
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="form-group">
+                    <b>Código postal: </b>{{usuario.zipcode}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row animated fadeIn">
+        <div class="col-6">
+            <div class="col-12">
+                <b>Proyectos:</b>
+            </div>
+            <div class="col-12">
+                <a *ngFor="let k of usuario.projectsAssigned | keys; let i = index" class="list-group-item flex-column align-items-start list-group-item-action"
+                style="cursor: pointer;">
+                <div class="d-flex w-100 justify-content-start align-items-center">
+                    <h5 class="mb-1" style="margin-right: 2%;">{{usuario.projectsAssigned[k].name}}</h5>
+
+                    <p class="mb-1">{{usuario.projectsAssigned[k].product?.name}}</p>
+                </div>
+            </a>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="col-12">
+                <b>Tareas:</b>
+            </div>
+            <div class="col-12">
+                <a *ngFor="let k of usuario.assignedTasks | keys; let i = index" class="list-group-item flex-column align-items-start list-group-item-action"
+                    style="cursor: pointer;">
+                    <div class="d-flex w-100 justify-content-start align-items-center">
+                        <h5 class="mb-1" style="margin-right: 2%;">{{usuario.assignedTasks[k].name}}</h5>
+
+                        <p class="mb-1">{{usuario.assignedTasks[k].project?.name}}</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

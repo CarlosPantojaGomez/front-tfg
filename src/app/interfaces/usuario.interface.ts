@@ -1,3 +1,6 @@
+import { Project } from "./project.interface";
+import { Task } from "./task.interface";
+
 export interface Usuario{
     id?: number;
     name?: string;
@@ -13,4 +16,6 @@ export interface Usuario{
     zipcode?: number;
     profilePicture?: string;
     flagActive?: number;
+    assignedTasks?: Array<Task>;
+    projectsAssigned?: Array<Project>;
 }

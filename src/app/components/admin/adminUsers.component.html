@@ -1,4 +1,13 @@
-<div class="">
+<button type="button" *ngIf="userView" style="margin-top: 2%; margin-bottom: 2%;" class="btn btn-secondary btn-sm animated fadeIn" (click)="loadStateList()">
+    <svg class="bi bi-arrow-left-short" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" d="M7.854 4.646a.5.5 0 010 .708L5.207 8l2.647 2.646a.5.5 0 01-.708.708l-3-3a.5.5 0 010-.708l3-3a.5.5 0 01.708 0z" clip-rule="evenodd"/>
+        <path fill-rule="evenodd" d="M4.5 8a.5.5 0 01.5-.5h6.5a.5.5 0 010 1H5a.5.5 0 01-.5-.5z" clip-rule="evenodd"/>
+      </svg>
+</button>
+<div>
+    <button type="button" *ngIf="userView" style="margin-top: 2%; margin-bottom: 2%;" class="btn btn-secondary btn-sm animated fadeIn" (click)="loadState(true,false,false,false)">Escribir mensaje</button>
+</div>
+<div class="" *ngIf="!userView">
     <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
             <a class="nav-item nav-link text-dark" id="nav-home-tab" data-toggle="tab" href="#nav-clientes" role="tab" aria-controls="nav-home" aria-selected="true" (click)="loadState('clientes')" *ngIf ="vistaAdmin">Clientes</a>
@@ -16,7 +25,7 @@
                     <path fill-rule="evenodd" d="M4.5 8a.5.5 0 01.5-.5h6.5a.5.5 0 010 1H5a.5.5 0 01-.5-.5z" clip-rule="evenodd"/>
                   </svg>
             </button> 
-            <app-table-users *ngIf="clientes" [type]="1" [buttonNewUser]="buttonNewUser"></app-table-users>
+            <app-table-users *ngIf="clientes" [type]="1" (viewUser)="viewUser($event)" [buttonNewUser]="buttonNewUser"></app-table-users>
             <app-newUser *ngIf="creatingClient" [type]=1 (goBack)="loadState(state)"></app-newUser>
         </div>
         <div class="tab-pane fade active animated fadeIn" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
@@ -27,7 +36,7 @@
                     <path fill-rule="evenodd" d="M4.5 8a.5.5 0 01.5-.5h6.5a.5.5 0 010 1H5a.5.5 0 01-.5-.5z" clip-rule="evenodd"/>
                   </svg>
             </button>
-            <app-table-users *ngIf="trabajadores" [type]="2" [buttonNewUser]="buttonNewUser"></app-table-users>
+            <app-table-users *ngIf="trabajadores" [type]="2" (viewUser)="viewUser($event)" [buttonNewUser]="buttonNewUser"></app-table-users>
             <app-newUser *ngIf="creatingEmployee" [type]=2 (goBack)="loadState(state)"></app-newUser>
         </div>
         <div class="tab-pane fade animated fadeIn" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
@@ -38,8 +47,11 @@
                     <path fill-rule="evenodd" d="M4.5 8a.5.5 0 01.5-.5h6.5a.5.5 0 010 1H5a.5.5 0 01-.5-.5z" clip-rule="evenodd"/>
                   </svg>
             </button>
-            <app-table-users *ngIf="responsables"[type]="3" [buttonNewUser]="buttonNewUser"></app-table-users>
+            <app-table-users *ngIf="responsables"[type]="3" (viewUser)="viewUser($event)"[buttonNewUser]="buttonNewUser"></app-table-users>
             <app-newUser *ngIf="creatingManager" [type]=3 (goBack)="loadState(state)"></app-newUser>
+            
         </div>
     </div>
 </div>
+
+<app-details-user *ngIf="userView" [id]="userId"></app-details-user>
