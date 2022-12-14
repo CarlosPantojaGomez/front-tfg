@@ -23,21 +23,35 @@ export class AdminGraficosComponent implements OnInit {
   proyectos: Array<Project>;
   tareas: Array<Task>;
   
+  /* Graficas productos */
   datasetsProductos: Array<DataSet> = new Array<DataSet>();
   showDatasetsProductos: boolean;
   datasetBeneficios: Array<DataSet> = new Array<DataSet>();
   showDatasetsBeneficios: boolean;
   datasetRates: Array<DataSet> = new Array<DataSet>();
   showDatasetsRates: boolean;
+
+  /* Graficas proyectos */
+  datasetNumTareasPorProyecto: Array<DataSet> = new Array<DataSet>();
+  showDatasetsNumTareasPorProyecto: boolean;
+  datasetNumProyectosFinalizados: Array<DataSet> = new Array<DataSet>();
+  showDatasetsNumProyectosFinalizados: boolean;
   
+  numProyectosFinalizados: number = 0;
+  numProyectosSinFinalizar: number = 0;
+
   basicData: any;
   basicData2: any;
   basicData3: any;
+  basicData4: any;
+  basicData5: any;
 
   
   labelsProducts: Array<string> = [];
 
   basicOptions: any;
+  horizontalOptions: any;
+  chartOptions: any;
 
   constructor(
     private productService: ProductosService, 
@@ -54,9 +68,28 @@ export class AdminGraficosComponent implements OnInit {
     this.projectervice.getProjects().subscribe(data =>{
       this.proyectos=data.body;
 
-      /* this.proyectos.forEach((element,index)=>{
-        this.buildDataSetForProduct(element);
-      }); */
+      this.proyectos.forEach((element,index)=>{
+        this.datasetNumTareasPorProyecto.push(this.buildDataSetForTaskPerProject(element));
+        this.checkIfFinish(element);
+      });
+
+      this.basicData5 = {
+        labels: ['Finalizados','Sin finalizar'],
+        datasets: [
+            {
+                data: [this.numProyectosFinalizados, this.numProyectosSinFinalizar],
+                backgroundColor: [
+                  "#66BB6A",
+                  "#FF5233"
+                ],
+                hoverBackgroundColor: [
+                  "#81C784",
+                  "#FF7259"
+                ]
+            }
+        ]
+      };
+      
     });
 
     this.productService.getProductos().subscribe(data =>{
@@ -91,6 +124,16 @@ export class AdminGraficosComponent implements OnInit {
       datasets: this.datasetRates
     };
 
+    /* Proyectos */
+    this.basicData4 = {
+      labels: ['Número de tareas'],
+      datasets: this.datasetNumTareasPorProyecto
+    };
+    console.log(this.numProyectosFinalizados);
+    console.log(this.numProyectosSinFinalizar);
+    
+    
+
     this.basicOptions = {
       plugins: {
           legend: {
@@ -118,6 +161,45 @@ export class AdminGraficosComponent implements OnInit {
           }
       }
     };
+
+    this.chartOptions = {
+      plugins: {
+        legend: {
+            labels: {
+                color: '#495057'
+            }
+        }
+      }
+    };
+
+    this.horizontalOptions = {
+      indexAxis: 'y',
+      plugins: {
+          legend: {
+              labels: {
+                  color: '#495057'
+              }
+          }
+      },
+      scales: {
+          x: {
+              ticks: {
+                  color: '#495057'
+              },
+              grid: {
+                  color: '#ebedef'
+              }
+          },
+          y: {
+              ticks: {
+                  color: '#495057'
+              },
+              grid: {
+                  color: '#ebedef'
+              }
+          }
+      }
+  };
   }
 
   public onClickMe(option: number) {
@@ -214,7 +296,6 @@ export class AdminGraficosComponent implements OnInit {
 
   buildProductsRate(product: Producto): DataSet{
     var sells = new Array<number>();
-    console.log(product);
     
     var rate = 0;
     if(product.rates != null && product.rates != undefined && product.rates.length > 0){
@@ -236,6 +317,41 @@ export class AdminGraficosComponent implements OnInit {
     };
 
     return dataSet;
+  }
+
+  buildDataSetForTaskPerProject(project: Project): DataSet{
+    
+    var tasks = new Array<number>();
+    tasks.push(project.tasks.length);
+
+    const dataSet={
+      label: project.name,
+      backgroundColor: this.getRandomColor(),
+      data: tasks
+    };
+
+    return dataSet;
+  }
+
+  checkIfFinish(project: Project){
+    
+    if(project.tasks.length > 0){
+      var foo = project.tasks.filter(obj => {
+        return obj.state != 3
+      });
+  
+      
+  
+      if(foo.length > 0){
+        this.numProyectosSinFinalizar++;
+      } else {
+        this.numProyectosFinalizados++;
+      }
+    } else {
+      
+      this.numProyectosSinFinalizar++;
+    }
+    
   }
 
 }

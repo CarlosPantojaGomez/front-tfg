@@ -38,8 +38,27 @@
     </div>
 </div>
 <div class="cuerpo" *ngIf="proyectosView">
-    Proyectos
+    <div class="row col-12">
+        <div class="col-6" *ngIf="showDatasetsRates">
+            <div class="card">
+                <h5>Número de finalizados</h5>
+                <p-chart type="pie" [data]="basicData5" [options]="chartOptions"></p-chart>
+            </div>
+        </div>
+    </div>
+    <div class="row col-12 cuerpo">
+        <div class="col-12" *ngIf="showDatasetsRates">
+            <div class="card">
+                <h5>Número de tareas</h5>
+                <p-chart type="bar" [data]="basicData4" [options]="horizontalOptions"></p-chart>
+            </div>
+        </div>
+        
+    </div>
+    
+    
 </div>
+
 <div class="cuerpo" *ngIf="tareasView">
     Tareas
 </div>
