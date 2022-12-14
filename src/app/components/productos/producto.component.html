@@ -1,17 +1,49 @@
 <div *ngIf="productFound">
-    <div class="media container animated fadeIn">
+    <div class="media animated fadeIn" [ngClass]="{'container': vistaTrabajador == false}">
         <div class="col-12" >
             <h1>{{producto.name}}</h1>
         </div>
     </div>
-    <div class="media container animated fadeIn cuerpo">
+    <div class="media animated fadeIn cuerpo" [ngClass]="{'container': vistaTrabajador == false}">
         <div class="col-4">
-            <img src="{{producto.profileImage.url}}" class="card-img" height="145">
+            <img src="{{producto.profileImage?.url}}" style='height: 100%; width: 100%; object-fit: contain' class="card-img" height="75">
         </div>
         <div class="col-8">{{producto.description}}</div>
     </div>
+
+    <div [ngClass]="{'container': vistaTrabajador == false}" *ngIf="mainImages != null && mainImages != undefined && mainImages.length > 0">
+        <div class="animated fadeIn">
+            <div id="carouselExampleFade" class="carousel slide carousel-fade animated fadeIn" data-ride="carousel">
+              <div class="carousel-inner">
+                
+                <div class="carousel-item active">
+                  <div class="view">
+                    <img class="d-block w-100 animated fadeIn" src="{{mainImage.url}}" alt="First slide" height="400" style='object-fit: contain'>
+                    <div class="mask rgba-black-light"></div>
+                  </div>
+                  <div class="carousel-caption">
+                    <h3 class="h3-responsive">Light mask</h3>
+                    <p>First text</p>
+                  </div>
+                </div>
+                <div class="carousel-item" *ngFor="let k of mainImages | keys; let i = index">
+                    <img class="d-block w-100 animated fadeIn" src="{{mainImages[k].url}}" alt="{{mainImages[k].url}}" height="400" style='object-fit: contain'>
+                </div>
+              </div>
+              
+              <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="carousel-control-next" href="#carouselExampleFade" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+              </a>
+            </div> 
+        </div>
+    </div>
     
-    <div class="media container animated fadeIn">
+    <div class="media  animated fadeIn" [ngClass]="{'container': vistaTrabajador == false}" *ngIf="!vistaTrabajador">
         <div class="btn-group btn-group-toggle btn-block" data-toggle="buttons">
             <label class="btn btn-light" (click)="onClickMe(1)" routerLinkActive = "active">
                 <input type="radio" name="options" id="option1"> Caracteristicas
@@ -25,7 +57,7 @@
         </div>
     </div>
     
-    <div class="media container animated fadeIn">
+    <div class="media  animated fadeIn" [ngClass]="{'container': vistaTrabajador == false}" *ngIf="!vistaTrabajador">
         <app-features *ngIf="features"></app-features>
         <app-manuals *ngIf="manuals"></app-manuals>
         <app-download *ngIf="descarga"></app-download>

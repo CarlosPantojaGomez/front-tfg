@@ -1,37 +1,16 @@
-<!-- <div class="card main-container animated fadeIn">
-  <div class="row container animated fadeIn">
-      <div class="col-4">
-        <div class="list-group" id="list-tab" role="tablist"  >
-          <a class="list-group-item list-group-item-action" *ngFor="let k of productos | keys; let i = index" routerLinkActive = "active" id="list-home-list" data-toggle="list" href="#{{productos[k].name}}" role="tab" aria-controls="home">
-              <img src="{{productos[k].profileImage.url}}" class="card-img-top" alt="..." width="200" height="200">
-          </a><p>Texto</p>
-        </div>
-      </div>
-      <div class="col-8">
-        <div class="tab-content" id="nav-tabContent" >
-          <div class="tab-pane fade show animated fadeIn" id="{{productos[k].name}}" role="tabpanel" aria-labelledby="list-home-list" *ngFor="let k of productos | keys; let  i = index" >
-            <h1>{{ productos[k].name}}</h1>
-              <p>{{ productos[k].description }} </p>
-              <button (click)="verproducto(productos[k].id)" type="button" class="btn btn-primary">Ver 
-              </button>
-          </div>
-        </div>
-      </div>
-    </div>
-</div> -->
 <div class="container">
-  <div class="col-md-8 offset-md-1 mt-5 animated fadeIn">
+  <div class="col-12 animated fadeIn">
     <ul class="list-unstyled ">
-      <div *ngFor="let k of productos | keys; let i = index" style="margin-bottom: 8%">
-          <div class="card mb-3" style="max-width: 540px;">
+      <div *ngFor="let k of productos | keys; let i = index" class="cuerpo">
+          <div class="card mb-3">
               <div class="row no-gutters">
                 <div class="col-md-4">
-                    <img src="{{productos[k].profileImage.url}}" class="card-img" height="145">
+                    <img src="{{productos[k].profileImage?.url}}" style='object-fit: contain' class="card-img" height="145">
                 </div>
                 <div class="col-md-8">
                   <div class="card-body">
                       <h5 class="mt-0 mb-1">{{ productos[k].name}}</h5>
-                      <p>{{ productos[k].description }}</p>
+                      <p>{{ productos[k].sortDescription }}</p>
                       <button (click)="verproducto(productos[k].id)" type="button" class="btn btn-outline-secondary btn-sm">Más información
                       </button>
                   </div>

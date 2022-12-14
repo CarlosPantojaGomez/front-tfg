@@ -7,6 +7,7 @@ export interface Producto{
     id?: number;
     name?: string;
     description?: string;
+    sortDescription?: string;
     forSale?: boolean;
     features?: string;
     price?: number;

@@ -46,6 +46,7 @@ export class NewProductComponent implements OnInit {
   
   editForm = this.fb.group({
     name: [],
+    sortDescription: [],
     description: [],
     features: [],
     price: [],
@@ -69,6 +70,7 @@ export class NewProductComponent implements OnInit {
         this.editForm.patchValue({
           name: data.body.name,
           description: data.body.description,
+          sortDescription: data.body.sortDescription,
           features: data.body.features,
           price: data.body.price,
           forSale: data.body.forSale
@@ -286,6 +288,7 @@ export class NewProductComponent implements OnInit {
       id: this.edit ? this.id : null,
       name: this.editForm.get(['name']).value,
       description: this.editForm.get(['description']).value,
+      sortDescription: this.editForm.get(['sortDescription']).value,
       forSale: this.editForm.get(['forSale']).value,
       price: this.editForm.get(['price']).value,
       features: this.editForm.get(['features']).value

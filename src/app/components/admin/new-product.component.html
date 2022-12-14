@@ -1,5 +1,5 @@
 <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-  <div class="container main-container">
+  <div class=" main-container">
     <h4>{{header}} </h4>
       <div class="row animated fadeIn align-items-center">
           <div class="col-4 ">
@@ -24,6 +24,7 @@
                 required>
             </div>
           </div>
+          <div class="col-1"></div>
           <div class="col-auto my-1">
             <div class="form-check">
               <input class="form-check-input" type="checkbox" id="autoSizingCheck2" formControlName="forSale">
@@ -40,6 +41,13 @@
               </button>
             </div>
           </div>
+          <div class="col-12">
+            <div class="form-group">
+                <label>Descripción breve</label>
+                <textarea id="sortDescription" formControlName="sortDescription" name="sortDescription" rows="2" cols="50" class="form-control" placeholder="Descripción breve del producto"></textarea>
+                
+              </div>
+          </div>
         <div class="col-12">
           <div class="form-group">
               <label>Descripción</label>
@@ -50,12 +58,12 @@
         <div class="col-12">
           <div class="form-group">
               <label>Caracteristicas</label>
-              <textarea id="description" formControlName="features" name="features" rows="4" cols="50" class="form-control" placeholder="Caracteristicas del producto"></textarea>
+              <textarea id="features" formControlName="features" name="features" rows="4" cols="50" class="form-control" placeholder="Caracteristicas del producto"></textarea>
               
             </div>
         </div>
       </div>
-      <div class="media container animated fadeIn">
+      <div class="media  animated fadeIn">
         <div class="btn-group btn-group-toggle btn-block" data-toggle="buttons">
             <label class="btn btn-light" (click)="onClickMe(1)">
                 <input type="radio" name="options" id="option1"> Miniatura
@@ -72,7 +80,7 @@
         </div>
       </div>
 
-      <div class="media container animated fadeIn cuerpo">
+      <div class="media  animated fadeIn cuerpo">
         <div class="col-12 form-group" *ngIf="miniatura">
 
           <input #myInputMiniatura type="file" hidden  accept="image/*" #uploader (change)="uploadMiniatura($event)" />

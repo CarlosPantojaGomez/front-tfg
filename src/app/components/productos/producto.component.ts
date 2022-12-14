@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 
 import {Router, ActivatedRoute} from '@angular/router';
 
 import {ProductosService} from '../../services/productos.service';
 import { Producto } from 'src/app/interfaces/producto.interface';
+import { Image } from 'src/app/interfaces/image.interface';
 
 @Component({
   selector: 'app-producto',
@@ -12,32 +13,51 @@ import { Producto } from 'src/app/interfaces/producto.interface';
 })
 export class ProductoComponent implements OnInit {
   
+  @Input() id: string;
+
   producto: Producto;
   features: boolean;
   manuals: boolean;
   descarga: boolean;
-  nuevo:boolean = false;
-  id: string;
+  vistaTrabajador:boolean = false;
   productFound:boolean = false;
 
+  mainImage: Image;
+  mainImages: Array<Image> = [];
 
   constructor (
     private _productosService: ProductosService,
-    private route: ActivatedRoute) { 
+    private route: ActivatedRoute
+  ) { }
+
+  ngOnInit() {
+    
+    if(this.id == undefined){
+      
       this.route.params.subscribe( parametros =>{
         this.id = parametros['id']; 
       });
-  }
 
-  ngOnInit() {
+    }else {
+      this.vistaTrabajador = true;
+    }
+    
     this._productosService.getProducto(this.id).subscribe(data =>{
-      console.log(data);
+      this.producto = data.body;
+      console.log(this.mainImages);
+      this.mainImages = data.body.images.filter(obj => {
+        return obj.imageType == 2
+      });
       
-      this.producto=data.body;
-      console.log(this.producto);
-      
+      if(this.mainImages.length > 0){
+        this.mainImage = this.mainImages[0];
+        console.log(this.mainImages);
+        this.mainImages.splice(0, 1);
+        console.log(this.mainImages);
+      }
       this.productFound = true;
     });
+
     this.features = true;
     this.manuals = false;
     this.descarga = false;

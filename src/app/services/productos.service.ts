@@ -6,7 +6,7 @@ import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Observable } from 'rxjs/Rx';
 import { map } from 'rxjs/operators';
 import { ProductoRequest } from '../interfaces/productRequest.interface';
-import { BACK_URL } from '../helpers/img.constants';
+import { BACK_URL, NO_PRODUCT_PROFILE_PICTURE_2 } from '../helpers/img.constants';
 
 type EntityResponseType = HttpResponse<Producto>;
 type EntityArrayResponseType = HttpResponse<Producto[]>;
@@ -53,6 +53,12 @@ export class ProductosService {
       .get<any>(this.extend, { observe: 'response' }); 
   }
 
+  deleteProduct(productId: string):Observable<EntityArrayResponseType> {
+    this.extend = this.URL + "/product/delete/" + productId;
+    return this.http
+      .delete<any>(this.extend, { observe: 'response' });
+  }
+
   protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
     if (res.body) {
       console.log(res.body);
@@ -64,9 +70,11 @@ export class ProductosService {
 
   protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
     if (res.body) {
-      console.log(res.body);
+      const img={
+        url: NO_PRODUCT_PROFILE_PICTURE_2
+      };
       res.body.forEach((product: Producto) => {
-        product.profileImage = product.profileImage != null ? product.profileImage : undefined;
+        product.profileImage = product.profileImage != null ? product.profileImage : img;
       });
     }
     return res;

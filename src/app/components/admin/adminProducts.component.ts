@@ -16,6 +16,7 @@ export class AdminProductsComponent implements OnInit {
 
   creatingProduct: boolean;
   editingProduct: boolean;
+  detailsProduct: boolean;
 
   productId: number;
 
@@ -31,6 +32,7 @@ export class AdminProductsComponent implements OnInit {
 
     this.creatingProduct = false;
     this.editingProduct = false;
+    this.detailsProduct = false;
     this.buttonNewUser = 'Nuevo Producto';
         
   }
@@ -42,11 +44,12 @@ export class AdminProductsComponent implements OnInit {
     
   }
 
-  protected loadState(create: boolean, edit: boolean) {
+  protected loadState(create: boolean, edit: boolean, details: boolean) {
     this.creatingProduct = create;
     this.editingProduct = edit;
+    this.detailsProduct = details;
 
-    if(!create && !edit){
+    if(!create && !edit && !details){
       this.productoService.getProductos().subscribe(data =>{
         this.productos=data.body;
       });
@@ -57,19 +60,32 @@ export class AdminProductsComponent implements OnInit {
     this.productId = id;
     this.creatingProduct = false;
     this.editingProduct = true;
+    this.detailsProduct = false;
+  }
+
+  goToDetailsProduct(id: number) {
+    this.productId = id;
+    this.creatingProduct = false;
+    this.editingProduct = false;
+    this.detailsProduct = true;
+    console.log("llega");
+    
   }
   
   protected changeHeader(tag: string) {
     this.header = tag;
   }
 
-  protected deleteProduct(tag: string) {
-    this.header = tag;
+  protected deleteProduct(id: number) {
+
+    this.productoService.deleteProduct(id.toString(10)).subscribe(() =>{
+      
+      this.refresh(null);
+      
+    });
   }
 
   refresh(event: any){
-    console.log('entra2');
-    
     this.productoService.getProductos().subscribe(data =>{
       this.productos=data.body;
     });
