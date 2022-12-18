@@ -17,6 +17,8 @@ export class NewMensajeComponent implements OnInit {
 
   @Input() id: number;
   @Input() mensajeId: number;
+  @Input() userId: number;
+
   @Output() goBack = new EventEmitter();
 
   buttonDone: string;
@@ -24,6 +26,7 @@ export class NewMensajeComponent implements OnInit {
   usuarios: Usuario[];
   
   read: boolean;
+  writeToSpecificUser: boolean;
   mensaje: Mail;
 
   editForm = this.fb.group({
@@ -40,10 +43,11 @@ export class NewMensajeComponent implements OnInit {
 
   ngOnInit() {
     this.read = false;
+    this.writeToSpecificUser = false;
     
     this.buttonDone = 'Enviar';
     this.header = 'Nuevo mensaje';
-    console.log(this.id);
+    console.log(this.userId);
     
     if(this.id != undefined){
       this.mailService.getMail(this.id.toString(10)).subscribe(data =>{
@@ -56,6 +60,18 @@ export class NewMensajeComponent implements OnInit {
         this.header = 'Editar Producto';
         
       });
+    }
+
+    if(this.userId != undefined){
+      this.userService.getusuario(this.userId.toString(10)).subscribe(data =>{
+        
+        this.editForm.patchValue({
+          receiverName: data.body.nickname
+        });
+       
+        
+      });
+      this.writeToSpecificUser = true;
     }
   }
 

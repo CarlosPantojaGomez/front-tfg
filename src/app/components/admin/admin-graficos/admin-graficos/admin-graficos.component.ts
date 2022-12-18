@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , Input, SimpleChanges} from '@angular/core';
 import { Bill } from 'src/app/interfaces/bill.interface';
 import { DataSet } from 'src/app/interfaces/dataset.interface';
 import { Producto } from 'src/app/interfaces/producto.interface';
@@ -7,6 +7,7 @@ import { Task } from 'src/app/interfaces/task.interface';
 import { BillService } from 'src/app/services/bill.service';
 import { ProductosService } from 'src/app/services/productos.service';
 import { ProjectService } from 'src/app/services/project.service';
+import { TaskService } from 'src/app/services/task.service';
 
 @Component({
   selector: 'app-admin-graficos',
@@ -15,6 +16,7 @@ import { ProjectService } from 'src/app/services/project.service';
 })
 export class AdminGraficosComponent implements OnInit {
 
+  @Input() change: number;
   productosView: boolean;
   proyectosView: boolean;
   tareasView: boolean;
@@ -33,18 +35,33 @@ export class AdminGraficosComponent implements OnInit {
 
   /* Graficas proyectos */
   datasetNumTareasPorProyecto: Array<DataSet> = new Array<DataSet>();
-  showDatasetsNumTareasPorProyecto: boolean;
-  datasetNumProyectosFinalizados: Array<DataSet> = new Array<DataSet>();
-  showDatasetsNumProyectosFinalizados: boolean;
   
   numProyectosFinalizados: number = 0;
   numProyectosSinFinalizar: number = 0;
 
+  /* Graficas tareas */
+  
+  numTareasPorDesarrollar: number = 0;
+  numTareasEnDesarrollo: number = 0;
+  numTareasParaVerificar: number = 0;
+  numTareasTerminadas: number = 0;
+
+  numTareasOnTime: number = 0;
+  numTareasCaducadas: number = 0;
+  showCaducados: boolean;
+  showTareasPorTipos: boolean;
+
+
   basicData: any;
   basicData2: any;
   basicData3: any;
+
   basicData4: any;
   basicData5: any;
+
+  
+  basicData6: any;
+  basicData7: any;
 
   
   labelsProducts: Array<string> = [];
@@ -54,16 +71,51 @@ export class AdminGraficosComponent implements OnInit {
   chartOptions: any;
 
   constructor(
-    private productService: ProductosService, 
-    private projectervice: ProjectService, 
+    private productService: ProductosService,
+    private projectervice: ProjectService,
+    private taskService: TaskService,
     private billService: BillService
   ) { }
 
   ngOnInit(): void {
+    
+    this.load();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    console.log(changes.change.currentValue);
+    console.log(changes.currentValue);
+    
+    if(changes.change.currentValue > 1){
+
+      this.load();
+    }
+  } 
+
+  protected load(){
+    this.numProyectosFinalizados = 0;
+    this.numProyectosSinFinalizar = 0;
+    this.numTareasPorDesarrollar = 0;
+    this.numTareasEnDesarrollo = 0;
+    this.numTareasParaVerificar = 0;
+    this.numTareasTerminadas = 0;
+    this.numTareasOnTime = 0;
+    this.numTareasCaducadas = 0;
+
+    this.datasetNumTareasPorProyecto = new Array<DataSet>();
+    this.datasetRates = new Array<DataSet>();
+    this.datasetsProductos = new Array<DataSet>();
+    this.datasetBeneficios = new Array<DataSet>();
+
     this.productosView = true;
+    this.proyectosView = false;
+    this.tareasView = false;
 
     this.showDatasetsProductos = false;
     this.showDatasetsBeneficios = false;
+    this.showDatasetsRates = false;
+    this.showTareasPorTipos = false;
+    this.showCaducados = false;
     
     this.projectervice.getProjects().subscribe(data =>{
       this.proyectos=data.body;
@@ -104,6 +156,56 @@ export class AdminGraficosComponent implements OnInit {
       this.showDatasetsRates = true;
     });
 
+    this.taskService.getTasks().subscribe(data =>{
+      this.tareas=data.body;
+
+      this.tareas.forEach((element,index)=>{
+        this.checkTipoTarea(element);
+        this.checkTareaCaducada(element);
+      });
+
+      this.basicData6 = {
+        labels: ['Para desarrollar', 'En desarrollo', 'Para verificar', 'Terminadas'],
+        datasets: [
+            {
+                data: [this.numTareasPorDesarrollar, this.numTareasEnDesarrollo, this.numTareasParaVerificar, this.numTareasTerminadas],
+                backgroundColor: [
+                  "#FF5233",
+                  "#ebedef",
+                  "#495057",
+                  "#66BB6A"
+                ],
+                hoverBackgroundColor: [
+                  "#FF7259",
+                  "#66BB6A",
+                  "#FF5233",
+                  "#81C784",
+                ]
+            }
+        ]
+      };
+
+      this.basicData7 = {
+        labels: ['A tiempo', 'Fuera de tiempo'],
+        datasets: [
+            {
+                data: [this.numTareasOnTime, this.numTareasCaducadas],
+                backgroundColor: [
+                  "#66BB6A",
+                  "#FF5233"
+                ],
+                hoverBackgroundColor: [
+                  "#81C784",
+                  "#FF7259"
+                ]
+            }
+        ]
+      };
+
+      this.showCaducados = true;
+      this.showTareasPorTipos = true;
+    });
+
     this.billService.getBills().subscribe( data => {
       this.datasetBeneficios.push(this.buildDataSetForProfits(data.body));
       this.showDatasetsBeneficios = true;
@@ -129,11 +231,7 @@ export class AdminGraficosComponent implements OnInit {
       labels: ['Número de tareas'],
       datasets: this.datasetNumTareasPorProyecto
     };
-    console.log(this.numProyectosFinalizados);
-    console.log(this.numProyectosSinFinalizar);
     
-    
-
     this.basicOptions = {
       plugins: {
           legend: {
@@ -199,9 +297,8 @@ export class AdminGraficosComponent implements OnInit {
               }
           }
       }
-  };
+    };
   }
-
   public onClickMe(option: number) {
     switch (option) {
       case 1:
@@ -351,6 +448,40 @@ export class AdminGraficosComponent implements OnInit {
       
       this.numProyectosSinFinalizar++;
     }
+    
+  }
+
+  checkTipoTarea(tarea: Task){
+    switch (tarea.state) {
+      case 0:
+        this.numTareasPorDesarrollar++;
+        break;
+      case 1:
+      
+        this.numTareasEnDesarrollo++;
+        break;
+      case 2:
+      
+        this.numTareasParaVerificar++;
+        break;
+      case 3:
+      
+        this.numTareasTerminadas++;
+        break;
+    
+      default:
+        break;
+    }
+  }
+
+  checkTareaCaducada(tarea: Task){
+
+    if (new Date().getTime() > new Date(tarea.endDate).getTime()) {
+      this.numTareasCaducadas++;
+    } else {
+      this.numTareasOnTime++;
+    }
+    
     
   }
 

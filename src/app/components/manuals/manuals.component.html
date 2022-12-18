@@ -1,7 +1,17 @@
-<ul class="list-group">
-    <li class="list-group-item">Cras justo odio</li>
-    <li class="list-group-item">Dapibus ac facilisis in</li>
-    <li class="list-group-item">Morbi leo risus</li>
-    <li class="list-group-item">Porta ac consectetur ac</li>
-    <li class="list-group-item">Vestibulum at eros</li>
-  </ul>
+<div *ngIf="this.manuals == undefined || this.manuals == null || this.manuals.length == 0" class="center-text">
+  <h4>Sin manuales disponibles</h4>
+</div>
+<div class="col-12 cuerpo">
+  <div *ngIf="this.manuals != undefined && this.manuals != null && this.manuals.length != 0" class="list-group">
+    <a *ngFor="let k of this.manuals | keys; let i = index" class="list-group-item flex-column align-items-start list-group-item-action" style="cursor: pointer; width: 100%;">
+        <div class="d-flex justify-content-start align-items-center">
+            <h5 class="mb-1">{{this.manuals[k].name}}</h5>
+            
+            <div class="btn-group ml-auto p-2" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-secondary btn-sm animated fadeIn" (click)="downloadManual(this.manuals[k].id)">Descargar</button>
+            </div>
+        </div>
+    </a>
+  </div>
+</div>
+

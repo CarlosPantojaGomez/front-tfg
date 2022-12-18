@@ -1,3 +1,4 @@
+import { Producto } from "./producto.interface";
 import { Project } from "./project.interface";
 import { Task } from "./task.interface";
 
@@ -18,4 +19,6 @@ export interface Usuario{
     flagActive?: number;
     assignedTasks?: Array<Task>;
     projectsAssigned?: Array<Project>;
+    productsBought?: Array<Producto>;
+
 }

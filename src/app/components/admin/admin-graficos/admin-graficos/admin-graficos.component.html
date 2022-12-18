@@ -60,5 +60,18 @@
 </div>
 
 <div class="cuerpo" *ngIf="tareasView">
-    Tareas
+    <div class="row col-12">
+        <div class="col-6" *ngIf="showTareasPorTipos">
+            <div class="card">
+                <h5>Número de finalizados</h5>
+                <p-chart type="pie" [data]="basicData6" [options]="chartOptions"></p-chart>
+            </div>
+        </div>
+        <div class="col-6" *ngIf="showCaducados">
+            <div class="card">
+                <h5>Número de finalizados</h5>
+                <p-chart type="pie" [data]="basicData7" [options]="chartOptions"></p-chart>
+            </div>
+        </div>
+    </div>
 </div>

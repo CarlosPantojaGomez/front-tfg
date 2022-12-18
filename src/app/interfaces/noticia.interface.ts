@@ -1,4 +1,3 @@
-import { Image } from "./image.interface";
 import { Producto } from "./producto.interface";
 import { Usuario } from "./usuario.interface";
 
@@ -8,7 +7,7 @@ export interface Noticia{
     sortDescription: string;
     title: string;
     cardImage?:string;
-    product?:Producto;
+    productsRelated?: Array<Producto>;
     creator?:Usuario;
     fecha?:number;
 }

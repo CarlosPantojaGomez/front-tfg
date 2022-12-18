@@ -37,7 +37,8 @@ export class ProductosService {
 
   getProducto(key$:string):Observable<EntityResponseType> {
     this.extend = this.URL + '/product/'+ key$;
-    return this.http.get<any>(this.extend, { observe: 'response' }); 
+    return this.http.get<any>(this.extend, { observe: 'response' })
+    .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res))); ; 
   }
 
   getProductos():Observable<EntityArrayResponseType> {
@@ -45,6 +46,11 @@ export class ProductosService {
     return this.http
       .get<any>(this.extend, { observe: 'response' })
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res))); 
+  }
+
+  findbyName(input: string): Observable<EntityArrayResponseType> {
+    this.extend = this.URL + '/products/findByName/' + input;
+    return this.http.get<any>(this.extend, { observe: 'response' });
   }
 
   getImgProductosTop():Observable<EntityArrayResponseTypeImage> {
@@ -61,9 +67,11 @@ export class ProductosService {
 
   protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
     if (res.body) {
-      console.log(res.body);
+      const img={
+        url: NO_PRODUCT_PROFILE_PICTURE_2
+      };
       
-      res.body.profileImage = res.body.profileImage != null ? res.body.profileImage : undefined;
+      res.body.profileImage = res.body.profileImage != null ? res.body.profileImage : img;
     }
     return res;
   }

@@ -1,3 +1,31 @@
-<p>
-  download works!
-</p>
+<div class="col-md-12 offset-md-3 mt-5 animated fadeIn " *ngIf="!identificado">
+  <div class="card ">
+      <h4 class="card-header">Inicio de sesión</h4>
+      <div class="card-body">
+        <p>Necesita identificarse para la descarga de productos <a class="text-muted" href="http://localhost:4200/login">Identificarse</a></p>
+      </div>
+  </div>
+</div>
+<div class="col-md-12 offset-md-3 mt-5 animated fadeIn " *ngIf="identificado && !comprado">
+  <div class="card ">
+      <h4 class="card-header">Comprar</h4>
+      <div class="card-body">
+        <p>PAGA</p>
+      </div>
+  </div>
+</div>
+<div class="col-md-12 offset-md-3 mt-5 animated fadeIn " *ngIf="identificado && comprado">
+  <div class="col-12 cuerpo">
+    <div *ngIf="this.product != undefined && this.product != null && this.product.file != undefined && this.product.file != null" class="list-group">
+      <a class="list-group-item flex-column align-items-start list-group-item-action" style="cursor: pointer; width: 100%;">
+        <div class="d-flex justify-content-start align-items-center">
+            <h5 class="mb-1">{{this.product.file.name}}</h5>
+            
+            <div class="btn-group ml-auto p-2" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-secondary btn-sm animated fadeIn" (click)="downloadProduct()">Descargar</button>
+            </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>

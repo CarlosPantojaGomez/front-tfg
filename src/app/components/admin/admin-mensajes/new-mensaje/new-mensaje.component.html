@@ -11,6 +11,7 @@
                 class="form-control"
                 placeholder="Destinatario"
                 required
+                [readonly]="writeToSpecificUser"
                 (input)="onSearchReceiverChange($event.target.value)"
               >
               

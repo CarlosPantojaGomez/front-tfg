@@ -57,10 +57,11 @@
         </div>
     </div>
     
-    <div class="media  animated fadeIn" [ngClass]="{'container': vistaTrabajador == false}" *ngIf="!vistaTrabajador">
-        <app-features *ngIf="features"></app-features>
-        <app-manuals *ngIf="manuals"></app-manuals>
-        <app-download *ngIf="descarga"></app-download>
+    <div class="media animated fadeIn" [ngClass]="{'container': vistaTrabajador == false}" *ngIf="!vistaTrabajador">
+      <div *ngIf="features"></div>
+        <!-- <app-features *ngIf="features"></app-features> -->
+      <app-manuals *ngIf="manuals" [manuals]="producto.manuals"></app-manuals>
+      <app-download *ngIf="descarga" [id]="producto.id" [product]="producto"></app-download>
     </div>
 </div>
 

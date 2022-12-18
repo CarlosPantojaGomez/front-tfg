@@ -26,12 +26,18 @@ export class NewNoticiaComponent implements OnInit {
   myInputVariableMiniatura: ElementRef;
   profileImage: string;
 
+  noticiaView: boolean;
+  productosView: boolean;
+
+  
+  productsRelated: Array<Producto> = [];
+  productsSearch: Producto[];
+
   products: Array<Producto> = [];
   editForm = this.fb.group({
     title: [],
     sortDescription: [],
-    description: [],
-    producto: []
+    description: []
   });
 
   constructor(
@@ -41,6 +47,8 @@ export class NewNoticiaComponent implements OnInit {
 
   ngOnInit() {
     this.edit = false;
+    
+    this.noticiaView = true;
     
     this.buttonDone = 'Crear';
     this.header = 'Nueva Noticia';
@@ -54,10 +62,10 @@ export class NewNoticiaComponent implements OnInit {
           title: data.body.title,
           description: data.body.description,
           sortDescription: data.body.sortDescription,
-          producto: data.body.product != undefined ? data.body.product.id : null
         });
         
         this.profileImage = data.body.cardImage;
+        this.productsRelated = data.body.productsRelated;
 
         this.buttonDone = 'Guardar';
         this.header = 'Editar Noticia';
@@ -84,10 +92,6 @@ export class NewNoticiaComponent implements OnInit {
 
   private createFromForm(): Noticia {
 
-    this.product = this.products.find(obj => {
-      return obj.id === this.editForm.get(['producto']).value
-    })
-
     var creatorNickname = "";
     if(JSON.parse(sessionStorage.getItem('currentUser'))!= null){
       creatorNickname = JSON.parse(sessionStorage.getItem('currentUser')).nickname
@@ -104,6 +108,7 @@ export class NewNoticiaComponent implements OnInit {
       title: this.editForm.get(['title']).value,
       creator: creator,
       product: this.product,
+      productsRelated: this.productsRelated,
       cardImage: this.profileImage
     };
     
@@ -154,9 +159,56 @@ export class NewNoticiaComponent implements OnInit {
     this.profileImage = null;
   }
 
-  changeProducto(producto: any){
+  public onClickMe(option: number) {
+    switch (option) {
+      case 1:
+        this.noticiaView = true;
+        this.productosView = false;
+        break;
+      case 2:
+        this.noticiaView = false;
+        this.productosView = true;
+        break;
+      case 3:
+      default:
+
+        break;
+    }
     
-    this.product = producto;
+  }
+
+  onSearchSetProduct(searchValue: string): void {  
+    if(searchValue.length > 2){
+      this.productService.findbyName(searchValue).subscribe(data =>{
+        if (data.body.length > 0){
+          this.productsSearch = data.body;
+        }else {
+          this.productsSearch = undefined;
+        }
+      });
+    } else {
+      this.productsSearch = undefined;
+    }
+  }
+
+  selectProduct(i: number) {
+    console.log(this.productsSearch[i]);
+    
+    this.productsRelated.push(this.productsSearch[i]);
+    
+    this.productsSearch = undefined;
+    
+  }
+  
+  deleteProduct(indexx: number) {
+    this.productsRelated.forEach((element,index)=>{
+      if(index==indexx) this.productsRelated.splice(index,1);
+    });
+  }
+
+  cleanProductSearch(){
+    setTimeout(() => this.productsSearch = undefined,300);
+    ;
   }
 
 }

@@ -29,6 +29,11 @@ export class AdminUsersComponent implements OnInit {
 
   userView: boolean;
   userId: number;
+
+  
+  writingMessage: boolean;
+  userNickname: string;
+
   constructor(
     private usuarioService: UsuariosService,
     private router: Router
@@ -131,11 +136,17 @@ export class AdminUsersComponent implements OnInit {
 
   viewUser(id: number){
     this.userView = true;
+    this.writingMessage = false;
     this.userId = id;
   }
 
   loadStateList(){
-    
     this.userView = false;
+    this.writingMessage = false;
+  }
+
+  writeMessage(nickname: string){
+    this.userView = false;
+    this.writingMessage = true;
   }
 }

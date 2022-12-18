@@ -1,87 +1,123 @@
-<form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-  <div class="container main-container">
-    <h4>{{header}} </h4>
-      <div class="row animated fadeIn">
-        <div class="col-4 ">
-          <div class="form-group">
-            <label>Titular*</label>
-            <input  formControlName="title"
-              name="nombre"
-              type="text"
-              class="form-control"
-              placeholder="Titular de la noticia"
-              required>
+<div class="media animated fadeIn">
+  <div class="btn-group btn-group-toggle btn-block" data-toggle="buttons">
+      <label class="btn btn-light" (click)="onClickMe(1)">
+          <input type="radio" name="options" id="option1"> Noticia
+      </label>
+      <label class="btn btn-light" (click)="onClickMe(2)">
+          <input type="radio" name="options" id="option2"> Productos relacionados
+      </label>
+  </div>
+</div>
+<div>
+  <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm" *ngIf="noticiaView">
+    <div class="main-container">
+      <h4>{{header}} </h4>
+        <div class="row animated fadeIn">
+          <div class="col-4 ">
+            <div class="form-group">
+              <label>Titular*</label>
+              <input  formControlName="title"
+                name="nombre"
+                type="text"
+                class="form-control"
+                placeholder="Titular de la noticia"
+                required>
+            </div>
           </div>
-        </div>
-        <div class="col-4">
-          <div class="form-group">
-            <label>Producto*</label>
-            <select class="custom-select" required formControlName="producto" (change)="changeProducto($event.target.value)">
-              <option [ngValue]="null" disabled>Choose your Product</option>
-              <option *ngFor="let producto of products" [ngValue]="producto.id">
-                {{ producto.name }}
-              </option>
-            </select>
+          <div class="col-12">
+            <div class="form-group">
+              <label>Cabecera</label>
+              <textarea id="sortDescription" formControlName="sortDescription" name="sortDescription" rows="2" cols="50" class="form-control" placeholder="Cabecera de la noticia"></textarea>
+              
+            </div>
           </div>
-        </div>
-        <div class="col-12">
-          <div class="form-group">
-            <label>Cabecera</label>
-            <textarea id="sortDescription" formControlName="sortDescription" name="sortDescription" rows="2" cols="50" class="form-control" placeholder="Cabecera de la noticia"></textarea>
-            
+  
+          <div class="col-12">
+            <div class="form-group">
+              <label>Descripción</label>
+              <textarea id="description" formControlName="description" name="description" rows="4" cols="50" class="form-control" placeholder="Descripción de la noticia"></textarea>
+              
+            </div>
           </div>
+  
         </div>
-
-        <div class="col-12">
-          <div class="form-group">
-            <label>Descripción</label>
-            <textarea id="description" formControlName="description" name="description" rows="4" cols="50" class="form-control" placeholder="Descripción de la noticia"></textarea>
-            
+  
+        <div class="col-12 form-group">
+          <div class="col-4">
+            <input #myInputMiniatura type="file" hidden  accept="image/*" #uploader (change)="uploadMiniatura($event)" />
+            <button type="button" class="btn btn-secondary btn-sm animated fadeIn" (click)="uploader.click()">
+              
+              Adjuntar miniatura
+              <i class="fa fa-image"></i>
+            </button>
           </div>
-        </div>
-
-      </div>
-
-      <div class="col-12 form-group">
-        <div class="col-4">
-          <input #myInputMiniatura type="file" hidden  accept="image/*" #uploader (change)="uploadMiniatura($event)" />
-          <button type="button" class="btn btn-secondary btn-sm animated fadeIn" (click)="uploader.click()">
-            
-            Adjuntar miniatura
-            <i class="fa fa-image"></i>
-          </button>
-        </div>
-
-        <div class="col-10">
-          <div *ngIf="profileImage != undefined">
-            <div style="margin-bottom: 8% ">
-              <div class="card mb-3 cuerpo" style="max-width: 300px;">
-                <div class="row no-gutters">
-                  <div class="col-md-4">
-                    <img src="{{profileImage}}" class="card-img" height="100">
-                  </div>
-                  <div class="col-md-8">
-                    <div class="card-body">
-                      <button (click)="eliminarMiniatura()" type="button" class="btn btn-outline-secondary btn-sm">Eliminar
-                      </button>
+  
+          <div class="col-10">
+            <div *ngIf="profileImage != undefined">
+              <div style="margin-bottom: 8% ">
+                <div class="card mb-3 cuerpo" style="max-width: 300px;">
+                  <div class="row no-gutters">
+                    <div class="col-md-4">
+                      <img src="{{profileImage}}" class="card-img" height="100">
+                    </div>
+                    <div class="col-md-8">
+                      <div class="card-body">
+                        <button (click)="eliminarMiniatura()" type="button" class="btn btn-outline-secondary btn-sm">Eliminar
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+  
         </div>
-
-      </div>
-
-      <div class="col-2">
-        <div class="form-group">
-          <br>
-          <button [disabled]="editForm.invalid" type="submit" class="btn btn-outline-primary form-control">
-            {{buttonDone}} 
+  
+        <div class="col-2">
+          <div class="form-group">
+            <br>
+            <button [disabled]="editForm.invalid" type="submit" class="btn btn-outline-primary form-control">
+              {{buttonDone}} 
+            </button>
+          </div>
+        </div>
+        
+    </div>
+  </form>
+</div>
+<div class="col-12 form-group" *ngIf="productosView">
+  <div class="input-group mb-3 cuerpo">
+    <input type="text" class="form-control" placeholder="Buscar Productos" aria-label="Buscar Productos" aria-describedby="basic-addon2"
+    (input)="onSearchSetProduct($event.target.value)"
+    (focusout)="cleanProductSearch()">
+    <div class="input-group-append">
+      <span class="input-group-text" id="basic-addon2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+          <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+        </svg>
+      </span>
+    </div>
+    <div class="dropdown-menu dropdown" [ngClass]="{'show': this.productsSearch != undefined}">
+      <a class="dropdown-item" *ngFor="let k of this.productsSearch | keys; let i = index" (click)="selectProduct(k)">
+        {{this.productsSearch[k].name}}
+      </a>
+    </div>
+  </div>
+  <div class="list-group" *ngIf="this.productsRelated != undefined">
+    <a *ngFor="let k of productsRelated | keys; let i = index" class="list-group-item flex-column align-items-start list-group-item-action" 
+    style="cursor: pointer;">
+      <div class="d-flex w-100 justify-content-start align-items-center">
+        <h5 class="mb-1" style="margin-right: 2%;">{{productsRelated[k].name}}</h5>
+        <div class="btn-group ml-auto p-2" role="group" aria-label="Basic example">
+          <button type="button" 
+              class="btn btn-secondary btn-sm animated fadeIn " 
+              (click)="deleteProduct(k)">Eliminar
           </button>
-        </div>
+      </div>
       </div>
       
+    </a>
   </div>
-</form>
+</div>
+
