@@ -1,15 +1,16 @@
-<div class="container">
+<div [ngClass]="{'container': this.id == undefined || this.id == null}"  *ngIf="noticias != undefined && noticias != null && noticias.length > 0">
   <div class="card container-cc animated fadeIn shadow-sm p-3 mb-5 bg-white rounded">
     <div class="card-body">
+      <h1>Noticias</h1>
       <div class="card-deck">
         <div class="card" *ngFor="let k of noticias | keys; let i = index">
-          <!-- <img src="{{ noticias[k].img}}" class="card-img-top rounded-lg" > -->
+          <img src="{{ noticias[k].cardImage}}" style='object-fit: contain' height="145" class="card-img-top rounded-lg" >
           <div class="card-body">
-            <h6 class="card-title"><a  class="text-muted" [routerLink]= "['productos']">{{ noticias[k].sortDescription }}</a></h6>
-            <!-- <button (click)="verNoticia(k)"
+            <h6 class="card-title">{{ noticias[k].sortDescription }}</h6>
+            <button (click)="verNoticia(noticias[k].id)"
                       type="button" class="btn btn-outline-secondary">
-                Ver
-            </button> -->
+                Ver noticia
+            </button>
           </div>
         </div>
       </div>

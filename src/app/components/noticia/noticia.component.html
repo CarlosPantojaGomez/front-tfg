@@ -1,8 +1,26 @@
-<div class="card mb-3">
+<div class="card mb-3" *ngIf="noticia != undefined">
   <img src="{{noticia.cardImage}}" class="card-img-top" alt="...">
   <div class="card-body">
     <h5 class="card-title">{{noticia.title}}</h5>
     <p class="card-text">{{noticia.description}}</p>
     <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+  </div>
+</div>
+<div  *ngIf="noticia.productsRelated != undefined && noticia.productsRelated != null && noticia.productsRelated.length > 0">
+  <div class="card container-cc animated fadeIn shadow-sm p-3 mb-5 bg-white rounded">
+    <div class="card-body">
+      <div class="card-deck">
+        <div class="card" *ngFor="let k of noticia.productsRelated | keys; let i = index">
+          <img src="{{ noticia.productsRelated[k].profileImage?.url}}" style='object-fit: contain' height="145" class="card-img-top rounded-lg" >
+          <div class="card-body">
+            <h6 class="card-title">{{ noticia.productsRelated[k].name }}</h6>
+            <button (click)="verProducto(noticia.productsRelated[k].id)"
+                      type="button" class="btn btn-outline-secondary">
+                Ir al Producto
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

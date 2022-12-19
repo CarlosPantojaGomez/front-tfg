@@ -19,6 +19,7 @@ export class ProductoComponent implements OnInit {
   features: boolean;
   manuals: boolean;
   descarga: boolean;
+  noticias: boolean;
   vistaTrabajador:boolean = false;
   productFound:boolean = false;
 
@@ -44,7 +45,7 @@ export class ProductoComponent implements OnInit {
     
     this._productosService.getProducto(this.id).subscribe(data =>{
       this.producto = data.body;
-      console.log(this.mainImages);
+      console.log(data.body);
       this.mainImages = data.body.images.filter(obj => {
         return obj.imageType == 2
       });
@@ -61,6 +62,7 @@ export class ProductoComponent implements OnInit {
     this.features = true;
     this.manuals = false;
     this.descarga = false;
+    this.noticias = false;
   }
 
   public onClickMe(option: number) {
@@ -69,16 +71,25 @@ export class ProductoComponent implements OnInit {
         this.features = true;
         this.manuals = false;
         this.descarga = false;
+        this.noticias = false;
         break;
       case 2:
         this.features = false;
         this.manuals = true;
         this.descarga = false;
+        this.noticias = false;
         break;
       case 3:
         this.features = false;
         this.manuals = false;
         this.descarga = true;
+        this.noticias = false;
+        break;
+      case 4:
+        this.features = false;
+        this.manuals = false;
+        this.descarga = false;
+        this.noticias = true;
         break;
       default:
 

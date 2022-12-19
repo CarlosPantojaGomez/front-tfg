@@ -54,6 +54,9 @@
             <label class="btn btn-light" (click)="onClickMe(3)">
                 <input type="radio" name="options" id="option3">  Descarga
             </label>
+            <label class="btn btn-light" (click)="onClickMe(4)">
+              <input type="radio" name="options" id="option4">  Noticias Relacionadas
+          </label>
         </div>
     </div>
     
@@ -62,6 +65,7 @@
         <!-- <app-features *ngIf="features"></app-features> -->
       <app-manuals *ngIf="manuals" [manuals]="producto.manuals"></app-manuals>
       <app-download *ngIf="descarga" [id]="producto.id" [product]="producto"></app-download>
+      <app-tarjetas *ngIf="noticias" [id]="producto.id"></app-tarjetas>
     </div>
 </div>
 

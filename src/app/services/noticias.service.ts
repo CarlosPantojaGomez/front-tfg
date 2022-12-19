@@ -47,6 +47,14 @@ export class NoticiasService {
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res))); 
 
   }
+  
+  getNoticiasByProductId( id: string):Observable<EntityArrayResponseType>{
+    this.extend = this.URL + '/news/' + id;
+    return this.http
+      .get<any>(this.extend, { observe: 'response' })
+      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res))); 
+
+  }
 
   deleteNoticia(key$:string): Observable<EntityResponseType>{
     this.extend = this.URL + '/new/delete/'+ key$;

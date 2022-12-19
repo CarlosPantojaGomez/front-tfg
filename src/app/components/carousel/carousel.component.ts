@@ -16,6 +16,8 @@ export class CarouselComponent implements OnInit {
 
   constructor(private _productosService:ProductosService) {
     this._productosService.getImgProductosTop().subscribe(data =>{
+      console.log(data);
+      
       this.firsImage = data.body.reverse().pop();
       this.secondImage = data.body.reverse().pop();
       this.thirdImage = data.body.reverse().pop();

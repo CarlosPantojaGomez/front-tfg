@@ -171,14 +171,14 @@ export class AdminGraficosComponent implements OnInit {
                 data: [this.numTareasPorDesarrollar, this.numTareasEnDesarrollo, this.numTareasParaVerificar, this.numTareasTerminadas],
                 backgroundColor: [
                   "#FF5233",
-                  "#ebedef",
-                  "#495057",
+                  "#3c86fa",
+                  "#faa53c",
                   "#66BB6A"
                 ],
                 hoverBackgroundColor: [
                   "#FF7259",
-                  "#66BB6A",
-                  "#FF5233",
+                  "#83aef2",
+                  "#fac584",
                   "#81C784",
                 ]
             }

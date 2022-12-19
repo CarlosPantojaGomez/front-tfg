@@ -15,7 +15,10 @@ export class NoticiaComponent implements OnInit {
 
   constructor(private _noticiasService:NoticiasService,
     private router:Router,
-    private route:ActivatedRoute) { 
+    private route:ActivatedRoute
+    ) { 
+      console.log(this.noticia);
+      
       this.route.params.subscribe( parametros =>{
 
         this.id = parametros['id']; 
@@ -31,6 +34,10 @@ export class NoticiaComponent implements OnInit {
   
 
   ngOnInit() {
+  }
+
+  verProducto(key:string){
+    this.router.navigate(['/producto', key])
   }
 
 }

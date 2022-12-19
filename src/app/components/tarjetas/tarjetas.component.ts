@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , Input} from '@angular/core';
 import {NoticiasService} from "../../services/noticias.service";
 import { Router, ActivatedRoute } from '@angular/router';
 import { Noticia } from 'src/app/interfaces/noticia.interface';
@@ -8,6 +8,7 @@ import { Noticia } from 'src/app/interfaces/noticia.interface';
 })
 export class TarjetasComponent implements OnInit {
 
+  @Input() id: number;
   noticias: Noticia[]
 
   constructor(
@@ -15,14 +16,19 @@ export class TarjetasComponent implements OnInit {
     private router:Router) { }
 
   ngOnInit() {
-    this.productosService.getNoticias().subscribe(data =>{
-      this.noticias=data.body;
-    })
+    if(this.id != undefined && this.id != null){
+      this.productosService.getNoticiasByProductId(this.id.toString(10)).subscribe(data =>{
+        this.noticias=data.body;
+      });
+    } else {
+      this.productosService.getNoticias().subscribe(data =>{
+        this.noticias=data.body;
+      });
+    }
   }
 
   verNoticia(key:string){
     this.router.navigate(['/noticia', key])
-    
   }
 
 
