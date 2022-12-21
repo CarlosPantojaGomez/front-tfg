@@ -4,6 +4,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Usuario } from '../interfaces/usuario.interface';
 import { Observable } from 'rxjs/Rx';
 import { BACK_URL } from '../helpers/img.constants';
+import { ProductoBasketRequest } from '../interfaces/ProductBasketRequest.interface';
 
 type EntityResponseType = HttpResponse<Usuario>;
 type EntityArrayResponseType = HttpResponse<Usuario[]>;
@@ -52,6 +53,16 @@ export class UsuariosService {
     return this.http.get<any>(this.extend, { observe: 'response' });
   } */
 
+  addProductToUserBasket(request :ProductoBasketRequest): Observable<EntityArrayResponseType>{
+    this.extend = this.URL + '/user/basket';
+    return this.http.put<any>(this.extend, request, { observe: 'response' });
+  }
+
+  removeProductFromUserBasket(request :ProductoBasketRequest): Observable<EntityArrayResponseType>{
+    this.extend = this.URL + '/user/basket/'+request.product.id +"/"+ request.user.id;
+    return this.http.delete<any>(this.extend, { observe: 'response' });
+  }
+  
   findbyNickname(input: string): Observable<EntityArrayResponseType> {
     this.extend = this.URL + '/users/findByNickname/' + input;
     return this.http.get<any>(this.extend, { observe: 'response' });

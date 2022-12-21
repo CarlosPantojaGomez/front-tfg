@@ -12,6 +12,7 @@ import { NoticiaComponent } from './components/noticia/noticia.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { EmployeeComponent } from './components/employee/employee.component';
+import { BasketComponent } from './components/basket/basket.component';
 
 const APP_ROUTES: Routes = [
     {path: 'home', component: HomeComponent},
@@ -22,6 +23,7 @@ const APP_ROUTES: Routes = [
     {path: 'registrarse/:id', component: RegistrarseComponent},
     {path: 'usuarios', component: UsuariosComponent},
     {path: 'login', component: LoginComponent},
+    {path: 'cesta', component: BasketComponent},
     {path: 'chat', component: ChatComponent},
     {path: 'perfil/:id', component: ProfileComponent},
     {path: 'admin', component: AdminComponent},

@@ -1,0 +1,34 @@
+<div class="container animated fadeIn" *ngIf="basket != undefined">
+    <div class="col-12">
+      <ul class="list-unstyled" >
+        <div *ngFor="let k of basket.products | keys; let i = index" class="cuerpo">
+            <div class="card mb-3">
+                <div class="row no-gutters">
+                  <div class="col-md-4">
+                      <img src="{{basket.products[k].profileImage?.url}}" style='object-fit: contain' class="card-img" height="145">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                        <h4 class="mt-0 mb-1">{{basket.products[k].name}}</h4>
+                        <p>{{basket.products[k].sortDescription}}</p>
+                        <h6>Precio: {{ basket.products[k].price }}€</h6>
+                        <button (click)="eliminarProducto(basket.products[k])" type="button" class="btn btn-outline-secondary btn-sm">Eliminar
+                        </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </div>
+      </ul>
+    </div>
+    <div class="col-12">
+        <h4>Total: {{basket.amount}}€</h4>
+    </div>
+    <div class="col-12">
+      <div class="col-2"></div>
+      <div class="col-4">
+        <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+      </div>
+      <div class="col-2"></div>
+    </div>
+  </div>

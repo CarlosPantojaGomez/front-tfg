@@ -6,12 +6,14 @@
       </div>
   </div>
 </div>
-<div class="col-md-12 offset-md-3 mt-5 animated fadeIn " *ngIf="identificado && !comprado">
-  <div class="card ">
-      <h4 class="card-header">Comprar</h4>
-      <div class="card-body">
-        <p>PAGA</p>
-      </div>
+<div class="col-12" *ngIf="identificado && !comprado">
+  <div class=" mt-5 animated fadeIn ">
+    <div class="card ">
+        <h4 class="card-header">Comprar</h4>
+        <div class="card-body">
+          <button type="button" class="btn btn-outline-secondary btn-sm" (click)="addProduct()">Añadir a la cesta</button>
+        </div>
+    </div>
   </div>
 </div>
 <div class="col-md-12 offset-md-3 mt-5 animated fadeIn " *ngIf="identificado && comprado">

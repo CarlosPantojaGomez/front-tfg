@@ -1,6 +1,9 @@
-import { Component, OnInit , Input, SimpleChanges} from '@angular/core';
+import { Component, OnInit , Input} from '@angular/core';
 import { Producto } from 'src/app/interfaces/producto.interface';
 import { Usuario } from 'src/app/interfaces/usuario.interface';
+import { UsuariosService } from 'src/app/services/usuarios.service';
+import { Observable } from 'rxjs';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-download',
@@ -17,7 +20,9 @@ export class DownloadComponent implements OnInit {
 
   usuario: Usuario;
   
-  constructor() { }
+  constructor(
+    private usuarioService: UsuariosService
+  ) { }
 
   ngOnInit() {
     if(this.id != undefined && this.id != null){
@@ -50,6 +55,26 @@ export class DownloadComponent implements OnInit {
     link.click()
 
     link.remove()
+  }
+
+  addProduct(){
+    
+    const request={
+      product: this.product,
+      user: this.usuario,
+    };
+
+    this.subscribeToSaveResponse(this.usuarioService.addProductToUserBasket(request));
+  }
+
+  protected subscribeToSaveResponse(result: Observable<HttpResponse<any>>) {
+    result.subscribe((res: HttpResponse<any>) => this.onSaveSuccess(res), (res: HttpErrorResponse) => this.onSaveError());
+  }
+  protected onSaveSuccess(res: any) {
+    console.log("ERROR");
+  }
+  protected onSaveError() {
+    console.log("ERROR");
   }
 
 }

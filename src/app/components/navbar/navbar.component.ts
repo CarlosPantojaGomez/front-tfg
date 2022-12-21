@@ -19,6 +19,8 @@ export class NavbarComponent implements OnInit {
   logout: boolean;
   trabajo: boolean;
   perfil: boolean;
+  cesta: boolean;
+  numProductos: number = 0;
 
   routeHome: string;
   id: string;
@@ -31,6 +33,11 @@ export class NavbarComponent implements OnInit {
     this.routeHome = "home";
 
     if(JSON.parse(sessionStorage.getItem('currentUser'))!= null){
+      console.log(JSON.parse(sessionStorage.getItem('currentUser')).basket);
+      if(JSON.parse(sessionStorage.getItem('currentUser')).basket != null && JSON.parse(sessionStorage.getItem('currentUser')).basket.products != undefined&& JSON.parse(sessionStorage.getItem('currentUser')).basket.products != null && JSON.parse(sessionStorage.getItem('currentUser')).basket.products.length > 0){
+        this.numProductos = JSON.parse(sessionStorage.getItem('currentUser')).basket.products.length
+      }
+      
       this.loadState(JSON.parse(sessionStorage.getItem('currentUser')).userType);
         this.id = JSON.parse(sessionStorage.getItem('currentUser')).id;
     }else {
@@ -44,6 +51,7 @@ export class NavbarComponent implements OnInit {
   protected subscribeLogIn() {
     this.ls.getEventLoggedEmitter().subscribe(e => {
       if(e != null) {
+        this.numProductos = JSON.parse(sessionStorage.getItem('currentUser')).basket.products.length
         this.loadState(JSON.parse(sessionStorage.getItem('currentUser')).userType);
         this.id = JSON.parse(sessionStorage.getItem('currentUser')).id;
       }
@@ -67,6 +75,7 @@ export class NavbarComponent implements OnInit {
         this.login = true;
         this.logout = false;
         this.trabajo = false;
+        this.cesta = false;
         this.perfil = false;
         this.routeHome = "home";
         break;
@@ -78,6 +87,7 @@ export class NavbarComponent implements OnInit {
         this.login = false;
         this.logout = true;
         this.trabajo = false;
+        this.cesta = true;
         this.perfil = true;
         this.routeHome = "home";
         break;
@@ -89,6 +99,7 @@ export class NavbarComponent implements OnInit {
         this.login = false;
         this.logout = true;
         this.trabajo = true;
+        this.cesta = false;
         this.perfil = true;
         this.routeHome = "admin";
         this.router.navigate(['/admin']);
@@ -101,6 +112,7 @@ export class NavbarComponent implements OnInit {
         this.login = false;
         this.logout = true;
         this.trabajo = true;
+        this.cesta = false;
         this.perfil = true;
         this.routeHome = "admin";
         this.router.navigate(['/admin']);
@@ -113,6 +125,7 @@ export class NavbarComponent implements OnInit {
         this.login = false;
         this.logout = true;
         this.trabajo = false;
+        this.cesta = false;
         this.perfil = false;
         this.routeHome = "admin";
         this.router.navigate(['/admin']);

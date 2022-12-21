@@ -25,6 +25,7 @@ import {ProjectService} from './services/project.service';
 //pipes
 import { KeysPipe } from './pipes/keys.pipe';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatBadgeModule} from '@angular/material/badge';
 import { MatFormFieldModule, MatInputModule, MatNativeDateModule, MatSliderModule } from '@angular/material';
 ///////////////////
 
@@ -79,6 +80,9 @@ import { ChartModule } from 'primeng/chart';
 import { AlertComponent } from './components/alert/alert.component';
 import { AlertService } from './services/alert.service';
 import { DetailsUserComponent } from './components/admin/details-user/details-user.component';
+import { BasketComponent } from './components/basket/basket.component';
+import { NgxPayPalModule } from  'ngx-paypal'
+
 
 @NgModule({
   declarations: [
@@ -130,7 +134,8 @@ import { DetailsUserComponent } from './components/admin/details-user/details-us
     OrderByPipe,
     AdminGraficosComponent,
     AlertComponent,
-    DetailsUserComponent
+    DetailsUserComponent,
+    BasketComponent
     
   ],
   imports: [
@@ -144,11 +149,13 @@ import { DetailsUserComponent } from './components/admin/details-user/details-us
     APP_ROUTING,
     BrowserAnimationsModule,
     MatDatepickerModule,
+    MatBadgeModule,
     MatFormFieldModule,
     MatInputModule,
     MatSliderModule,
     MatNativeDateModule,
-    ChartModule
+    ChartModule,
+    NgxPayPalModule
   ],
   providers: [{ provide: SETTINGS, useValue: {} },
               UsuariosService,
