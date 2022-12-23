@@ -4,6 +4,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx';
 import { BACK_URL, NO_PRODUCT_PROFILE_PICTURE_2 } from '../helpers/img.constants';
 import { Basket } from '../interfaces/basket.interface';
+import { PurchaseRequest } from '../interfaces/purchaseRequest';
 
 type EntityResponseType = HttpResponse<Basket>;
 type EntityArrayResponseType = HttpResponse<Basket[]>;
@@ -34,6 +35,11 @@ export class BasketService {
   updateBasket(basket: Basket): Observable<EntityResponseType>{
     this.extend = this.URL + '/basket';
     return this.http.put<any>(this.extend, basket, { observe: 'response' });
+  }
+
+  purchase(request: PurchaseRequest): Observable<EntityResponseType>{
+    this.extend = this.URL + '/basket/buy';
+    return this.http.put<any>(this.extend, request, { observe: 'response' });
   }
 
   deleteBasket(basketId: string):Observable<EntityArrayResponseType> {

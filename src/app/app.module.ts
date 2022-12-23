@@ -22,6 +22,7 @@ import {BillService} from './services/bill.service';
 import {CountryService} from './services/country.service';
 import {MailService} from './services/mail.service';
 import {ProjectService} from './services/project.service';
+import {BasketService} from './services/basket.service';
 //pipes
 import { KeysPipe } from './pipes/keys.pipe';
 import {MatDatepickerModule} from '@angular/material/datepicker';
@@ -159,6 +160,7 @@ import { NgxPayPalModule } from  'ngx-paypal'
   ],
   providers: [{ provide: SETTINGS, useValue: {} },
               UsuariosService,
+              BasketService,
               ProductosService,
               ChatService,
               AuthenticationService,

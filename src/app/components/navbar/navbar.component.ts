@@ -3,6 +3,9 @@ import { Subscription } from 'rxjs';
 
 import { EventManagerService } from 'src/app/services/eventManager.service';
 import { Router } from '@angular/router';
+import { UsuariosService } from 'src/app/services/usuarios.service';
+import { BasketService } from 'src/app/services/basket.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-navbar',
@@ -27,6 +30,9 @@ export class NavbarComponent implements OnInit {
 
   constructor(
     private ls: EventManagerService,
+    private usuarioService: UsuariosService,
+    private basketService: BasketService,
+    private authenticationService: AuthenticationService,
     private router: Router) { }
 
   ngOnInit() {
@@ -45,23 +51,38 @@ export class NavbarComponent implements OnInit {
       this.loadState(0);
     }
     this.subscribeLogIn();
+    //this.usuarioService.getRefreshListEmitter().subscribe(() => this.updateUser());
+    this.authenticationService.getRefreshCoockieUserEmitter().subscribe(() => this.updateUser());
     
   }
 
   protected subscribeLogIn() {
     this.ls.getEventLoggedEmitter().subscribe(e => {
       if(e != null) {
-        this.numProductos = JSON.parse(sessionStorage.getItem('currentUser')).basket.products.length
+        if(JSON.parse(sessionStorage.getItem('currentUser')).basket != null && JSON.parse(sessionStorage.getItem('currentUser')).basket.products != null){
+
+          this.numProductos = JSON.parse(sessionStorage.getItem('currentUser')).basket.products.length;
+        }
         this.loadState(JSON.parse(sessionStorage.getItem('currentUser')).userType);
         this.id = JSON.parse(sessionStorage.getItem('currentUser')).id;
       }
     });
   }
 
+  protected updateUser() {
+    if(JSON.parse(sessionStorage.getItem('currentUser')) != null && JSON.parse(sessionStorage.getItem('currentUser')).basket != null && JSON.parse(sessionStorage.getItem('currentUser')).basket.products != null){
+      this.numProductos = JSON.parse(sessionStorage.getItem('currentUser')).basket.products.length;
+    } else {
+      this.numProductos = 0;
+    }
+  }
+
   protected logOut() {
     sessionStorage.removeItem('currentUser');
     this.loadState(0);
+    this.authenticationService.refreshCoockieUser.emit();
     this.router.navigate(['/']);
+    
   }
 
   protected loadState(state: number) {

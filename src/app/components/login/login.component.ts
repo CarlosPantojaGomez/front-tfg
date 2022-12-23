@@ -100,7 +100,7 @@ import { EventManagerService } from 'src/app/services/eventManager.service';
                     this.error = error;
                     this.loading = false;
                 });
-    }
+        }
    
     
 }

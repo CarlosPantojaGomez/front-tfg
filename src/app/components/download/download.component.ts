@@ -71,7 +71,7 @@ export class DownloadComponent implements OnInit {
     result.subscribe((res: HttpResponse<any>) => this.onSaveSuccess(res), (res: HttpErrorResponse) => this.onSaveError());
   }
   protected onSaveSuccess(res: any) {
-    console.log("ERROR");
+    this.usuarioService.refreshUser.emit();
   }
   protected onSaveError() {
     console.log("ERROR");

@@ -3,7 +3,7 @@ import { map} from 'rxjs/operators';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Noticia } from '../interfaces/noticia.interface';
 import { Observable } from 'rxjs';
-import { BACK_URL } from '../helpers/img.constants';
+import { BACK_URL, NO_PRODUCT_PROFILE_PICTURE_2 } from '../helpers/img.constants';
 
 type EntityResponseType = HttpResponse<Noticia>;
 type EntityArrayResponseType = HttpResponse<Noticia[]>;
@@ -66,6 +66,13 @@ export class NoticiasService {
   protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
     if (res.body) {
       res.body.cardImage = res.body.cardImage != null ? res.body.cardImage : null;
+      const img={
+        url: NO_PRODUCT_PROFILE_PICTURE_2
+      };
+      
+      res.body.productsRelated.forEach((product)=>{
+        product.profileImage = product.profileImage != null ? product.profileImage : img;
+      });
     }
     return res;
   }

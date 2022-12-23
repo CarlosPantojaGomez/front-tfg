@@ -83,7 +83,7 @@ export class BasketComponent implements OnInit {
         },
         onClientAuthorization: (data) => {
             console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
-            //this.showSuccess = true;
+            this.compraRealizada(data);
         },
         onCancel: (data, actions) => {
             console.log('OnCancel', data, actions);
@@ -116,9 +116,44 @@ export class BasketComponent implements OnInit {
     result.subscribe((res: HttpResponse<any>) => this.onSaveSuccess(res), (res: HttpErrorResponse) => this.onSaveError());
   }
   protected onSaveSuccess(res: any) {
-    console.log("ERROR");
+    this.usuarioService.refreshUser.emit();
+    if(JSON.parse(sessionStorage.getItem('currentUser'))!= null){
+      this.user = JSON.parse(sessionStorage.getItem('currentUser'));
+
+      this.basketService.getBasketByUser(this.user.id).subscribe(data =>{
+        this.basket = data.body;
+        
+    this.usuarioService.refreshUser.emit();
+      });
+    }
   }
   protected onSaveError() {
     console.log("ERROR");
+  }
+
+  comprar(){
+    this.compraRealizada(null)
+  }
+  protected compraRealizada(details: any) {
+    const request = {
+      address_line_1: details?.payer?.address_line_1,
+      address_line_2: details?.payer?.address_line_2,
+      admin_area_1: details?.payer?.admin_area_1,
+      admin_area_2: details?.payer?.admin_area_2,
+      country_code: details?.payer?.country_code,
+      postal_code: details?.payer?.postal_code,
+      email_address: details?.email_address,
+      name: details?.name?.given_name,
+      surname: details?.name?.surname,
+      national_number: details?.phone.phone_number?.national_number,
+      basket: this.basket
+    }
+
+    this.basketService.purchase(request).subscribe(data =>{
+      this.basket = data.body;
+
+      this.initConfig();
+      
+    });
   }
 }

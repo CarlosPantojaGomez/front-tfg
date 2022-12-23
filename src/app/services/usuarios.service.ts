@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Usuario } from '../interfaces/usuario.interface';
 import { Observable } from 'rxjs/Rx';
+import { Subscription } from 'rxjs';
 import { BACK_URL } from '../helpers/img.constants';
 import { ProductoBasketRequest } from '../interfaces/ProductBasketRequest.interface';
 
@@ -16,27 +17,21 @@ export class UsuariosService {
   URL:string;
   extend: string;
 
+  refreshUser: EventEmitter<number> = new EventEmitter();
+
   constructor(private http:HttpClient) { 
-    
-    //this.URL = 'http://localhost:8080';
     this.URL = BACK_URL;
   }
 
+  getRefreshListEmitter() {
+    return this.refreshUser;
+  }
+  
   create(usuario: Usuario): Observable<EntityResponseType> {
     this.extend = this.URL + '/user';
     return this.http.post<any>(this.extend, usuario, { observe: 'response' });
       
   }
-  /* create(usuario: Usuario): Observable<EntityResponseType>{
-    this.extend = this.URL + '/user';
-    let body = JSON.stringify(usuario);
-    
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    
-    this.http.post<any>(this.extend, usuario, { observe: 'response' }).subscribe(data => {
-      console.log(data);
-    })
-  } */
 
   getusuario(id: string): Observable<EntityResponseType> {
     this.extend = this.URL + '/user/' + id;
