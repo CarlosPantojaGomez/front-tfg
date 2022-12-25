@@ -7,6 +7,8 @@ import { BasketService } from 'src/app/services/basket.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-basket',
@@ -23,7 +25,9 @@ export class BasketComponent implements OnInit {
 
   constructor(
     private basketService: BasketService,
-    private usuarioService: UsuariosService
+    private alertService: AlertService,
+    private usuarioService: UsuariosService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -134,6 +138,7 @@ export class BasketComponent implements OnInit {
   comprar(){
     this.compraRealizada(null)
   }
+
   protected compraRealizada(details: any) {
     const request = {
       address_line_1: details?.payer?.address_line_1,
@@ -152,8 +157,14 @@ export class BasketComponent implements OnInit {
     this.basketService.purchase(request).subscribe(data =>{
       this.basket = data.body;
 
+      this.alertService.showAlert("Compra realizada correctamente. Productos disponibles desde el perfil de usuario o del producto");
+      this.usuarioService.refreshUser.emit();
       this.initConfig();
       
     });
+  }
+
+  navigateProductos(){
+    this.router.navigate(['/productos']);
   }
 }

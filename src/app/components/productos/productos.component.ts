@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {ProductosService} from "../../services/productos.service";
-import { Router, ActivatedRoute } from '@angular/router';
-import { HttpResponse } from '@angular/common/http';
+import { ProductosService } from "../../services/productos.service";
+import { Router } from '@angular/router';
 import { Producto } from 'src/app/interfaces/producto.interface';
-
-
-
+import { Observable } from 'rxjs';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { UsuariosService } from 'src/app/services/usuarios.service';
+import { Usuario } from 'src/app/interfaces/usuario.interface';
 
 @Component({
   selector: 'app-productos',
@@ -13,24 +13,23 @@ import { Producto } from 'src/app/interfaces/producto.interface';
 })
 export class ProductosComponent implements OnInit {
 
+  usuario: Usuario;
   productos: Producto[];
   
-  constructor(private _productosService:ProductosService,
-    private router: Router) { 
-
+  constructor(
+    private _productosService:ProductosService,
+    private router: Router,
+    private usuarioService: UsuariosService
+  ) { 
+    
     this._productosService.getProductos().subscribe(data =>{
       this.productos=data.body;
-      console.log(this.productos);
-      
     })
   }
 
   ngOnInit() {
-    
-    if ( sessionStorage.getItem('currentUser') == null) {
-      console.log('null');
-    } else {
-      console.log('no null');
+    if(JSON.parse(sessionStorage.getItem('currentUser'))!= null){
+      this.usuario = JSON.parse(sessionStorage.getItem('currentUser'));
     }
   }
 
@@ -38,5 +37,24 @@ export class ProductosComponent implements OnInit {
     this.router.navigate(['/producto', key]);
   }
 
+  addProduct(product: Producto){
+    
+    const request={
+      product: product,
+      user: this.usuario,
+    };
+
+    this.subscribeToSaveResponse(this.usuarioService.addProductToUserBasket(request));
+  }
+
+  protected subscribeToSaveResponse(result: Observable<HttpResponse<any>>) {
+    result.subscribe((res: HttpResponse<any>) => this.onSaveSuccess(res), (res: HttpErrorResponse) => this.onSaveError());
+  }
+  protected onSaveSuccess(res: any) {
+    this.usuarioService.refreshUser.emit();
+  }
+  protected onSaveError() {
+    console.log("ERROR");
+  }
   
 }

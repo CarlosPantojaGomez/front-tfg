@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { Usuario } from '../interfaces/usuario.interface';
 import { BACK_URL } from '../helpers/img.constants';
 import { UsuariosService } from './usuarios.service';
+import { first } from 'rxjs/operators';
 
 type EntityResponseType = HttpResponse<Usuario>;
 @Injectable({
@@ -42,20 +43,40 @@ export class AuthenticationService {
   }
 
   protected updateUser() {
-    if(this.usuarioLogeado != undefined){
-      this.login(this.usuarioLogeado.nickname, this.usuarioLogeado.password);
+    console.log("ENTRA TRAS añadir al carrito");
+    console.log(this.usuarioLogeado);
+    console.log(JSON.parse(sessionStorage.getItem('currentUser'))!= null);
+    
+    if(JSON.parse(sessionStorage.getItem('currentUser'))!= null){
+      console.log("entra");
+      this.login(JSON.parse(sessionStorage.getItem('currentUser')).nickname, JSON.parse(sessionStorage.getItem('currentUser')).password)
+            .pipe(first())
+            .subscribe(
+                data => {
+                    console.log(data);
+                    this.refreshCoockieUser.emit();
+                    
+                },
+                error => {
+                    console.log("PETA");
+                    
+                });
     }
   }
 
   login(username: string, password: string): Observable<EntityResponseType> {
+    console.log(username +" "+ password);
+    
     return this.http.get<any>(BACK_URL+'/user/authenticate/' + username + '/' + password, { observe: 'response' })
         .pipe(map(user => {
+          console.log(user);
+          
           // store user details and jwt token in local storage to keep user logged in between page refreshes
             sessionStorage.setItem('currentUser', JSON.stringify(user.body));
             this.currentUserSubject.next(user.body);
-            this.usuarioLogeado =JSON.parse(sessionStorage.getItem('currentUser'));
+            this.usuarioLogeado =user.body;
+            console.log("emite evento");
             
-            this.refreshCoockieUser.emit();
             return user;
         }));
   }

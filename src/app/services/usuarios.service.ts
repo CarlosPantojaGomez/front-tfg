@@ -3,8 +3,8 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Usuario } from '../interfaces/usuario.interface';
 import { Observable } from 'rxjs/Rx';
-import { Subscription } from 'rxjs';
-import { BACK_URL } from '../helpers/img.constants';
+import { map } from 'rxjs/operators'; 
+import { BACK_URL, NO_PRODUCT_PROFILE_PICTURE_2 } from '../helpers/img.constants';
 import { ProductoBasketRequest } from '../interfaces/ProductBasketRequest.interface';
 
 type EntityResponseType = HttpResponse<Usuario>;
@@ -35,7 +35,8 @@ export class UsuariosService {
 
   getusuario(id: string): Observable<EntityResponseType> {
     this.extend = this.URL + '/user/' + id;
-    return this.http.get<any>(this.extend, { observe: 'response' });
+    return this.http.get<any>(this.extend, { observe: 'response' })
+    .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res))); 
   }
 
   /* getUsuarioByMail(key$:string):Observable<EntityResponseType> {
@@ -74,7 +75,8 @@ export class UsuariosService {
   }
   getUsuarioBy(key$:string, input: string): Observable<EntityResponseType> {
     this.extend = this.URL + '/user/find' + input +'/' + key$;
-    return this.http.get<any>(this.extend, { observe: 'response' });
+    return this.http.get<any>(this.extend, { observe: 'response' })
+    .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res))); 
   }
 
   getUsuariosBy(key$:string, input: string): Observable<EntityArrayResponseType> {
@@ -116,6 +118,18 @@ export class UsuariosService {
   }
 
   protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
+    if (res.body) {
+      const img={
+        url: NO_PRODUCT_PROFILE_PICTURE_2
+      };
+      
+      res.body.productsBought.forEach((product)=>{
+        console.log(product);
+        
+        product.profileImage = product.profileImage != null ? product.profileImage : img;
+      });
+
+    }
     return res;
   }
 

@@ -52,6 +52,8 @@ export class NavbarComponent implements OnInit {
     }
     this.subscribeLogIn();
     //this.usuarioService.getRefreshListEmitter().subscribe(() => this.updateUser());
+    console.log("Se suscribe");
+    
     this.authenticationService.getRefreshCoockieUserEmitter().subscribe(() => this.updateUser());
     
   }
@@ -70,6 +72,8 @@ export class NavbarComponent implements OnInit {
   }
 
   protected updateUser() {
+    console.log("Actualiza usuario");
+    
     if(JSON.parse(sessionStorage.getItem('currentUser')) != null && JSON.parse(sessionStorage.getItem('currentUser')).basket != null && JSON.parse(sessionStorage.getItem('currentUser')).basket.products != null){
       this.numProductos = JSON.parse(sessionStorage.getItem('currentUser')).basket.products.length;
     } else {
