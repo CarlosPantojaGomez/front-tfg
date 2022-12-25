@@ -6,6 +6,7 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { NO_PROFILE_PICTURE } from '../../helpers/img.constants';
 import { Observable } from 'rxjs';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-datos',
@@ -34,6 +35,7 @@ export class DatosComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private alertService: AlertService,
     private usuarioService: UsuariosService
   ) { }
 
@@ -63,7 +65,11 @@ export class DatosComponent implements OnInit {
       name: usuario.name,
       firstLastName: usuario.firstLastName,
       secondLastName: usuario.secondLastName,
-      tlf: usuario.tlf
+      profilePicture: usuario.profilePicture,
+      tlf: usuario.tlf,
+      city: usuario.city,
+      address: usuario.address,
+      zipcode: usuario.zipcode,
     });
   }
 
@@ -82,6 +88,10 @@ export class DatosComponent implements OnInit {
       password: this.usuario.password,
       userType: this.usuario.userType,
       profilePicture: this.profileImage != null ? this.profileImage : undefined,
+      city:  this.editForm.get(['city']).value,
+      tlf:  this.editForm.get(['tlf']).value,
+      address:  this.editForm.get(['address']).value,
+      zipcode:  this.editForm.get(['zipcode']).value,
       flagActive: 1
     };
     return usuario;
@@ -101,8 +111,8 @@ export class DatosComponent implements OnInit {
   }
   protected handleReaderLoaded(readerEvt) {
     var binaryString = readerEvt.target.result;
-           this.profileImage= 'data:image/webp;base64,' + btoa(binaryString);
-           console.log(btoa(binaryString));
+    
+    this.profileImage= 'data:image/webp;base64,' + btoa(binaryString);
    }
 
    public save() {
@@ -115,7 +125,7 @@ export class DatosComponent implements OnInit {
   }
 
   protected onSaveSuccess() {
-    console.log("GUARDADO");
+    this.alertService.showAlert("Usuario actualizado correctamente");
   }
   protected onSaveError() {
     console.log("ERROR");

@@ -7,8 +7,10 @@ import { Observable } from 'rxjs/Rx';
 import { map } from 'rxjs/operators';
 import { ProductoRequest } from '../interfaces/productRequest.interface';
 import { BACK_URL, NO_PRODUCT_PROFILE_PICTURE_2 } from '../helpers/img.constants';
+import { FileEntity } from '../interfaces/file.interface';
 
 type EntityResponseType = HttpResponse<Producto>;
+type EntityResponseTypeFileEntity = HttpResponse<FileEntity>;
 type EntityArrayResponseType = HttpResponse<Producto[]>;
 type EntityArrayResponseTypeImage = HttpResponse<String[]>;
 
@@ -39,6 +41,11 @@ export class ProductosService {
     this.extend = this.URL + '/product/'+ key$;
     return this.http.get<any>(this.extend, { observe: 'response' })
     .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res))); ; 
+  }
+
+  getProductFile(key$:string):Observable<EntityResponseTypeFileEntity> {
+    this.extend = this.URL + '/product/download/'+ key$;
+    return this.http.get<any>(this.extend, { observe: 'response' }); 
   }
 
   getProductos():Observable<EntityArrayResponseType> {

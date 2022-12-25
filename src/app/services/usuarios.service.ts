@@ -91,7 +91,7 @@ export class UsuariosService {
 
   actualizarUsuario(usuario :Usuario): Observable<EntityArrayResponseType>{
     this.extend = this.URL + '/user';
-    return this.http.post<any>(this.extend, usuario, { observe: 'response' });
+    return this.http.put<any>(this.extend, usuario, { observe: 'response' });
   }
 
   borrarUsuario(key$: string): Observable<EntityResponseType> {

@@ -56,5 +56,17 @@ export class ProductosComponent implements OnInit {
   protected onSaveError() {
     console.log("ERROR");
   }
+
+  checkIfBought(productId: number){
+    if(this.usuario.productsBought != undefined && this.usuario.productsBought != null && this.usuario.productsBought.length != 0){
+      if (this.usuario.productsBought.filter(e => e.id === productId).length > 0) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
   
 }
