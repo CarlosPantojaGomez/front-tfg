@@ -4,6 +4,7 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Usuario } from 'src/app/interfaces/usuario.interface';
 import { ProductosService } from 'src/app/services/productos.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-comprados',
@@ -18,6 +19,7 @@ export class CompradosComponent implements OnInit {
 
   constructor(
     private productosService: ProductosService,
+    private router: Router,
     private usuarioService: UsuariosService
   ) { }
 
@@ -50,6 +52,26 @@ export class CompradosComponent implements OnInit {
 
       link.remove()
     })
+  }
+
+  downloadManuals(productId: number){
+    this.productosService.getProductManuals(productId.toString(10)).subscribe(data =>{
+      
+      data.body.forEach((element,index)=>{
+        const src = element.file.data;
+        const link = document.createElement("a")
+        link.href = src
+        link.download = element.name
+        link.click()
+
+        link.remove()
+      });
+      
+    })
+  }
+
+  verproducto(key:string){
+    this.router.navigate(['/producto', key]);
   }
 
 }

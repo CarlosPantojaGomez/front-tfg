@@ -8,9 +8,12 @@ import { map } from 'rxjs/operators';
 import { ProductoRequest } from '../interfaces/productRequest.interface';
 import { BACK_URL, NO_PRODUCT_PROFILE_PICTURE_2 } from '../helpers/img.constants';
 import { FileEntity } from '../interfaces/file.interface';
+import { ManualEntity } from '../interfaces/manual.interface';
+import { ProductComment } from '../interfaces/productComment.interface';
 
 type EntityResponseType = HttpResponse<Producto>;
 type EntityResponseTypeFileEntity = HttpResponse<FileEntity>;
+type EntityArrayResponseTypeManualEntity = HttpResponse<ManualEntity[]>;
 type EntityArrayResponseType = HttpResponse<Producto[]>;
 type EntityArrayResponseTypeImage = HttpResponse<String[]>;
 
@@ -46,6 +49,17 @@ export class ProductosService {
   getProductFile(key$:string):Observable<EntityResponseTypeFileEntity> {
     this.extend = this.URL + '/product/download/'+ key$;
     return this.http.get<any>(this.extend, { observe: 'response' }); 
+  }
+
+  getProductManuals(key$:string):Observable<EntityArrayResponseTypeManualEntity> {
+    this.extend = this.URL + '/product/manuals/'+ key$;
+    return this.http
+      .get<any>(this.extend, { observe: 'response' }); 
+  }
+
+  writeComment(productComment: ProductComment): Observable<EntityResponseType>{
+    this.extend = this.URL + '/productComment';
+    return this.http.post<any>(this.extend, productComment, { observe: 'response' });
   }
 
   getProductos():Observable<EntityArrayResponseType> {

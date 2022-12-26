@@ -1,6 +1,7 @@
 import { FileEntity } from "./file.interface";
 import { Image } from "./image.interface";
 import { ManualEntity } from "./manual.interface";
+import { ProductComment } from "./productComment.interface";
 import { ProductoRate } from "./ProductRate.interface";
 
 export interface Producto{
@@ -17,4 +18,5 @@ export interface Producto{
     images?: Array<Image>;
     manuals?: Array<ManualEntity>;
     rates?: Array<ProductoRate>;
+    comments?: Array<ProductComment>;
 }

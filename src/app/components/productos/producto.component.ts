@@ -22,7 +22,7 @@ export class ProductoComponent implements OnInit {
   noticias: boolean;
   vistaTrabajador:boolean = false;
   productFound:boolean = false;
-
+  rate: number = 0;
   mainImage: Image;
   mainImages: Array<Image> = [];
 
@@ -32,7 +32,7 @@ export class ProductoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    
+    this.rate = 0;
     if(this.id == undefined){
       
       this.route.params.subscribe( parametros =>{
@@ -56,6 +56,13 @@ export class ProductoComponent implements OnInit {
         this.mainImages.splice(0, 1);
         console.log(this.mainImages);
       }
+
+      if(this.producto.rates != undefined && this.producto.rates != null && this.producto.rates.length > 0){
+        this.producto.rates.forEach((rate,index)=>{
+          this.rate += rate.rate;
+        });
+      }
+
       this.productFound = true;
     });
 
