@@ -4,6 +4,9 @@ import { Usuario } from 'src/app/interfaces/usuario.interface';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { Observable } from 'rxjs';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { ProductosService } from 'src/app/services/productos.service';
+import { ProductoRate } from 'src/app/interfaces/ProductRate.interface';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-download',
@@ -17,10 +20,15 @@ export class DownloadComponent implements OnInit {
 
   identificado:boolean = false;
   comprado:boolean = false;
+  showRate:boolean = false;
 
   usuario: Usuario;
+
+  rate: ProductoRate;
   
   constructor(
+    private productService: ProductosService,
+    private alertService: AlertService,
     private usuarioService: UsuariosService
   ) { }
 
@@ -37,7 +45,23 @@ export class DownloadComponent implements OnInit {
           });
 
           if(prod != null && prod != undefined){
+
+            const rate = {
+              rate: 0,
+              product: this.product,
+              rater: this.usuario,
+            };
+
+            this.rate = rate;
             this.comprado = true;
+
+            this.productService.getProductRate(this.id.toString(10), this.usuario.id.toString(10)).subscribe(data =>{
+              console.log(data.body);
+              if(data.body != null){
+                this.rate = data.body;
+              }
+              this.showRate = true;
+            });
           }
         }
         
@@ -76,5 +100,18 @@ export class DownloadComponent implements OnInit {
   protected onSaveError() {
     console.log("ERROR");
   }
+
+  updateRate(){
+    this.productService.saveRate(this.rate).subscribe(data =>{
+      console.log(data.body);
+      if(data.body != null){
+        this.rate = data.body;
+        this.alertService.showAlert("Producto valorado correctamente");
+      }
+    });
+    
+  }
+
+
 
 }

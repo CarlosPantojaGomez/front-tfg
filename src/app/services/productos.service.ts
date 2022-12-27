@@ -10,9 +10,11 @@ import { BACK_URL, NO_PRODUCT_PROFILE_PICTURE_2 } from '../helpers/img.constants
 import { FileEntity } from '../interfaces/file.interface';
 import { ManualEntity } from '../interfaces/manual.interface';
 import { ProductComment } from '../interfaces/productComment.interface';
+import { ProductoRate } from '../interfaces/ProductRate.interface';
 
 type EntityResponseType = HttpResponse<Producto>;
 type EntityResponseTypeFileEntity = HttpResponse<FileEntity>;
+type EntityResponseTypeProductoRate = HttpResponse<ProductoRate>;
 type EntityArrayResponseTypeManualEntity = HttpResponse<ManualEntity[]>;
 type EntityArrayResponseType = HttpResponse<Producto[]>;
 type EntityArrayResponseTypeImage = HttpResponse<String[]>;
@@ -26,7 +28,6 @@ export class ProductosService {
   extend: string;
 
   constructor(private http:HttpClient) { 
-    //this.URL = 'http://localhost:8080';
     this.URL = BACK_URL;
   }
 
@@ -49,6 +50,16 @@ export class ProductosService {
   getProductFile(key$:string):Observable<EntityResponseTypeFileEntity> {
     this.extend = this.URL + '/product/download/'+ key$;
     return this.http.get<any>(this.extend, { observe: 'response' }); 
+  }
+
+  getProductRate(productId: string, userId: string):Observable<EntityResponseTypeProductoRate> {
+    this.extend = this.URL + '/product/rate/'+ productId + "/" + userId;
+    return this.http.get<any>(this.extend, { observe: 'response' }); 
+  }
+
+  saveRate(rate: ProductoRate): Observable<EntityResponseTypeProductoRate>{
+    this.extend = this.URL + '/productRate';
+    return this.http.put<any>(this.extend, rate, { observe: 'response' });
   }
 
   getProductManuals(key$:string):Observable<EntityArrayResponseTypeManualEntity> {

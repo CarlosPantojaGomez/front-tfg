@@ -17,11 +17,12 @@
   </div>
 </div>
 <div class="col-md-12 offset-md-3 mt-5 animated fadeIn " *ngIf="identificado && comprado">
-  <div class="col-12 cuerpo">
+  <div class="col-12" *ngIf="showRate">
     <label for="">Valora el producto: </label>
-    <mat-slider min="1" max="5" step="0.5" value="1.5">
+    <mat-slider min="0" max="5" step="0.5" [(value)]="rate.rate" (valueChange)="updateRate()">
       <input matSliderThumb>
     </mat-slider>
+    {{rate.rate}}/5
   </div>
   <div class="col-12 cuerpo">
     <div *ngIf="this.product != undefined && this.product != null && this.product.file != undefined && this.product.file != null" class="list-group">

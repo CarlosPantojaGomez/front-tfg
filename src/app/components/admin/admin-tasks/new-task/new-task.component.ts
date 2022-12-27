@@ -61,7 +61,8 @@ export class NewTaskComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private taskService: TaskService,
-    private userService: UsuariosService) { }
+    private userService: UsuariosService
+  ) { }
 
   ngOnInit() {
 
