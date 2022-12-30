@@ -36,6 +36,13 @@ export class BillService {
 
   }
 
+  getBillByProductAndUser(productId: number, userId: number):Observable<EntityResponseType>{
+    this.extend = this.URL + "/bill/"+ productId + "/" + userId;
+    return this.http
+      .get<any>(this.extend, { observe: 'response' }); 
+
+  }
+
   getBillsByProduct(productId: number):Observable<EntityArrayResponseType>{
     this.extend = this.URL + "/bills/product/"+ productId;
     return this.http

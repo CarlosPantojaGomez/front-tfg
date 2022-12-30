@@ -15,6 +15,7 @@ import { ProductoRate } from '../interfaces/ProductRate.interface';
 type EntityResponseType = HttpResponse<Producto>;
 type EntityResponseTypeFileEntity = HttpResponse<FileEntity>;
 type EntityResponseTypeProductoRate = HttpResponse<ProductoRate>;
+type EntityResponseTypeRate = HttpResponse<number>;
 type EntityArrayResponseTypeManualEntity = HttpResponse<ManualEntity[]>;
 type EntityArrayResponseType = HttpResponse<Producto[]>;
 type EntityArrayResponseTypeImage = HttpResponse<String[]>;
@@ -47,12 +48,17 @@ export class ProductosService {
     .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res))); ; 
   }
 
+  getProductRate(productId: string):Observable<EntityResponseTypeRate> {
+    this.extend = this.URL + '/product/rate/'+ productId;
+    return this.http.get<any>(this.extend, { observe: 'response' }); 
+  }
+
   getProductFile(key$:string):Observable<EntityResponseTypeFileEntity> {
     this.extend = this.URL + '/product/download/'+ key$;
     return this.http.get<any>(this.extend, { observe: 'response' }); 
   }
 
-  getProductRate(productId: string, userId: string):Observable<EntityResponseTypeProductoRate> {
+  getProductRateForUser(productId: string, userId: string):Observable<EntityResponseTypeProductoRate> {
     this.extend = this.URL + '/product/rate/'+ productId + "/" + userId;
     return this.http.get<any>(this.extend, { observe: 'response' }); 
   }
@@ -85,7 +91,7 @@ export class ProductosService {
     return this.http.get<any>(this.extend, { observe: 'response' });
   }
 
-  getImgProductosTop():Observable<EntityArrayResponseTypeImage> {
+  getImgProductosTop():Observable<EntityArrayResponseType> {
     this.extend = this.URL + "/productsImageTop";
     return this.http
       .get<any>(this.extend, { observe: 'response' }); 

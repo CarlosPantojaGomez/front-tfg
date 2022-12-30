@@ -11,6 +11,9 @@ footer {
   cursor: pointer;
 }
 
+.carousel-caption {
+  background: rgba(0, 0, 0, 0.35);
+}
 .main-container{
     margin-top: 50px;
     margin-bottom: 150px;

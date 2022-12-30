@@ -45,7 +45,7 @@ export class ProductoComponent implements OnInit {
     
     this._productosService.getProducto(this.id).subscribe(data =>{
       this.producto = data.body;
-      console.log(data.body);
+
       this.mainImages = data.body.images.filter(obj => {
         return obj.imageType == 2
       });
@@ -57,13 +57,11 @@ export class ProductoComponent implements OnInit {
         console.log(this.mainImages);
       }
 
-      if(this.producto.rates != undefined && this.producto.rates != null && this.producto.rates.length > 0){
-        this.producto.rates.forEach((rate,index)=>{
-          this.rate += rate.rate;
-        });
-      }
+      this._productosService.getProductRate(this.id).subscribe(data =>{
+        this.rate = data.body;
+        this.productFound = true;
+      });
 
-      this.productFound = true;
     });
 
     this.features = true;
@@ -105,12 +103,11 @@ export class ProductoComponent implements OnInit {
     
   }
 
-  guardar(){
-    /* this._productosService.nuevoProducto(this.producto)
-    .subscribe(data=>{
-      this.router.navigate(['/producto', data.name])
-    },
-    error=>console.error(error)); */
+  updateProductRate(){
+    this._productosService.getProductRate(this.id).subscribe(data =>{
+      this.rate = data.body;
+      this.productFound = true;
+    });
   }
 
 }

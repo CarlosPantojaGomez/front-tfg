@@ -13,7 +13,7 @@
       <div class="col-8">
         <div class="col-12">
           <label for="">Valoración del producto</label>
-          <mat-slider min="0" max="5" step="0.5" [value]="rate" [disabled]="true">
+          <mat-slider min="0" max="5" step="0.5" [(value)]="rate" [disabled]="true">
             <input matSliderThumb>
           </mat-slider>
           {{rate}}/5
@@ -25,9 +25,8 @@
         </div>
       </div>
     </div>
-
     <div [ngClass]="{'container': vistaTrabajador == false}" *ngIf="mainImages != null && mainImages != undefined && mainImages.length > 0">
-      <div class="animated fadeIn">
+      <div class="animated fadeIn cuerpo">
           <div id="carouselExampleFade" class="carousel slide carousel-fade animated fadeIn" data-ride="carousel">
             <div class="carousel-inner">
               
@@ -35,10 +34,6 @@
                 <div class="view">
                   <img class="d-block w-100 animated fadeIn" src="{{mainImage.url}}" alt="First slide" height="400" style='object-fit: contain'>
                   <div class="mask rgba-black-light"></div>
-                </div>
-                <div class="carousel-caption">
-                  <h3 class="h3-responsive">Light mask</h3>
-                  <p>First text</p>
                 </div>
               </div>
               <div class="carousel-item" *ngFor="let k of mainImages | keys; let i = index">
@@ -57,8 +52,14 @@
           </div> 
       </div>
     </div>
+    <div [ngClass]="{'container': vistaTrabajador == false}" class="cuerpo">
+      <h3>Características</h3>
+      <p>
+        {{producto.features}}
+      </p>
+    </div>
 
-    <div class="media  animated fadeIn" [ngClass]="{'container': vistaTrabajador == false}" *ngIf="!vistaTrabajador">
+    <div class="media animated fadeIn cuerpo" [ngClass]="{'container': vistaTrabajador == false}" *ngIf="!vistaTrabajador">
       <div class="btn-group btn-group-toggle btn-block" data-toggle="buttons">
           <label class="btn btn-light" (click)="onClickMe(1)" routerLinkActive = "active">
               <input type="radio" name="options" id="option1"> Comentarios
@@ -78,7 +79,7 @@
     <div class="media animated fadeIn" [ngClass]="{'container': vistaTrabajador == false}" *ngIf="!vistaTrabajador">
       <app-features *ngIf="features" [product]="producto"></app-features>
       <app-manuals *ngIf="manuals" [manuals]="producto.manuals"></app-manuals>
-      <app-download *ngIf="descarga" [id]="producto.id" [product]="producto"></app-download>
+      <app-download *ngIf="descarga" [id]="producto.id" [product]="producto" (updateProductRate)="updateProductRate()"></app-download>
       <app-tarjetas *ngIf="noticias" [id]="producto.id"></app-tarjetas>
     </div>
   </div>

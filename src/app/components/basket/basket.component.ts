@@ -141,16 +141,16 @@ export class BasketComponent implements OnInit {
 
   protected compraRealizada(details: any) {
     const request = {
-      address_line_1: details?.payer?.address_line_1,
-      address_line_2: details?.payer?.address_line_2,
-      admin_area_1: details?.payer?.admin_area_1,
-      admin_area_2: details?.payer?.admin_area_2,
-      country_code: details?.payer?.country_code,
-      postal_code: details?.payer?.postal_code,
-      email_address: details?.email_address,
-      name: details?.name?.given_name,
-      surname: details?.name?.surname,
-      national_number: details?.phone.phone_number?.national_number,
+      address_line_1: details?.payer?.address?.address_line_1,
+      address_line_2: details?.payer?.address?.address_line_2,
+      admin_area_1: details?.payer?.address?.admin_area_1,
+      admin_area_2: details?.payer?.address?.admin_area_2,
+      country_code: details?.payer?.address?.country_code,
+      postal_code: details?.payer?.address?.postal_code,
+      email_address: details?.payer?.email_address,
+      name: details?.payer?.name?.given_name,
+      surname: details?.payer?.name?.surname,
+      national_number: details?.payer?.phone?.phone_number?.national_number,
       basket: this.basket
     }
 

@@ -11,24 +11,27 @@ import { Noticia } from 'src/app/interfaces/noticia.interface';
 export class NoticiaComponent implements OnInit {
 
   public noticia: Noticia;
+
+  public found: boolean;
+
   id:string;
 
-  constructor(private _noticiasService:NoticiasService,
+  constructor(
+    private _noticiasService:NoticiasService,
     private router:Router,
     private route:ActivatedRoute
-    ) { 
-      console.log(this.noticia);
+  ) { 
+    
+    this.route.params.subscribe( parametros =>{
       
-      this.route.params.subscribe( parametros =>{
-
-        this.id = parametros['id']; 
+      this.id = parametros['id']; 
 
         if(this.id!=="nuevo"){
-          this._noticiasService.getNoticia(this.id).subscribe(noticia => this.noticia = noticia.body);
-          
+          this._noticiasService.getNoticia(this.id).subscribe((noticia) => {
+            this.noticia = noticia.body;
+            this.found = true;
+          });
         }
-
-
       });
   }
   

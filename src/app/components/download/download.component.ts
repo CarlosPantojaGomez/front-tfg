@@ -1,4 +1,4 @@
-import { Component, OnInit , Input} from '@angular/core';
+import { Component, OnInit , Input, Output, EventEmitter} from '@angular/core';
 import { Producto } from 'src/app/interfaces/producto.interface';
 import { Usuario } from 'src/app/interfaces/usuario.interface';
 import { UsuariosService } from 'src/app/services/usuarios.service';
@@ -17,6 +17,8 @@ export class DownloadComponent implements OnInit {
 
   @Input() product: Producto;
   @Input() id: number;
+
+  @Output() updateProductRate = new EventEmitter();
 
   identificado:boolean = false;
   comprado:boolean = false;
@@ -55,7 +57,7 @@ export class DownloadComponent implements OnInit {
             this.rate = rate;
             this.comprado = true;
 
-            this.productService.getProductRate(this.id.toString(10), this.usuario.id.toString(10)).subscribe(data =>{
+            this.productService.getProductRateForUser(this.id.toString(10), this.usuario.id.toString(10)).subscribe(data =>{
               console.log(data.body);
               if(data.body != null){
                 this.rate = data.body;
@@ -107,6 +109,8 @@ export class DownloadComponent implements OnInit {
       if(data.body != null){
         this.rate = data.body;
         this.alertService.showAlert("Producto valorado correctamente");
+        
+        this.updateProductRate.emit();
       }
     });
     

@@ -21,7 +21,7 @@
     </div>
   </form>
 </div>
-<div class="my-3 p-3 bg-white rounded box-shadow fadeIn cuerpo" *ngIf="product.comments.length != 0">
+<div class="col-12 fadeIn cuerpo" *ngIf="product.comments.length != 0">
   <h6 class="border-bottom border-gray pb-2 mb-0">Comentarios</h6>
   <div class="media text-muted pt-3 fadeIn" *ngFor="let comment of product.comments | orderByy: 'id' ">
     <app-profile-picture [imagePatch]="comment.creator?.profilePicture"></app-profile-picture>
