@@ -46,7 +46,7 @@ export class AdminMainComponent implements OnInit {
     if(JSON.parse(sessionStorage.getItem('currentUser'))!= null){
 
       this.activityService.getActivitiesByUserId(JSON.parse(sessionStorage.getItem('currentUser')).id).subscribe(data =>{
-        console.log(data.body.length);
+      
         this.activities = data.body;
 
         
@@ -55,7 +55,7 @@ export class AdminMainComponent implements OnInit {
       });
 
       this.usuarioService.getusuario(JSON.parse(sessionStorage.getItem('currentUser')).id).subscribe(data =>{
-        console.log(data.body);
+       
         this.usuario = data.body;
        
         

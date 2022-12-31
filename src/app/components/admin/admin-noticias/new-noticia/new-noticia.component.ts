@@ -55,7 +55,6 @@ export class NewNoticiaComponent implements OnInit {
 
     if(this.id != undefined){
       this.noticiaService.getNoticia(this.id.toString(10)).subscribe(data =>{
-        console.log(data);
         
         this.edit = true;
         this.editForm.patchValue({
@@ -120,16 +119,13 @@ export class NewNoticiaComponent implements OnInit {
   }
 
   protected onSaveSuccess() {
-    console.log('entra');
     
     this.goBack.emit();
   }
   protected onSaveError() {
-    console.log("ERROR");
   }
 
   uploadMiniatura(evt) {
-    console.log(evt);
     
     var files = evt.target.files;
     var file = files[0];
@@ -147,7 +143,6 @@ export class NewNoticiaComponent implements OnInit {
 
   protected handleReaderLoaded(readerEvt) {
     var binaryString = readerEvt.target.result;
-    console.log(btoa(binaryString));
     const auxMainPicture = {
       url: 'data:image/webp;base64,' + btoa(binaryString),
       id$: Math.random() 
@@ -192,7 +187,6 @@ export class NewNoticiaComponent implements OnInit {
   }
 
   selectProduct(i: number) {
-    console.log(this.productsSearch[i]);
     
     this.productsRelated.push(this.productsSearch[i]);
     

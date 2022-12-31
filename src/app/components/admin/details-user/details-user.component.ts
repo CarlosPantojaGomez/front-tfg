@@ -31,7 +31,6 @@ export class DetailsUserComponent implements OnInit {
   }
   
   protected loadData(usuario: Usuario) {
-    console.log(usuario);
     
     this.usuario = usuario;
     this.userType = this.usuarioService.convertTypeToText(this.usuario.userType);

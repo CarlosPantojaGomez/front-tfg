@@ -27,7 +27,7 @@ export class UsersTableComponent implements OnInit {
   ngOnInit() {
     this.header = 'Usuarios';
     this.modal = false;
-    console.log(this.type);
+    
     this.usuarioService.getUsuariosBy(this.type, 'Type').subscribe(data =>{
       this.usuarios=data.body;
     });
@@ -35,7 +35,9 @@ export class UsersTableComponent implements OnInit {
   }
 
   protected loadData() {
+    
     this.usuarioService.getUsuariosBy(this.type, 'Type').subscribe(data =>{
+      
       this.usuarios=data.body;
     });
   }
@@ -65,7 +67,6 @@ export class UsersTableComponent implements OnInit {
   }
 
   verusuario(id: number){
-    console.log(id);
     
     this.viewUser.emit(id);
   }

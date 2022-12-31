@@ -95,12 +95,10 @@ export class NewProjectComponent implements OnInit {
   }
 
   protected onSaveSuccess() {
-    console.log('entra');
     
     this.goBack.emit();
   }
   protected onSaveError() {
-    console.log("ERROR");
   }
 
   private createFromForm(): Project {
@@ -139,7 +137,6 @@ export class NewProjectComponent implements OnInit {
   }
 
   public onClickMe(option: number) {
-    console.log(option);
     
     switch (option) {
       case 1:
@@ -179,7 +176,6 @@ export class NewProjectComponent implements OnInit {
   }
 
   selectUser(i: number) {
-    console.log(this.usuariosSearch[i]);
     
     this.usuariosRelated.push(this.usuariosSearch[i]);
     

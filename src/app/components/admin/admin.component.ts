@@ -25,7 +25,6 @@ export class AdminComponent implements OnInit {
 
   ngOnInit() {
     if(JSON.parse(sessionStorage.getItem('currentUser'))!= null){
-      console.log(JSON.parse(sessionStorage.getItem('currentUser')));
       
       this.userType = JSON.parse(sessionStorage.getItem('currentUser')).userType;
       this.loadState(this.userType);
@@ -40,7 +39,6 @@ export class AdminComponent implements OnInit {
   }
 
   loadNonReadCount(event: number){
-    console.log(event);
     this.nonreadMensjaes = event;
   }
 

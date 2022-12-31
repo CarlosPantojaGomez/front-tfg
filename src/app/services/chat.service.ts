@@ -20,7 +20,6 @@ export class ChatService {
 
     return this.itemsCollection.valueChanges()
                                .map((mensajes:Mensaje[])=>{
-                                 console.log(mensajes);
 
                                  this.chats=[];
                                  for(let mensaje of mensajes){

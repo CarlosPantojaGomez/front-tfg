@@ -83,8 +83,6 @@ export class AdminGraficosComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes.change.currentValue);
-    console.log(changes.currentValue);
     
     if(changes.change.currentValue > 1){
 

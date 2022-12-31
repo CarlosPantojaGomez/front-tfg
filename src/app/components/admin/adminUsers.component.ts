@@ -44,9 +44,9 @@ export class AdminUsersComponent implements OnInit {
     this.modal = false;
 
     if(JSON.parse(sessionStorage.getItem('currentUser'))!= null){
-      console.log(JSON.parse(sessionStorage.getItem('currentUser')));
       
       this.usuario = JSON.parse(sessionStorage.getItem('currentUser'));
+      
       if (this.usuario.userType == 4){
         this.vistaAdmin = true;
         this.vistaAltoCargo = false;
@@ -143,6 +143,7 @@ export class AdminUsersComponent implements OnInit {
   loadStateList(){
     this.userView = false;
     this.writingMessage = false;
+    this.trabajadores = true;
   }
 
   writeMessage(nickname: string){

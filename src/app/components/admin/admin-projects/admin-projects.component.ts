@@ -99,12 +99,8 @@ export class AdminProjectsComponent implements OnInit {
   }
 
   deleteProject(id: number){
-    console.log(id);
     
     this.projectervice.deleteProject(id.toString(10)).subscribe(data =>{
-        
-
-      console.log(data.body);
       
     });
   }

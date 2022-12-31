@@ -37,7 +37,6 @@ export class CompradosComponent implements OnInit {
   }
   
   protected loadData(usuario: Usuario) {
-    console.log(usuario);
     
     this.usuario = usuario;
     this.productos = this.usuario.productsBought;
@@ -80,7 +79,7 @@ export class CompradosComponent implements OnInit {
   downloadBill(product: Producto) {
 
     this.billService.getBillByProductAndUser(product.id, this.usuario.id).subscribe(data =>{
-      console.log(data);
+     
       
 
       var doc = new jsPDF();

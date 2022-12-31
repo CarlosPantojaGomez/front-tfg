@@ -52,9 +52,7 @@ export class ProductoComponent implements OnInit {
       
       if(this.mainImages.length > 0){
         this.mainImage = this.mainImages[0];
-        console.log(this.mainImages);
         this.mainImages.splice(0, 1);
-        console.log(this.mainImages);
       }
 
       this._productosService.getProductRate(this.id).subscribe(data =>{

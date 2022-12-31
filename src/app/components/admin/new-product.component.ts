@@ -87,8 +87,6 @@ export class NewProductComponent implements OnInit {
         data.body.manuals.forEach((element,index)=>{
           this.manuales.push(element.file);
         });
-
-        console.log(this.manuales);
         
         
         this.buttonDone = 'Guardar';
@@ -150,7 +148,6 @@ export class NewProductComponent implements OnInit {
   changeFile(file) {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
-        console.log(file);
         
         reader.readAsDataURL(file);
         reader.onload = () => resolve(reader.result);
@@ -159,7 +156,6 @@ export class NewProductComponent implements OnInit {
   }
 
   uploadMiniatura(evt) {
-    console.log(evt);
     
     var files = evt.target.files;
     var file = files[0];
@@ -177,7 +173,6 @@ export class NewProductComponent implements OnInit {
 
   protected handleReaderLoaded(readerEvt) {
     var binaryString = readerEvt.target.result;
-    console.log(btoa(binaryString));
     const auxMainPicture = {
       url: 'data:image/webp;base64,' + btoa(binaryString),
       id$: Math.random() 
@@ -271,18 +266,15 @@ export class NewProductComponent implements OnInit {
   }
 
   protected onSaveSuccess() {
-    console.log('entra');
     
     this.goBack.emit();
   }
   protected onSaveError() {
-    console.log("ERROR");
   }
 
   
 
   private createFromForm(): ProductoRequest {
-    console.log(this.editForm.get(['forSale']).value);
     
     const producto={
       id: this.edit ? this.id : null,

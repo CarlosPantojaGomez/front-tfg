@@ -129,7 +129,6 @@ export class UsuariosService {
       };
       
       res.body.productsBought.forEach((product)=>{
-        console.log(product);
         
         product.profileImage = product.profileImage != null ? product.profileImage : img;
       });

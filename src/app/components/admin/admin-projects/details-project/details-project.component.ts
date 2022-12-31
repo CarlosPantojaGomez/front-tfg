@@ -34,7 +34,6 @@ export class DetailsProjectComponent implements OnInit {
     private projectService: ProjectService) { }
 
   ngOnInit() {
-    console.log(this.project);
     this.proyectoView = true;
     
     if(this.id != undefined && this.id != 0){

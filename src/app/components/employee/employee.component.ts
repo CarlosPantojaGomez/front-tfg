@@ -20,7 +20,6 @@ export class EmployeeComponent implements OnInit {
     this.taskState = false;
     this.taskService.getTasks().subscribe(data =>{
       this.tasks = data.body;
-      /* console.log(data); */
       
   });
 
@@ -34,7 +33,6 @@ export class EmployeeComponent implements OnInit {
     this.taskState = state;
   }
   loadTask(task: Task) {
-    console.log(task);
     
     this.task = task;
   }

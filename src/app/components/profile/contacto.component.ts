@@ -33,7 +33,6 @@ export class ContactoComponent implements OnInit {
   }
 
   protected loadData(usuario: Usuario) {
-    console.log(usuario);
     
     this.usuario = usuario;
   }
@@ -58,15 +57,11 @@ export class ContactoComponent implements OnInit {
   }
 
   protected onSaveSuccess() {
-    console.log("GUARDADO");
   }
   protected onSaveError() {
-    console.log("ERROR");
   }
 
   public changeOption(event: any) {
-    console.log(event);
-    console.log(this.usuario);
     
   }
 

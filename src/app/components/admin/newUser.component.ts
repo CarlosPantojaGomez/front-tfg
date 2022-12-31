@@ -59,7 +59,6 @@ export class NewUserComponent implements OnInit {
     this.goBack.emit();
   }
   protected onSaveError() {
-    console.log("ERROR");
   }
 
   private createFromForm(): Usuario {
@@ -96,20 +95,15 @@ export class NewUserComponent implements OnInit {
   }
 
   public setTyping(){ 
-    console.log('true');
     
     this.typing = true;
   }
 
   public checkInput(value: any, input: string, disable: string[]) {
-    console.log(value);
-    console.log(input);
-    console.log(disable);
     this.usuarioService.getUsuarioBy(value, input).subscribe(res => this.decideDisable(disable, res.body));
   }
 
   protected decideDisable(disable: string[], result: any) { 
-    console.log(result);
     
     if(result == null || result.length == 0) {
       this.editForm.get([disable[0]]).enable();

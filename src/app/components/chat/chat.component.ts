@@ -33,7 +33,6 @@ export class ChatComponent{
   }
 
   enviar_mensaje(){
-    console.log(this.mensaje);
 
     if(this.mensaje.length === 0){
       return;

@@ -85,7 +85,6 @@ export class DetailsTaskComponent implements OnInit {
   }
 
   writeComment(){
-    console.log('esd');
     
     const comment = this.createCommentFromForm();
 
@@ -144,7 +143,6 @@ export class DetailsTaskComponent implements OnInit {
     this.taskService.refreshList.emit();
   }
   protected onSaveError() {
-    console.log("ERROR");
   }
 
   protected subscribeCommentWriteToSaveResponse(result: Observable<HttpResponse<any>>) {
@@ -171,11 +169,9 @@ export class DetailsTaskComponent implements OnInit {
     }
   }
   protected onCommentWriteSaveError() {
-    console.log("ERROR");
   }
 
   setImageToShow(image: Image){
-    console.log("entra");
     
     this.taskService.imageToShow = image.url;
   }

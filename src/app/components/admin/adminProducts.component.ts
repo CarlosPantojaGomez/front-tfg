@@ -68,7 +68,6 @@ export class AdminProductsComponent implements OnInit {
     this.creatingProduct = false;
     this.editingProduct = false;
     this.detailsProduct = true;
-    console.log("llega");
     
   }
   

@@ -39,7 +39,6 @@ export class NavbarComponent implements OnInit {
     this.routeHome = "home";
 
     if(JSON.parse(sessionStorage.getItem('currentUser'))!= null){
-      console.log(JSON.parse(sessionStorage.getItem('currentUser')).basket);
       if(JSON.parse(sessionStorage.getItem('currentUser')).basket != null && JSON.parse(sessionStorage.getItem('currentUser')).basket.products != undefined&& JSON.parse(sessionStorage.getItem('currentUser')).basket.products != null && JSON.parse(sessionStorage.getItem('currentUser')).basket.products.length > 0){
         this.numProductos = JSON.parse(sessionStorage.getItem('currentUser')).basket.products.length
       }
@@ -51,8 +50,6 @@ export class NavbarComponent implements OnInit {
       this.loadState(0);
     }
     this.subscribeLogIn();
-    //this.usuarioService.getRefreshListEmitter().subscribe(() => this.updateUser());
-    console.log("Se suscribe");
     
     this.authenticationService.getRefreshCoockieUserEmitter().subscribe(() => this.updateUser());
     
@@ -72,7 +69,6 @@ export class NavbarComponent implements OnInit {
   }
 
   protected updateUser() {
-    console.log("Actualiza usuario");
     
     if(JSON.parse(sessionStorage.getItem('currentUser')) != null && JSON.parse(sessionStorage.getItem('currentUser')).basket != null && JSON.parse(sessionStorage.getItem('currentUser')).basket.products != null){
       this.numProductos = JSON.parse(sessionStorage.getItem('currentUser')).basket.products.length;
@@ -155,7 +151,6 @@ export class NavbarComponent implements OnInit {
         this.routeHome = "admin";
         this.router.navigate(['/admin']);
       default:
-        console.log('nulo');
         ;
     }
   }

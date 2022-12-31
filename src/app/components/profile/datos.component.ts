@@ -52,7 +52,6 @@ export class DatosComponent implements OnInit {
   }
 
   protected loadData(usuario: Usuario) {
-    console.log(usuario);
     
     this.usuario = usuario;
     this.userType = this.usuarioService.convertTypeToText(this.usuario.userType);
@@ -62,7 +61,6 @@ export class DatosComponent implements OnInit {
     this.countryService.getCountries().subscribe(data =>{
      
       this.countries = data.body
-      console.log(usuario.country);
       
       this.editForm.patchValue({
         country: usuario.country.id
@@ -148,7 +146,6 @@ export class DatosComponent implements OnInit {
     this.alertService.showAlert("Usuario actualizado correctamente");
   }
   protected onSaveError() {
-    console.log("ERROR");
   }
 
   public changeCountry() {

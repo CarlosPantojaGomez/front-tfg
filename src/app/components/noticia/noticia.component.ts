@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import { NoticiasService } from 'src/app/services/noticias.service';
 import { Noticia } from 'src/app/interfaces/noticia.interface';
@@ -10,33 +10,40 @@ import { Noticia } from 'src/app/interfaces/noticia.interface';
 })
 export class NoticiaComponent implements OnInit {
 
+  @Input() id: string;
+
   public noticia: Noticia;
 
   public found: boolean;
-
-  id:string;
+  public employeeMode: boolean;
 
   constructor(
     private _noticiasService:NoticiasService,
     private router:Router,
     private route:ActivatedRoute
-  ) { 
-    
-    this.route.params.subscribe( parametros =>{
+  ) { }
+  
+  ngOnInit() {
+    if(this.id == undefined){
+      this.route.params.subscribe( parametros =>{
       
-      this.id = parametros['id']; 
-
-        if(this.id!=="nuevo"){
+        this.id = parametros['id']; 
+  
+        if(this.id !== "nuevo"){          
           this._noticiasService.getNoticia(this.id).subscribe((noticia) => {
             this.noticia = noticia.body;
             this.found = true;
           });
         }
       });
-  }
-  
-
-  ngOnInit() {
+    } else {
+      
+      this._noticiasService.getNoticia(this.id).subscribe((noticia) => {
+        this.noticia = noticia.body;
+        this.found = true;
+        this.employeeMode = true;
+      });
+    }
   }
 
   verProducto(key:string){

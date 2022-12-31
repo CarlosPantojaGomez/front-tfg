@@ -47,11 +47,9 @@ export class NewMensajeComponent implements OnInit {
     
     this.buttonDone = 'Enviar';
     this.header = 'Nuevo mensaje';
-    console.log(this.userId);
     
     if(this.id != undefined){
       this.mailService.getMail(this.id.toString(10)).subscribe(data =>{
-        console.log(data);
         
         this.read = true;
         this.mensaje = data.body;
@@ -90,7 +88,6 @@ export class NewMensajeComponent implements OnInit {
   }
 
   selectReceiver(i: number) {
-    console.log(this.usuarios[i]);
     this.editForm.patchValue({
       receiverName: this.usuarios[i].nickname
     });
@@ -126,12 +123,10 @@ export class NewMensajeComponent implements OnInit {
   }
 
   protected onSaveSuccess() {
-    console.log('entra');
     
     this.goBack.emit();
   }
   protected onSaveError() {
-    console.log("ERROR");
   }
 
 }

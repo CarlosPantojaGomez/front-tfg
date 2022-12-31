@@ -49,7 +49,6 @@ export class FeaturesComponent implements OnInit {
   }
 
   writeComment(){
-    console.log('esd');
     
     const comment = this.createCommentFromForm();
 
@@ -95,7 +94,6 @@ export class FeaturesComponent implements OnInit {
 
   }
   protected onCommentWriteSaveError() {
-    console.log("ERROR");
   }
 
 }

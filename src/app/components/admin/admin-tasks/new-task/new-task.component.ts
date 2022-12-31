@@ -81,11 +81,9 @@ export class NewTaskComponent implements OnInit {
 
     this.buttonDone = 'Crear';
     this.header = 'Nueva Tarea';
-    console.log(this.id);
     
     if(this.id != undefined){
       this.taskService.getTask(this.id.toString(10)).subscribe(data =>{
-        console.log(data);
         
         this.edit = true;
         this.editForm.patchValue({
@@ -156,17 +154,14 @@ export class NewTaskComponent implements OnInit {
   }
 
   protected onSaveSuccess() {
-    console.log('entra');
     
     this.goBack.emit();
     this.taskService.refreshList.emit();
   }
   protected onSaveError() {
-    console.log("ERROR");
   }
 
   public onClickMe(option: number) {
-    console.log(option);
     
     switch (option) {
       case 1:
@@ -199,7 +194,6 @@ export class NewTaskComponent implements OnInit {
   }
 
   selectUser(i: number) {
-    console.log(this.usuariosSearch[i]);
     
     this.usuariosRelated.push(this.usuariosSearch[i]);
     

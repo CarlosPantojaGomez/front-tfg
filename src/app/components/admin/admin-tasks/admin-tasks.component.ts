@@ -74,12 +74,8 @@ export class AdminTasksComponent implements OnInit {
   }
 
   deleteTask(id: number){
-    console.log(id);
     
     this.taskService.deleteTask(id.toString(10)).subscribe(data =>{
-        
-
-      console.log(data.body);
       
     });
   }
@@ -99,7 +95,7 @@ export class AdminTasksComponent implements OnInit {
     if(JSON.parse(sessionStorage.getItem('currentUser'))!= null){
       if(JSON.parse(sessionStorage.getItem('currentUser')).userType != 4){
         this.taskService.getTasksByUser(JSON.parse(sessionStorage.getItem('currentUser')).id.toString(10)).subscribe(data =>{
-          this.tasks=data.body;
+          this.tasks=data.body; 
         });
       }else {
         this.taskService.getTasks().subscribe(data =>{

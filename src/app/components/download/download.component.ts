@@ -58,7 +58,7 @@ export class DownloadComponent implements OnInit {
             this.comprado = true;
 
             this.productService.getProductRateForUser(this.id.toString(10), this.usuario.id.toString(10)).subscribe(data =>{
-              console.log(data.body);
+              
               if(data.body != null){
                 this.rate = data.body;
               }
@@ -100,12 +100,10 @@ export class DownloadComponent implements OnInit {
     this.usuarioService.refreshUser.emit();
   }
   protected onSaveError() {
-    console.log("ERROR");
   }
 
   updateRate(){
     this.productService.saveRate(this.rate).subscribe(data =>{
-      console.log(data.body);
       if(data.body != null){
         this.rate = data.body;
         this.alertService.showAlert("Producto valorado correctamente");

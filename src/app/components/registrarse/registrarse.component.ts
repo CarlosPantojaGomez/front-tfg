@@ -52,11 +52,9 @@ export class RegistrarseComponent {
       this.router.navigate(['/login']);
     }
     protected onSaveError() {
-      console.log("ERROR");
     }
 
     public setTyping(){ 
-      console.log('true');
       
       this.typing = true;
     }
@@ -66,8 +64,6 @@ export class RegistrarseComponent {
     }
     
     protected decideDisable(disable: string[], result: any) { 
-      console.log(result);
-      console.log(disable[0]);
       if(result.length == 0) {
         this.editForm.get([disable[0]]).enable();
       } else {

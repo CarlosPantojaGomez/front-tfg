@@ -40,7 +40,6 @@ export class SeguridadComponent implements OnInit {
   }
 
   protected loadData(usuario: Usuario) {
-    console.log(usuario);
     
     this.usuario = usuario;
   }
@@ -56,7 +55,6 @@ export class SeguridadComponent implements OnInit {
   }
 
   protected decideDisable(disable: string[], result: any) { 
-    console.log(result);
     
     if(result == null) {
       disable.forEach(element =>
@@ -76,7 +74,6 @@ export class SeguridadComponent implements OnInit {
   }
   
   public setTyping() { 
-    console.log('true');
     
     this.typing = true;
   }
@@ -97,7 +94,6 @@ export class SeguridadComponent implements OnInit {
     this.alertService.showAlert("Contraseña actualizada correctamente");
   }
   protected onSaveError() {
-    console.log("ERROR");
   }
 
 }

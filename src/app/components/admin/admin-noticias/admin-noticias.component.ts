@@ -15,6 +15,7 @@ export class AdminNoticiasComponent implements OnInit {
 
   creatingNoticia: boolean;
   editingNoticia: boolean;
+  showNoticia: boolean;
 
   noticiaId: number;
 
@@ -29,14 +30,16 @@ export class AdminNoticiasComponent implements OnInit {
 
     this.creatingNoticia = false;
     this.editingNoticia = false;
+    this.showNoticia = false;
     this.buttonNewNoticia = 'Nueva Noticia';
   }
   
-  protected loadState(create: boolean, edit: boolean) {
+  protected loadState(create: boolean, edit: boolean, showNoticia: boolean) {
     this.creatingNoticia = create;
     this.editingNoticia = edit;
+    this.showNoticia = showNoticia;
 
-    if(!create && !edit){
+    if(!create && !edit && !showNoticia){
       this.noticiasService.getNoticias().subscribe(data =>{
         this.noticias=data.body;
       });
@@ -47,6 +50,14 @@ export class AdminNoticiasComponent implements OnInit {
     this.noticiaId = id;
     this.creatingNoticia = false;
     this.editingNoticia = true;
+    this.showNoticia = false;
+  }
+
+  verNoticia(id: number){
+    this.noticiaId = id;
+    this.creatingNoticia = false;
+    this.editingNoticia = false;
+    this.showNoticia = true;
   }
 
 }

@@ -54,7 +54,6 @@ export class ProductosComponent implements OnInit {
     this.usuarioService.refreshUser.emit();
   }
   protected onSaveError() {
-    console.log("ERROR");
   }
 
   checkIfBought(productId: number){
