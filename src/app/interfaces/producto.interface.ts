@@ -19,4 +19,5 @@ export interface Producto{
     manuals?: Array<ManualEntity>;
     rates?: Array<ProductoRate>;
     comments?: Array<ProductComment>;
+    flagActive?: number;
 }

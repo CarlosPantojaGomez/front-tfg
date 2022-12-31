@@ -1,4 +1,5 @@
 import { Basket } from "./basket.interface";
+import { Country } from "./country.interface";
 import { Producto } from "./producto.interface";
 import { Project } from "./project.interface";
 import { Task } from "./task.interface";
@@ -22,4 +23,5 @@ export interface Usuario{
     projectsAssigned?: Array<Project>;
     productsBought?: Array<Producto>;
     basket?: Basket;
+    country?: Country;
 }

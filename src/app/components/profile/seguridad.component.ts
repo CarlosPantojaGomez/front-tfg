@@ -5,6 +5,7 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Usuario } from 'src/app/interfaces/usuario.interface';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Observable } from 'rxjs';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-seguridad',
@@ -22,6 +23,7 @@ export class SeguridadComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private usuarioService: UsuariosService,
+    private alertService: AlertService,
     private authenticationService: AuthenticationService
   ) { }
 
@@ -84,7 +86,7 @@ export class SeguridadComponent implements OnInit {
 
     user.password = this.editForm.get(['newPassword2']).value
 
-    this.subscribeToSaveResponse(this.usuarioService.actualizarUsuario(user));
+    this.subscribeToSaveResponse(this.usuarioService.actualizarPasswordUsuario(user));
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<any>>) {
@@ -92,7 +94,7 @@ export class SeguridadComponent implements OnInit {
   }
 
   protected onSaveSuccess() {
-    console.log("GUARDADO");
+    this.alertService.showAlert("Contraseña actualizada correctamente");
   }
   protected onSaveError() {
     console.log("ERROR");

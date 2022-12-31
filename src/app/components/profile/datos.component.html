@@ -1,4 +1,4 @@
-<div class="container main-container" *ngIf="this.usuario">
+<div class="container main-container" *ngIf="this.usuario && this.loaded">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
         <div class="row animated fadeIn">
             <div class="col-6">
@@ -21,7 +21,7 @@
             <div class="col-6">
                 <div class="form-group">
                     <div class="custom-file">
-                        <input  formControlName="profilePicture"
+                        <input 
                                 type="file" 
                                 class="custom-file-input" 
                                 id="inputGroupFile01" 
@@ -83,8 +83,8 @@
                     <label>País</label>
                     <select class="custom-select" formControlName="country" (change)="changeCountry()">
                         <option [ngValue]="null" disabled>Choose your Country</option>
-                        <option *ngFor="let country of countries" [ngValue]="country">
-                         {{ country }}
+                        <option *ngFor="let country of countries" [ngValue]="country.id">
+                         {{ country.name }}
                         </option>
                     </select>
                 </div>

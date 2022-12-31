@@ -21,6 +21,8 @@ export class BasketComponent implements OnInit {
 
   user: Usuario;
   
+  result: Array<any> = [];
+  
   public payPalConfig ? : IPayPalConfig;
 
   constructor(
@@ -44,6 +46,8 @@ export class BasketComponent implements OnInit {
   }
 
   private initConfig(): void {
+    const paypalProducts = this.createProducts();
+
     this.payPalConfig = {
         currency: 'EUR',
         clientId: 'sb',
@@ -60,15 +64,7 @@ export class BasketComponent implements OnInit {
                         }
                     }
                 },
-                items: [{
-                    name: 'Enterprise Subscription',
-                    quantity: '1',
-                    category: 'DIGITAL_GOODS',
-                    unit_amount: {
-                        currency_code: 'EUR',
-                        value: this.basket.amount.toString(10),
-                    },
-                }]
+                items: this.result
             }]
         },
         advanced: {
@@ -105,6 +101,24 @@ export class BasketComponent implements OnInit {
     };
   }
 
+  createProducts(): any{
+    this.result = [];
+
+    this.basket.products.forEach((product)=>{
+
+      var elem = {
+        name: product.name,
+        quantity: '1',
+        category: 'DIGITAL_GOODS',
+        unit_amount: {
+          currency_code: 'EUR',
+          value: product.price.toString(10),
+        },
+      }
+      this.result.push(elem);
+    });
+
+  }
   eliminarProducto(product: Producto){
     
     const request={

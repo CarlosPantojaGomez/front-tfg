@@ -15,9 +15,6 @@ export class CountryService {
   URL:string;
   extend: string;
 
-  noticiasURL:string = "https://prtfg-74ef0.firebaseio.com/noticias.json"
-  noticiaURL:string = "https://prtfg-74ef0.firebaseio.com/noticias"
-
   constructor(private http:HttpClient) { 
     //this.URL = 'http://localhost:8080';
     this.URL = BACK_URL;
@@ -32,8 +29,8 @@ export class CountryService {
 
   }
 
-  getNoticias( ):Observable<EntityArrayResponseType>{
-    this.extend = this.URL + "/news";
+  getCountries( ):Observable<EntityArrayResponseType>{
+    this.extend = this.URL + "/countries";
     return this.http
       .get<any>(this.extend, { observe: 'response' })
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res))); 

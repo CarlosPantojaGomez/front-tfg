@@ -7,6 +7,8 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 import { NO_PROFILE_PICTURE } from '../../helpers/img.constants';
 import { Observable } from 'rxjs';
 import { AlertService } from 'src/app/services/alert.service';
+import { CountryService } from 'src/app/services/country.service';
+import { Country } from 'src/app/interfaces/country.interface';
 
 @Component({
   selector: 'app-datos',
@@ -18,14 +20,15 @@ export class DatosComponent implements OnInit {
   usuario: Usuario;
   userType: String;
 
-  countries: any[];
+  country: Country;
+  countries: Country[];
   profileImage = NO_PROFILE_PICTURE;
+  loaded: boolean;
 
   editForm = this.fb.group({
     name: [],
     firstLastName: [],
     secondLastName: [],
-    profilePicture: [],
     tlf: [],
     country: [],
     city: [],
@@ -36,19 +39,16 @@ export class DatosComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private alertService: AlertService,
+    private countryService: CountryService,
     private usuarioService: UsuariosService
   ) { }
 
   ngOnInit() {
-
-    this.countries = ['España', 'Alemania'];
-
     this.usuarioService.getusuario(this.id)
-        .subscribe(
-          (res: HttpResponse<Usuario>) => this.loadData(res.body),
-          (res: HttpErrorResponse) => this.onError(res.message)
-        );
-        
+      .subscribe(
+        (res: HttpResponse<Usuario>) => this.loadData(res.body),
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );  
   }
 
   protected loadData(usuario: Usuario) {
@@ -58,6 +58,18 @@ export class DatosComponent implements OnInit {
     this.userType = this.usuarioService.convertTypeToText(this.usuario.userType);
     this.usuario.profilePicture != null ? this.profileImage = this.usuario.profilePicture : undefined;
     this.updateForm(usuario);
+
+    this.countryService.getCountries().subscribe(data =>{
+     
+      this.countries = data.body
+      console.log(usuario.country);
+      
+      this.editForm.patchValue({
+        country: usuario.country.id
+      });
+      this.loaded = true;
+    })
+
   }
 
   updateForm(usuario: Usuario) {
@@ -69,7 +81,7 @@ export class DatosComponent implements OnInit {
       tlf: usuario.tlf,
       city: usuario.city,
       address: usuario.address,
-      zipcode: usuario.zipcode,
+      zipcode: usuario.zipcode
     });
   }
 
@@ -78,6 +90,13 @@ export class DatosComponent implements OnInit {
   }
 
   private createFromForm(): Usuario {
+
+    if(this.editForm.get(['country']).value != null){
+      this.country = this.countries.find(obj => {
+        return obj.id === this.editForm.get(['country']).value
+      })
+    }
+
     const usuario={
       id: this.usuario.id,
       name: this.editForm.get(['name']).value,
@@ -89,6 +108,7 @@ export class DatosComponent implements OnInit {
       userType: this.usuario.userType,
       profilePicture: this.profileImage != null ? this.profileImage : undefined,
       city:  this.editForm.get(['city']).value,
+      country:  this.country,
       tlf:  this.editForm.get(['tlf']).value,
       address:  this.editForm.get(['address']).value,
       zipcode:  this.editForm.get(['zipcode']).value,

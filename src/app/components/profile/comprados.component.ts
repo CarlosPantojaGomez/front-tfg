@@ -34,13 +34,16 @@ export class CompradosComponent implements OnInit {
           (res: HttpErrorResponse) => this.onError(res.message)
         );
     
-  }protected loadData(usuario: Usuario) {
+  }
+  
+  protected loadData(usuario: Usuario) {
     console.log(usuario);
     
     this.usuario = usuario;
     this.productos = this.usuario.productsBought;
     this.show = true;
   }
+  
   protected onError(errorMessage: string) {
     
   }
