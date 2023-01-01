@@ -79,7 +79,7 @@ export class AdminProductsComponent implements OnInit {
 
     this.productoService.deleteProduct(id.toString(10)).subscribe(() =>{
       
-      this.refresh(null);
+      this.loadState(false, false, false);
       
     });
   }

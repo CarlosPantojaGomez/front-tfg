@@ -12,6 +12,7 @@ export class ProfileComponent implements OnInit {
   id: string;
   usuario: Usuario;
   header: string;
+  
   constructor(
     private route: ActivatedRoute,
     private router: Router,

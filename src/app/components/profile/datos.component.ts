@@ -61,10 +61,12 @@ export class DatosComponent implements OnInit {
     this.countryService.getCountries().subscribe(data =>{
      
       this.countries = data.body
-      
-      this.editForm.patchValue({
-        country: usuario.country.id
-      });
+      if (this.usuario.country != null) {
+
+        this.editForm.patchValue({
+          country: usuario.country.id
+        });
+      }
       this.loaded = true;
     })
 

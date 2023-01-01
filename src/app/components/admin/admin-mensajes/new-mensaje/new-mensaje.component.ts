@@ -16,6 +16,7 @@ export class NewMensajeComponent implements OnInit {
 
 
   @Input() id: number;
+  @Input() writer: boolean;
   @Input() mensajeId: number;
   @Input() userId: number;
 
@@ -49,15 +50,29 @@ export class NewMensajeComponent implements OnInit {
     this.header = 'Nuevo mensaje';
     
     if(this.id != undefined){
-      this.mailService.getMail(this.id.toString(10)).subscribe(data =>{
+      
+      if(!this.writer){
+        this.mailService.getMail(this.id.toString(10)).subscribe(data =>{
         
-        this.read = true;
-        this.mensaje = data.body;
+          this.read = true;
+          this.mensaje = data.body;
+          
+          this.buttonDone = 'Guardar';
+          this.header = 'Editar Producto';
+          
+        });
+      } else {
+        this.mailService.getWroteMail(this.id.toString(10)).subscribe(data =>{
         
-        this.buttonDone = 'Guardar';
-        this.header = 'Editar Producto';
-        
-      });
+          this.read = true;
+          this.mensaje = data.body;
+          
+          this.buttonDone = 'Guardar';
+          this.header = 'Editar Producto';
+          
+        });
+      }
+      
     }
 
     if(this.userId != undefined){
@@ -127,6 +142,10 @@ export class NewMensajeComponent implements OnInit {
     this.goBack.emit();
   }
   protected onSaveError() {
+  }
+  cleanUserSearch(){
+    setTimeout(() => this.usuarios = undefined,300);
+    ;
   }
 
 }

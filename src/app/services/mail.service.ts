@@ -30,6 +30,12 @@ export class MailService {
 
   }
 
+  getWroteMail( key$:string):any {
+    this.extend = this.URL + '/wroteMail/'+ key$;
+    return this.http.get<any>(this.extend, { observe: 'response' }); 
+
+  }
+
   getMails( ):Observable<EntityArrayResponseType>{
     this.extend = this.URL + "/news";
     return this.http

@@ -23,6 +23,10 @@ export class DetailsTaskComponent implements OnInit {
 
   tareaView: boolean;
   usuariosView: boolean;
+  canModify: boolean;
+
+  
+  diasRestantes: string;
 
   editForm = this.fb.group({
     state: [],
@@ -51,11 +55,31 @@ export class DetailsTaskComponent implements OnInit {
       this.taskService.getTask(this.id.toString(10)).subscribe(data =>{
         this.task = data.body;
 
+        this.SetDiasRestantes();
+
         this.editForm.patchValue({
           state: this.task.state,
           prioridad: this.task.priority
         });
         
+        if(JSON.parse(sessionStorage.getItem('currentUser'))!= null){
+          
+          console.log(this.task.assignedUsers);
+          var exists = this.task.assignedUsers.find(obj => {
+            
+            return obj.id === JSON.parse(sessionStorage.getItem('currentUser')).id
+          })
+          
+          if(exists != undefined){
+            this.canModify = true;
+          } else {
+            this.canModify = false;
+            this.editForm.controls['state'].disable();
+            this.editForm.controls['prioridad'].disable();
+            this.commentForm.controls['text'].disable();
+          }
+        }
+
       });
     }
   }
@@ -174,6 +198,18 @@ export class DetailsTaskComponent implements OnInit {
   setImageToShow(image: Image){
     
     this.taskService.imageToShow = image.url;
+  }
+  protected SetDiasRestantes(){
+    if (new Date().getTime() > new Date(this.task.endDate).getTime()){
+      this.diasRestantes = "Tarea fuera de tiempo";
+    } else {
+      var seconds = new Date(this.task.endDate).getTime() - new Date().getTime();
+      var d = Math.floor((seconds / (3600*24))*0.001) + 1;
+
+      this.diasRestantes = "Dias restantes: " + d.toString(10);
+      
+    }
+    
   }
 
 }

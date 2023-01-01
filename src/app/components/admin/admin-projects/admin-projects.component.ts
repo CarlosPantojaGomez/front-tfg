@@ -14,6 +14,7 @@ export class AdminProjectsComponent implements OnInit {
   header: string;
   buttonNewUser: string;
 
+  canCreate: boolean;
   creatingProject: boolean;
   editingProject: boolean;
   detailsProject: boolean;
@@ -29,10 +30,14 @@ export class AdminProjectsComponent implements OnInit {
 
     if(JSON.parse(sessionStorage.getItem('currentUser'))!= null){
       if(JSON.parse(sessionStorage.getItem('currentUser')).userType != 4){
+        if(JSON.parse(sessionStorage.getItem('currentUser')).userType == 3){
+          this.canCreate = true;
+        }
         this.projectervice.getProjectsForUser(JSON.parse(sessionStorage.getItem('currentUser')).id.toString(10)).subscribe(data =>{
           this.proyectos=data.body;
         });
       }else {
+        this.canCreate = true;
         this.projectervice.getProjects().subscribe(data =>{
           this.proyectos=data.body;
         });

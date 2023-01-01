@@ -63,8 +63,10 @@ export class CarouselComponent implements OnInit {
           this.mainImages.push(imgg);
         }
       });
-      
-      this.loaded = true;
+      if(this.productos.length > 0){
+
+        this.loaded = true;
+      }
     })
    }
 

@@ -13,11 +13,12 @@
                 required
                 [readonly]="writeToSpecificUser"
                 (input)="onSearchReceiverChange($event.target.value)"
+                (focusout)="cleanUserSearch()"
               >
               
                 <div class="dropdown-menu dropdown" [ngClass]="{'show': this.usuarios != undefined}">
                   <a class="dropdown-item" *ngFor="let k of this.usuarios | keys; let i = index" (click)="selectReceiver(k)">
-                    {{this.usuarios[k].name}}
+                    {{this.usuarios[k].nickname}}
                   </a>
                 </div>
             </div>

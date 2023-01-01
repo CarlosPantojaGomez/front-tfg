@@ -12,8 +12,13 @@
 <div class="media animated fadeIn cuerpo" *ngIf="task != undefined && tareaView">
   <div class="col-9">
     <div class="col-12">
-      <h1>{{task.name}}</h1>
-      <h5>Proyecto: {{task.project?.name}}</h5>
+      <div class="col-8">
+        <h1>{{task.name}}</h1>
+        <h5>Proyecto: {{task.project?.name}}</h5>
+      </div>
+      <div class="col-4">
+        {{diasRestantes}}
+      </div>
     </div>
     <div class="col-12">
       <p>
@@ -38,13 +43,13 @@
       <form name="commentForm" role="form" novalidate (ngSubmit)="writeComment()" [formGroup]="commentForm">
         <div class="col-12">
           <div class="">
-            <textarea id="text" formControlName="text" name="text" rows="4" cols="50" class="form-control" placeholder="Escribe un comentario..." required></textarea>
+            <textarea id="text" formControlName="text" name="text" rows="4" cols="50" class="form-control" placeholder="Escribe un comentario..."  required></textarea>
           </div>
         </div>
         <div class="col-4">
           <div class="form-group">
             <br>
-            <button [disabled]="commentForm.invalid" type="submit" class="btn btn-outline-primary form-control">
+            <button [disabled]="commentForm.invalid || !canModify" type="submit" class="btn btn-outline-primary form-control">
               Enviar
             </button>
           </div>
@@ -78,7 +83,7 @@
                 <div class="col-12">
                   <div class="form-group">
                     <label>Estado</label>
-                    <select class="custom-select" formControlName="state" required>
+                    <select class="custom-select" formControlName="state"  required>
                       <option *ngFor="let state of states"
                               [value]="state">
                               {{StateLabelMapping[state]}}
@@ -92,7 +97,7 @@
               <div class="col-12">
                 <div class="form-group">
                   <label>Prioridad</label>
-                  <select class="custom-select" formControlName="prioridad" required>
+                  <select class="custom-select" formControlName="prioridad"  required>
                     <option *ngFor="let priority of priorities"
                             [value]="priority">
                             {{PriorityLabelMapping[priority]}}
@@ -105,7 +110,7 @@
             <div class="col-12">
               <div class="form-group">
                 <br>
-                <button [disabled]="editForm.invalid" type="submit" class="btn btn-outline-primary form-control">
+                <button [disabled]="editForm.invalid || !canModify" type="submit" class="btn btn-outline-primary form-control">
                   Guardar
                 </button>
               </div>

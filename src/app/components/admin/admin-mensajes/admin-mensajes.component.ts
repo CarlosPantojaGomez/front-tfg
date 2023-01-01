@@ -23,6 +23,7 @@ export class AdminMensajesComponent implements OnInit {
 
   escritos: boolean;
   recibidos: boolean;
+  writer: boolean;
 
   constructor(
     private mailService: MailService) { }
@@ -90,6 +91,7 @@ export class AdminMensajesComponent implements OnInit {
 
   verMensaje(indice: number){
     this.mensajeId = this.mensajesRecibidos[indice].id;
+    this.writer = false;
     this.creatingMensaje = false;
     this.editingMensaje = true;
     
@@ -97,9 +99,9 @@ export class AdminMensajesComponent implements OnInit {
 
   verMensajeRecibido(indice: number){
     this.mensajeId = this.mensajesEscritos[indice].id;
+    this.writer = true;
     this.creatingMensaje = false;
     this.editingMensaje = true;
-    
   }
 
   public onClickMe(option: number) {

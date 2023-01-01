@@ -55,4 +55,4 @@
 </div>
 
 <app-details-user *ngIf="userView" [id]="userId"></app-details-user>
-<app-new-mensaje *ngIf="writingMessage" [userId]="userId"></app-new-mensaje>
+<app-new-mensaje *ngIf="writingMessage" [writer]="false" [userId]="userId"></app-new-mensaje>
