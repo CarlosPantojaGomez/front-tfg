@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit , Input, SimpleChanges} from '@angular/core';
 
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { Producto } from 'src/app/interfaces/producto.interface';
@@ -10,6 +10,7 @@ import { ProductosService } from 'src/app/services/productos.service';
 })
 export class AdminProductsComponent implements OnInit {
   
+  @Input() change: number;
   productos: Producto[];
   header: string;
   buttonNewUser: string;
@@ -35,6 +36,12 @@ export class AdminProductsComponent implements OnInit {
     this.detailsProduct = false;
     this.buttonNewUser = 'Nuevo Producto';
         
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    this.productoService.getProductos().subscribe(data =>{
+      this.productos=data.body;
+  });
   }
 
   protected loadData(producto: Producto) {

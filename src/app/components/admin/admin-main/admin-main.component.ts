@@ -4,6 +4,7 @@ import { FormBuilder } from '@angular/forms';
 import { Usuario } from 'src/app/interfaces/usuario.interface';
 import { ActivityService } from 'src/app/services/activity.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
+import { ProductosService } from 'src/app/services/productos.service';
 
 @Component({
   selector: 'app-admin-main',
@@ -23,10 +24,13 @@ export class AdminMainComponent implements OnInit {
   taskId: number;
   proyectos: boolean;
   tareas: boolean;
+  subscription: any;
 
   constructor(
+    private productService: ProductosService,
     private activityService: ActivityService,
-    private usuarioService: UsuariosService) { }
+    private usuarioService: UsuariosService
+  ) { }
 
   ngOnInit() {
 

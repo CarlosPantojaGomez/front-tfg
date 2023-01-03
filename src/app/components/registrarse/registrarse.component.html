@@ -36,11 +36,9 @@
 
       <div class="form-group">
         <label>Correo</label>
-        <input  id="Email"
-                (change)="checkInput($event.target.value, 'Email' ,['nickname','password'])"
+        <input  (change)="checkInput($event.target.value, 'Email' ,['nickname','password'])"
                 (keypress)="setTyping()"
                 formControlName="email"
-                name="email"
                 type="text"
                 class="form-control"
                 placeholder="Correo del usuario"
@@ -62,14 +60,13 @@
         <div class="form-group">
             <label>Contraseña</label>
             <input formControlName="password"
-                  name="password"
                   type="password"
                   class="form-control"
                   placeholder="Contraseña del usuario"
                   required>
           </div>
           
-        <button [disabled]="editForm.invalid"
+        <button [disabled]="editForm.invalid && userValid"
                 type="submit" class="btn btn-outline-primary">
           Guardar cambios
         </button>

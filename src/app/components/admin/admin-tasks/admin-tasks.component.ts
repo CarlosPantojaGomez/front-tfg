@@ -1,6 +1,7 @@
-import { Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit , Input, SimpleChanges} from '@angular/core';
 import { Task } from 'src/app/interfaces/task.interface';
 import { Usuario } from 'src/app/interfaces/usuario.interface';
+import { ProductosService } from 'src/app/services/productos.service';
 import { TaskService } from 'src/app/services/task.service';
 
 @Component({
@@ -11,8 +12,11 @@ import { TaskService } from 'src/app/services/task.service';
 export class AdminTasksComponent implements OnInit {
   @Input() createAllowed: boolean = false;
   @Input() projectId: number;
+  
+  @Input() change: number;
 
   subscription: any;
+  subscription2: any;
 
   tasks: Task[];
   header: string;
@@ -25,6 +29,7 @@ export class AdminTasksComponent implements OnInit {
   taskId: number;
 
   constructor(
+    private productService: ProductosService,
     private taskService: TaskService
   ) { }
 
@@ -36,7 +41,9 @@ export class AdminTasksComponent implements OnInit {
     this.loadData();
     this.subscription = this.taskService.getRefreshListEmitter().subscribe(() => this.loadData());
   }
-
+  ngOnChanges(changes: SimpleChanges) {
+    this.loadData();
+  }
   protected loadData() {
     if(this.projectId != null){
       this.taskService.getTasksByProject(this.projectId.toString(10)).subscribe(data =>{
@@ -76,7 +83,7 @@ export class AdminTasksComponent implements OnInit {
   deleteTask(id: number){
     
     this.taskService.deleteTask(id.toString(10)).subscribe(data =>{
-      
+      this.loadState(false,false,false);
     });
   }
 

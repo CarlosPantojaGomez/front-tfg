@@ -60,11 +60,15 @@ export class RegistrarseComponent {
     }
 
     public checkInput(value: any, input: string, disable: string[]) {
-      this.usuarioService.getUsuarioBy(value, input).subscribe(res => this.decideDisable(disable, res.body));
+      if(input == 'Email' && this.editForm.get(['email']).value != null){
+        this.usuarioService.getUsuarioBy(value, input).subscribe(res => this.decideDisable(disable, res.body));
+      } else if (input == 'Nickname' && this.editForm.get(['nickname']).value != null){
+        this.usuarioService.getUsuarioBy(value, input).subscribe(res => this.decideDisable(disable, res.body));
+      }
     }
     
-    protected decideDisable(disable: string[], result: any) { 
-      if(result.length == 0) {
+    protected decideDisable(disable: string[], result: any) {
+      if(result == null || result.length == 0) {
         this.editForm.get([disable[0]]).enable();
       } else {
         disable.forEach(element =>

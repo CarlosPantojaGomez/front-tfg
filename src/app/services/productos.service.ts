@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import 'rxjs/Rx';
 
 import { Producto } from '../interfaces/producto.interface';
@@ -28,10 +28,16 @@ export class ProductosService {
   URL:string;
   extend: string;
 
+  productDeleted: EventEmitter<number> = new EventEmitter();
+
   constructor(private http:HttpClient) { 
     this.URL = BACK_URL;
   }
 
+  getProductDeletedEmitter() {
+    return this.productDeleted;
+  }
+  
   nuevoProducto(productRequest: ProductoRequest): Observable<EntityResponseType>{
     this.extend = this.URL + '/product';
     return this.http.post<any>(this.extend, productRequest, { observe: 'response' });

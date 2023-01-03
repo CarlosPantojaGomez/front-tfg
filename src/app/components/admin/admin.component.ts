@@ -9,6 +9,10 @@ export class AdminComponent implements OnInit {
 
   nonreadMensjaes: number = 0;
   showActividades: number = 0;
+  showUsuarios: number = 0;
+  showProyectos: number = 0;
+  showTareas: number = 0;
+  showProductos: number = 0;
   showGraficas: number = 0;
 
   userType: number;
@@ -44,6 +48,26 @@ export class AdminComponent implements OnInit {
 
   goToHome(){
     this.showActividades++;
+    
+  }
+
+  goToUsuarios(){
+    this.showUsuarios++;
+    
+  }
+
+  goToProductos(){
+    this.showProductos++;
+    
+  }
+
+  goToProyectos(){
+    this.showProyectos++;
+    
+  }
+
+  goToTareas(){
+    this.showTareas++;
     
   }
 

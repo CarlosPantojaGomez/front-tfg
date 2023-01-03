@@ -5,7 +5,6 @@ import { Task } from '../interfaces/task.interface';
 import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Observable } from 'rxjs/Rx';
 import { BACK_URL } from '../helpers/img.constants';
-import { Project } from '../interfaces/project.interface';
 import { TaskComment } from '../interfaces/taskComment.interface';
 
 type EntityResponseType = HttpResponse<Task>;

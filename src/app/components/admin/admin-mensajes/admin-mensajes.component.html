@@ -36,8 +36,7 @@
     </div>
     <div class="list-group" *ngIf="!creatingMensaje && !editingMensaje && recibidos">
       
-      <a *ngFor="let k of mensajesEscritos | keys; let i = index" class="list-group-item flex-column align-items-start" 
-      [ngClass]="{'list-group-item-action': mensajesEscritos[k].saw == false, 'list-group-item-secondary' : mensajesEscritos[k].saw == true }"
+      <a *ngFor="let k of mensajesEscritos | keys; let i = index" class="list-group-item flex-column align-items-start list-group-item-secondary" 
       style="cursor: pointer;"
       (click)="verMensajeRecibido(k)">
         <div class="d-flex w-100 justify-content-start">

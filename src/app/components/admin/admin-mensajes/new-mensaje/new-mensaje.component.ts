@@ -58,7 +58,6 @@ export class NewMensajeComponent implements OnInit {
           this.mensaje = data.body;
           
           this.buttonDone = 'Guardar';
-          this.header = 'Editar Producto';
           
         });
       } else {
@@ -68,7 +67,6 @@ export class NewMensajeComponent implements OnInit {
           this.mensaje = data.body;
           
           this.buttonDone = 'Guardar';
-          this.header = 'Editar Producto';
           
         });
       }
@@ -141,11 +139,21 @@ export class NewMensajeComponent implements OnInit {
     
     this.goBack.emit();
   }
+
   protected onSaveError() {
   }
+
   cleanUserSearch(){
     setTimeout(() => this.usuarios = undefined,300);
     ;
+  }
+
+  public responder(){
+    this.read = false;
+    this.editForm.patchValue({
+      receiverName: this.mensaje.writer.nickname,
+      subject: "RE: "+this.mensaje.subject
+    });
   }
 
 }

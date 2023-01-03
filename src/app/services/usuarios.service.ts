@@ -127,11 +127,13 @@ export class UsuariosService {
       const img={
         url: NO_PRODUCT_PROFILE_PICTURE_2
       };
-      
-      res.body.productsBought.forEach((product)=>{
+      if(res.body.productsBought != undefined){
+
+        res.body.productsBought.forEach((product)=>{
         
-        product.profileImage = product.profileImage != null ? product.profileImage : img;
-      });
+          product.profileImage = product.profileImage != null ? product.profileImage : img;
+        });
+      }
 
     }
     return res;

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , Input, SimpleChanges} from '@angular/core';
 import { Project } from 'src/app/interfaces/project.interface';
 import { Usuario } from 'src/app/interfaces/usuario.interface';
+import { ProductosService } from 'src/app/services/productos.service';
 import { ProjectService } from 'src/app/services/project.service';
 
 @Component({
@@ -10,6 +11,7 @@ import { ProjectService } from 'src/app/services/project.service';
 })
 export class AdminProjectsComponent implements OnInit {
 
+  @Input() change: number;
   proyectos: Project[];
   header: string;
   buttonNewUser: string;
@@ -22,12 +24,30 @@ export class AdminProjectsComponent implements OnInit {
 
   projectId: number;
   taskId: number;
+  subscription: any;
 
   constructor(
-    private projectervice: ProjectService) { }
+    private projectervice: ProjectService,
+    private productService: ProductosService,
+    
+  ) { }
 
   ngOnInit() {
 
+    this.loadData();
+
+    this.creatingProject = false;
+    this.editingProject = false;
+    this.detailsProject = false;
+    this.detailsTask = false;
+    this.buttonNewUser = 'Nuevo Proyecto';
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    this.loadData();
+  }
+
+  protected loadData(){
     if(JSON.parse(sessionStorage.getItem('currentUser'))!= null){
       if(JSON.parse(sessionStorage.getItem('currentUser')).userType != 4){
         if(JSON.parse(sessionStorage.getItem('currentUser')).userType == 3){
@@ -43,16 +63,7 @@ export class AdminProjectsComponent implements OnInit {
         });
       }
     }
-    
-
-    this.creatingProject = false;
-    this.editingProject = false;
-    this.detailsProject = false;
-    this.detailsTask = false;
-    this.buttonNewUser = 'Nuevo Proyecto';
   }
-
-  
 
   protected loadState(create: boolean, edit: boolean, detailsProject: boolean, detailsTask: boolean) {
     this.creatingProject = create;
@@ -107,6 +118,7 @@ export class AdminProjectsComponent implements OnInit {
     
     this.projectervice.deleteProject(id.toString(10)).subscribe(data =>{
       
+      this.loadState(false,false,false,false);
     });
   }
 }
