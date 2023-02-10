@@ -6,9 +6,10 @@
         <div class="card" *ngFor="let k of noticias | keys; let i = index">
           <img src="{{ noticias[k].cardImage}}" style='object-fit: contain' height="145" class="card-img-top rounded-lg" >
           <div class="card-body">
-            <h6 class="card-title">{{ noticias[k].sortDescription }}</h6>
+            <h4 class="card-title">{{ noticias[k].title }}</h4>
+            <h6 class="card-description">{{ noticias[k].sortDescription }}</h6>
             <button (click)="verNoticia(noticias[k].id)"
-                      type="button" class="btn btn-outline-secondary">
+                      type="button" class="btn btn-outline-info">
                 Ver noticia
             </button>
           </div>
